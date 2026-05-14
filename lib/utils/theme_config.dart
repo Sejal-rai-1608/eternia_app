@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 class SanctuaryTheme {
   // LIGHT THEME COLORS
   static const Color lightBg = Color(0xFFF6F3ED);
-  static const Color lightPrimary = Color.fromARGB(255, 84, 120, 79);
+  static const Color lightPrimary = Color(0xFF53B29A);
   static const Color lightAccent = Color(0xFF4A7D73);
   static const Color lightCard = Colors.white;
   static const Color lightBorder = Color(0x0F000000);
 
   // DARK THEME COLORS
   static const Color darkBg = Color(0xFF0A1214);
-  static const Color darkPrimary = Color.fromARGB(255, 71, 202, 182);
+  static const Color darkPrimary = Color(0xFF67F5D4);
   static const Color darkCard = Color(0xFF141D1F);
   static const Color darkBorder = Color(0x1AFFFFFF);
 

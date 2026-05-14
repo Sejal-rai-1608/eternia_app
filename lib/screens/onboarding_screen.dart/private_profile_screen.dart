@@ -3,9 +3,10 @@
 // private_profile_screen.dart
 // ==========================================================
 
+import 'package:eternia_ef/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:eternia_ef/screens/home_screen/MainNavigation.dart';
+import 'package:eternia_ef/Tabs/home_screen/MainNavigation.dart';
 
 import 'package:provider/provider.dart';
 import '../../../providers/theme_provider.dart';
@@ -272,7 +273,7 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                                 : Colors.white,
 
                             border: Border.all(
-                              color: isDark ? Colors.white10 : Colors.black12,
+                              color: isDark ? Colors.white10 : const Color(0xFFE7E2D8),
                             ),
                           ),
 
@@ -394,7 +395,7 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                         ),
                       ),
 
-                    const SizedBox(height: 28),
+                    //const SizedBox(height: ),
 
                     // ==================================================
                     // WARNING CARD
@@ -502,58 +503,7 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                           (route) => false,
                         );
                       },
-                      child: Container(
-                        height: 62,
-                        width: double.infinity,
-
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(22),
-
-                          gradient: LinearGradient(
-                            colors: isDark
-                                ? [
-                                    const Color(0xFF67FFE2),
-                                    const Color(0xFF2CC7B0),
-                                  ]
-                                : [
-                                    const Color(0xFFB3CC88),
-                                    const Color(0xFF8BAE6A),
-                                  ],
-                          ),
-
-                          boxShadow: [
-                            BoxShadow(
-                              color: primaryColor.withOpacity(0.28),
-
-                              blurRadius: 24,
-                              offset: const Offset(0, 10),
-                            ),
-                          ],
-                        ),
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-
-                          children: [
-                            const Icon(
-                              Icons.shield_outlined,
-                              color: Colors.white,
-                            ),
-
-                            const SizedBox(width: 10),
-
-                            Text(
-                              "Activate Account",
-
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      child: const GlassButton(text: "Activate Account"),
                     ),
 
                     const SizedBox(height: 40),

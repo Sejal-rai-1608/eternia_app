@@ -1,5 +1,5 @@
-import 'package:eternia_ef/screens/onboarding_screen.dart/guidance_screen.dart';
-import 'package:eternia_ef/ProfilePage/privacy_safety_screen.dart';
+import 'package:eternia_ef/Screens/onboarding_screen.dart/guidance_screen.dart';
+import 'package:eternia_ef/Tabs/ProfilePage/privacy_safety_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -39,15 +39,15 @@ class OnboardingScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "ETERNIA",
-                          style: GoogleFonts.poppins(
-                            fontSize: 30,
-                            color: isDark
-                                ? AppColors.mint
-                                : const Color(0xFF4F8C78),
+                       Text(
+                          "Eternia",
+
+                          style: GoogleFonts.playfairDisplay(
+                            fontSize: 28,
                             fontWeight: FontWeight.w600,
-                            letterSpacing: 2,
+
+                            color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
                           ),
                         ),
                         const SizedBox(width: 40),
@@ -65,7 +65,7 @@ class OnboardingScreen extends StatelessWidget {
                         gradient: LinearGradient(
                           colors: isDark
                               ? [
-                                  Colors.white.withOpacity(0.08),
+                                  (isDark ? Colors.white.withOpacity(0.08) : const Color(0xFFE7E2D8)),
                                   Colors.white.withOpacity(0.02),
                                 ]
                               : [
@@ -216,7 +216,7 @@ class OnboardingScreen extends StatelessWidget {
                           child: Text(
                             "Privacy Policy",
                             style: TextStyle(
-                              color: isDark ? Colors.white54 : Colors.black45,
+                              color: isDark ? Colors.white54 : const Color(0xFF70737C),
                             ),
                           ),
                         ),
@@ -227,7 +227,7 @@ class OnboardingScreen extends StatelessWidget {
                           height: 5,
                           width: 5,
                           decoration: BoxDecoration(
-                            color: isDark ? Colors.white38 : Colors.black38,
+                            color: isDark ? Colors.white38 : const Color(0xFF9DA3A8),
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -241,7 +241,7 @@ class OnboardingScreen extends StatelessWidget {
                           child: Text(
                             "Terms of Service",
                             style: TextStyle(
-                              color: isDark ? Colors.white54 : Colors.black45,
+                              color: isDark ? Colors.white54 : const Color(0xFF70737C),
                             ),
                           ),
                         ),

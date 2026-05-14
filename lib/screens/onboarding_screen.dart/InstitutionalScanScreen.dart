@@ -23,7 +23,7 @@ class InstitutionalScanScreen extends StatefulWidget {
 }
 
 class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final MobileScannerController controller = MobileScannerController();
 
   bool scanned = false;
@@ -52,8 +52,8 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
     final isDark = provider.isDark;
 
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: _buildDrawer(isDark, context),
+      // key: _scaffoldKey,
+     // drawer: _buildDrawer(isDark, context),
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -78,19 +78,25 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
 
                   children: [
                     Row(
-                      children: [
-                        GestureDetector(
+                      children: [ GestureDetector(
                           onTap: () {
-                            _scaffoldKey.currentState?.openDrawer();
+                            Navigator.pop(context);
                           },
-                          child: Icon(
-                            Icons.menu,
-                            size: 22,
-                            color: isDark
-                                ? const Color(0xFF71E6D4)
-                                : const Color(0xFF7BA268),
+
+                          child: Container(
+                            width: 40,
+                            height: 40,
+
+                            child: Icon(
+                              Icons.arrow_back,
+
+                              size: 28,
+
+                              color: isDark ? Colors.white : Colors.black87,
+                            ),
                           ),
                         ),
+                        
 
                         const SizedBox(width: 10),
 
@@ -101,9 +107,8 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
                             fontSize: 28,
                             fontWeight: FontWeight.w600,
 
-                            color: isDark
-                                ? const Color(0xFF71E6D4)
-                                : const Color(0xFF6F9460),
+                            color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
                           ),
                         ),
                       ],
@@ -126,9 +131,8 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
 
                         size: 18,
 
-                        color: isDark
-                            ? const Color(0xFF71E6D4)
-                            : const Color(0xFF7BA268),
+                        color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
                       ),
                     ),
                   ],
@@ -159,7 +163,7 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
                     height: 1.7,
                     fontSize: 13,
 
-                    color: isDark ? Colors.white60 : Colors.black54,
+                    color: isDark ? Colors.white60 : const Color(0xFF70737C),
                   ),
                 ),
 
@@ -247,8 +251,7 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
                                 colors: [
                                   Colors.transparent,
 
-                                  isDark
-                                      ? const Color(0xFF71E6D4)
+                                  isDark ? const Color(0xFF67F5D4)
                                       : const Color(0xFF7BA268),
 
                                   Colors.transparent,
@@ -257,8 +260,7 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
 
                               boxShadow: [
                                 BoxShadow(
-                                  color: isDark
-                                      ? const Color(0xFF71E6D4)
+                                  color: isDark ? const Color(0xFF67F5D4)
                                       : const Color(0xFF7BA268),
 
                                   blurRadius: 14,
@@ -277,9 +279,8 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
 
                             size: 90,
 
-                            color: isDark
-                                ? const Color(0xFF71E6D4)
-                                : const Color(0xFF7BA268),
+                            color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A)
                           ),
                         ),
 
@@ -328,8 +329,7 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
 
-                          color: isDark
-                              ? const Color(0xFF71E6D4)
+                          color: isDark ? const Color(0xFF67F5D4)
                               : const Color(0xFF7BA268),
                         ),
                       ),
@@ -465,16 +465,15 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
                             TextSpan(
                               text: "Can't scan? ",
                               style: TextStyle(
-                                color: isDark ? Colors.white54 : Colors.black45,
+                                color: isDark ? Colors.white54 : const Color(0xFF70737C),
                               ),
                             ),
                             TextSpan(
                               text: "Enter code manually →",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: isDark
-                                    ? const Color(0xFF71E6D4)
-                                    : const Color(0xFF7BA268),
+                                color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
                               ),
                             ),
                           ],
@@ -496,7 +495,7 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
                     borderRadius: BorderRadius.circular(24),
 
                     border: Border.all(
-                      color: isDark ? Colors.white10 : Colors.black12,
+                      color: isDark ? Colors.white10 : const Color(0xFFE7E2D8),
                     ),
 
                     color: isDark
@@ -517,15 +516,14 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
 
                           color: isDark
                               ? const Color(0xFF0D2A2A)
-                              : const Color(0xFFE7F2DD),
+                              : const Color.fromARGB(255, 179, 204, 198)
                         ),
 
                         child: Icon(
                           Icons.shield_outlined,
 
-                          color: isDark
-                              ? const Color(0xFF71E6D4)
-                              : const Color(0xFF7BA268),
+                          color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
                         ),
                       ),
 
@@ -558,7 +556,7 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
 
                                 fontSize: 12,
 
-                                color: isDark ? Colors.white60 : Colors.black54,
+                                color: isDark ? Colors.white60 : const Color(0xFF70737C),
                               ),
                             ),
                           ],
@@ -602,17 +600,15 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
           decoration: BoxDecoration(
             border: Border(
               top: BorderSide(
-                color: isDark
-                    ? const Color(0xFF71E6D4)
-                    : const Color(0xFF7BA268),
+                color: isDark ? const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
 
                 width: 3,
               ),
 
               left: BorderSide(
-                color: isDark
-                    ? const Color(0xFF71E6D4)
-                    : const Color(0xFF7BA268),
+                color: isDark ? const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
 
                 width: 3,
               ),
@@ -623,63 +619,63 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
     );
   }
 
-  Widget _buildDrawer(bool isDark, BuildContext context) {
-    return Drawer(
-      backgroundColor: isDark ? const Color(0xFF040F0F) : const Color(0xFFF6FBF6),
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: isDark
-                    ? [const Color(0xFF014B50), const Color(0xFF0DA8A0)]
-                    : [const Color(0xFF9BC283), const Color(0xFF7EAA68)],
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white24,
-                  child: Icon(Icons.person, color: Colors.white, size: 35),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  "ETERNIA USER",
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          _drawerTile(Icons.home_outlined, "Home", isDark, () => Navigator.pop(context)),
-          _drawerTile(Icons.info_outline, "About Us", isDark, () {}),
-          _drawerTile(Icons.help_outline, "Support", isDark, () {}),
-          _drawerTile(Icons.privacy_tip_outlined, "Privacy", isDark, () {}),
-          const Divider(),
-          _drawerTile(Icons.logout, "Logout", isDark, () {}),
-        ],
-      ),
-    );
-  }
+  // Widget _buildDrawer(bool isDark, BuildContext context) {
+  //   return Drawer(
+  //     backgroundColor: isDark ? const Color(0xFF040F0F) : const Color(0xFFF6FBF6),
+  //     child: ListView(
+  //       padding: EdgeInsets.zero,
+  //       children: [
+  //         DrawerHeader(
+  //           decoration: BoxDecoration(
+  //             gradient: LinearGradient(
+  //               colors: isDark
+  //                   ? [const Color(0xFF014B50), const Color(0xFF0DA8A0)]
+  //                   : [const Color(0xFF9BC283), const Color(0xFF7EAA68)],
+  //             ),
+  //           ),
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             mainAxisAlignment: MainAxisAlignment.end,
+  //             children: [
+  //               const CircleAvatar(
+  //                 radius: 30,
+  //                 backgroundColor: Colors.white24,
+  //                 child: Icon(Icons.person, color: Colors.white, size: 35),
+  //               ),
+  //               const SizedBox(height: 12),
+  //               Text(
+  //                 "ETERNIA USER",
+  //                 style: GoogleFonts.poppins(
+  //                   color: Colors.white,
+  //                   fontWeight: FontWeight.bold,
+  //                   fontSize: 18,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         _drawerTile(Icons.home_outlined, "Home", isDark, () => Navigator.pop(context)),
+  //         _drawerTile(Icons.info_outline, "About Us", isDark, () {}),
+  //         _drawerTile(Icons.help_outline, "Support", isDark, () {}),
+  //         _drawerTile(Icons.privacy_tip_outlined, "Privacy", isDark, () {}),
+  //         const Divider(),
+  //         _drawerTile(Icons.logout, "Logout", isDark, () {}),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget _drawerTile(IconData icon, String title, bool isDark, VoidCallback onTap) {
-    return ListTile(
-      leading: Icon(icon, color: isDark ? const Color(0xFF71E6D4) : const Color(0xFF7BA268)),
-      title: Text(
-        title,
-        style: GoogleFonts.poppins(
-          color: isDark ? Colors.white : Colors.black87,
-          fontSize: 15,
-        ),
-      ),
-      onTap: onTap,
-    );
-  }
+  // Widget _drawerTile(IconData icon, String title, bool isDark, VoidCallback onTap) {
+  //   return ListTile(
+  //     leading: Icon(icon, color: isDark ? const Color(0xFF67F5D4) : const Color(0xFF7BA268)),
+  //     title: Text(
+  //       title,
+  //       style: GoogleFonts.poppins(
+  //         color: isDark ? Colors.white : Colors.black87,
+  //         fontSize: 15,
+  //       ),
+  //     ),
+  //     onTap: onTap,
+  //   );
+  // }
 }

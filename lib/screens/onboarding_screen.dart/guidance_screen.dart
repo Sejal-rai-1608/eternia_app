@@ -1,4 +1,4 @@
-import 'package:eternia_ef/screens/onboarding_screen.dart/VerifyCampusScreen.dart';
+import 'package:eternia_ef/Screens/onboarding_screen.dart/VerifyCampusScreen.dart';
 import 'package:eternia_ef/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,14 +20,13 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
     final isDark = provider.isDark;
 
     final Color primary = isDark
-        ? const Color.fromARGB(255, 71, 202, 182)
-        : const Color.fromARGB(255, 84, 120, 79);
+        ? const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A);
     final Color bg = isDark ? const Color(0xFF031313) : const Color(0xFFF6F3ED);
     final Color textPrimary = isDark ? Colors.white : const Color(0xFF1B2722);
-    final Color textSecondary = isDark ? Colors.white54 : Colors.black45;
-    final Color orbColor = isDark ? const Color(0xFF90FFE8) : const Color(0xFF9BC283);
-    final Color orbGlow = isDark ? const Color(0xFF7BE7D4) : const Color(0xFF7AA36A);
-    final Color ringColor = isDark ? Colors.teal : const Color(0xFF7AA36A);
+    final Color textSecondary = isDark ? Colors.white54 : const Color(0xFF70737C);
+    final Color orbGlow = isDark ? const Color(0xFF7BE7D4) : const Color(0xFF53B29A);
+    final Color ringColor = isDark ? Colors.teal : const Color(0xFF53B29A);
 
     return Scaffold(
       backgroundColor: bg,
@@ -44,15 +43,17 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "ETERNIA",
-                      style: GoogleFonts.poppins(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 3,
-                        color: primary,
-                      ),
-                    ),
+                   Text(
+                          "Eternia",
+
+                          style: GoogleFonts.playfairDisplay(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
+
+                            color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
+                          ),
+                        ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -123,7 +124,7 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
                         gradient: RadialGradient(
                           colors: isDark
                               ? [const Color(0xFF90FFE8), const Color(0xFF57B8A8)]
-                              : [const Color(0xFFB8E6A8), const Color(0xFF7AA36A)],
+                              : [const Color(0xFF7DCDB8), const Color(0xFF53B29A)],
                         ),
                         boxShadow: [
                           BoxShadow(
@@ -227,7 +228,7 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
         gradient: RadialGradient(
           colors: isDark
               ? [const Color(0xFFB7FFF1), const Color(0xFF5FCDB8)]
-              : [const Color(0xFFC8E6B8), const Color(0xFF7AA36A)],
+              : [const Color(0xFF7DCDB8), const Color(0xFF53B29A)],
         ),
       ),
     );

@@ -3,7 +3,7 @@
 // otp_verification_screen.dart
 // ==========================================================
 
-import 'package:eternia_ef/screens/onboarding_screen.dart/private_profile_screen.dart';
+import 'package:eternia_ef/Screens/onboarding_screen.dart/private_profile_screen.dart';
 import 'package:eternia_ef/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,40 +64,39 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                             width: 40,
                             height: 40,
 
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
+                            // decoration: BoxDecoration(
+                            //   shape: BoxShape.circle,
 
-                              color: isDark
-                                  ? Colors.white.withOpacity(0.05)
-                                  : Colors.white,
+                            //   color: isDark
+                            //       ? Colors.white.withOpacity(0.05)
+                            //       : Colors.white,
 
-                              border: Border.all(
-                                color: isDark ? Colors.white10 : Colors.black12,
-                              ),
-                            ),
+                            //   border: Border.all(
+                            //     color: isDark ? Colors.white10 : const Color(0xFFE7E2D8),
+                            //   ),
+                            // ),
 
                             child: Icon(
                               Icons.arrow_back,
 
-                              size: 18,
+                              size: 28,
 
                               color: isDark ? Colors.white : Colors.black87,
                             ),
                           ),
                         ),
 
-                        const Spacer(),
+                        //const Spacer(),
 
                         Text(
-                          "ETERNIA",
+                          "Eternia",
 
                           style: GoogleFonts.playfairDisplay(
-                            fontSize: 24,
-                            letterSpacing: 2,
-
+                            fontSize: 28,
                             fontWeight: FontWeight.w600,
 
-                            color: primaryColor,
+                            color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
                           ),
                         ),
 
@@ -194,7 +193,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                           fontSize: 13,
                           height: 1.7,
 
-                          color: isDark ? Colors.white60 : Colors.black54,
+                          color: isDark ? Colors.white60 : const Color(0xFF70737C),
                         ),
                       ),
                     ),
@@ -283,7 +282,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                           "Didn't receive a code? ",
 
                           style: TextStyle(
-                            color: isDark ? Colors.white54 : Colors.black45,
+                            color: isDark ? Colors.white54 : const Color(0xFF70737C),
                           ),
                         ),
 
@@ -317,8 +316,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         text: "Verify",
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.white,
+                          fontSize: 18,
+                          color: const Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
                     ),

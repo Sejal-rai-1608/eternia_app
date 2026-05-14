@@ -1,6 +1,6 @@
 // ==========================================================
 // ETERNIA THEME HELPER
-// Centralized theme colors and utilities
+// Centralized theme colors — matches Home Screen exactly
 // ==========================================================
 
 import 'package:flutter/material.dart';
@@ -17,54 +17,67 @@ class EterniaTheme {
     return EterniaTheme._(provider.isDark);
   }
 
-  // PRIMARY COLORS
+  // PRIMARY — exact Home Screen colors
   Color get primary => isDark
-      ? const Color.fromARGB(255, 71, 202, 182)
-      : const Color.fromARGB(255, 84, 120, 79);
+      ? const Color(0xFF67F5D4)
+      : const Color(0xFF53B29A);
 
-  // BACKGROUNDS
-  Color get bg => isDark ? const Color(0xFF040B0D) : const Color(0xFFF6F3ED);
-  Color get bgSecondary => isDark ? const Color(0xFF0A1214) : const Color(0xFFF3EFE7);
+  // BACKGROUNDS — exact Home Screen colors
+  Color get bg => isDark
+      ? const Color(0xFF071011)
+      : const Color(0xFFF6F3ED);
 
-  // CARDS
+  // CARDS — exact Home Screen colors
   Color get card => isDark
-      ? Colors.white.withOpacity(0.04)
-      : Colors.white.withOpacity(0.85);
-  Color get cardSolid => isDark ? const Color(0xFF111C1E) : Colors.white;
+      ? const Color(0xFF0E1718)
+      : Colors.white.withOpacity(0.92);
 
-  // BORDERS
+  Color get cardSolid => isDark
+      ? const Color(0xFF0E1718)
+      : Colors.white;
+
+  // BORDERS — exact Home Screen colors
   Color get border => isDark
-      ? Colors.white.withOpacity(0.07)
-      : Colors.black.withOpacity(0.06);
+      ? const Color(0xFF1A2B2B)
+      : const Color(0xFFE7E2D8);
 
-  // TEXT
-  Color get textPrimary => isDark ? Colors.white : const Color(0xFF1A2E1A);
-  Color get textSecondary => isDark ? Colors.white70 : Colors.black54;
-  Color get textTertiary => isDark ? Colors.white38 : Colors.black38;
+  // TEXT — exact Home Screen colors
+  Color get textPrimary => isDark
+      ? Colors.white
+      : const Color(0xFF1B2722);
+
+  Color get textSecondary => isDark
+      ? Colors.white70
+      : const Color(0xFF70737C);
+
+  Color get textTertiary => isDark
+      ? Colors.white38
+      : const Color(0xFF9DA3A8);
 
   // ICONS
   Color get iconPrimary => primary;
-  Color get iconSecondary => isDark ? Colors.white54 : Colors.black45;
+  Color get iconSecondary => isDark ? Colors.white54 : const Color(0xFF70737C);
 
   // BUTTON
   Color get buttonBg => primary;
-  Color get buttonText => isDark ? const Color(0xFF0D1418) : Colors.white;
+  Color get buttonText => isDark ? Colors.black : Colors.white;
 
-  // SHADOWS
+  // SHADOWS — exact Home Screen style
   List<BoxShadow> get cardShadow => isDark
       ? [BoxShadow(color: primary.withOpacity(0.06), blurRadius: 28)]
-      : [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 20, offset: const Offset(0, 8))];
+      : [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 24, offset: const Offset(0, 10))];
 
   // GRADIENTS
   LinearGradient get primaryGradient => LinearGradient(
-    colors: [primary, primary.withOpacity(0.7)],
+    colors: [primary, primary.withOpacity(0.85)],
   );
 
   // GLASSMORPHISM
   Color get glassColor => isDark
       ? Colors.white.withOpacity(0.04)
-      : Colors.white.withOpacity(0.7);
+      : Colors.white.withOpacity(0.92);
+
   Color get glassBorder => isDark
-      ? Colors.white.withOpacity(0.08)
-      : Colors.white.withOpacity(0.5);
+      ? const Color(0xFF1A2B2B)
+      : const Color(0xFFE7E2D8);
 }

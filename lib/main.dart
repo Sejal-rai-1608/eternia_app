@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/theme_provider.dart';
-import 'screens/onboarding_screen.dart/onboarding_screen.dart';
+import 'Screens/onboarding_screen.dart/onboarding_screen.dart';
 
 void main() {
   runApp(

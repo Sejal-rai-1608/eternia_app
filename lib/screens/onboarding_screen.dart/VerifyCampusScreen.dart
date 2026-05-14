@@ -1,5 +1,6 @@
-import 'package:eternia_ef/screens/home_screen/sign_in_screen.dart';
-import 'package:eternia_ef/screens/onboarding_screen.dart/InstitutionalScanScreen.dart';
+import 'package:eternia_ef/Screens/onboarding_screen.dart/sign_in_screen.dart';
+import 'package:eternia_ef/Screens/onboarding_screen.dart/InstitutionalScanScreen.dart';
+import 'package:eternia_ef/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -59,23 +60,23 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                       Icons.hub_outlined,
                       size: 18,
                       color: isDark
-                          ? const Color(0xFF71E6D4)
-                          : const Color(0xFF7AA36A),
+                          ? const Color(0xFF67F5D4)
+                          : const Color(0xFF53B29A),
                     ),
 
                     const SizedBox(width: 8),
 
                     Text(
-                      "ETERNIA",
-                      style: GoogleFonts.poppins(
-                        fontSize: 13,
-                        letterSpacing: 4,
-                        fontWeight: FontWeight.w600,
-                        color: isDark
-                            ? const Color(0xFF71E6D4)
-                            : const Color(0xFF6E8F61),
-                      ),
-                    ),
+                          "Eternia",
+
+                          style: GoogleFonts.playfairDisplay(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
+
+                            color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
+                          ),
+                        ),
                   ],
                 ),
 
@@ -283,8 +284,8 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                                       fontWeight: FontWeight.w600,
 
                                       color: isDark
-                                          ? const Color(0xFF71E6D4)
-                                          : const Color(0xFF6E8F61),
+                                          ? const Color(0xFF67F5D4)
+                          : const Color(0xFF53B29A),
                                     ),
                                   ),
                                 ],
@@ -300,7 +301,7 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                                 height: 1.8,
                                 fontSize: 14,
 
-                                color: isDark ? Colors.white60 : Colors.black54,
+                                color: isDark ? Colors.white60 : const Color(0xFF70737C),
                               ),
                             ),
                           ],
@@ -321,8 +322,8 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                     letterSpacing: 3,
 
                     color: isDark
-                        ? const Color(0xFF71E6D4)
-                        : const Color(0xFF7AA36A),
+                        ? const Color(0xFF67F5D4)
+                          : const Color(0xFF53B29A),
                   ),
                 ),
 
@@ -336,11 +337,11 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                     borderRadius: BorderRadius.circular(18),
 
                     color: isDark
-                        ? Colors.white.withOpacity(0.04)
+                        ? (isDark ? Colors.white.withOpacity(0.04) : Colors.white.withOpacity(0.92))
                         : Colors.white,
 
                     border: Border.all(
-                      color: isDark ? Colors.white10 : Colors.black12,
+                      color: isDark ? Colors.white10 : const Color(0xFFE7E2D8),
                     ),
                   ),
 
@@ -358,14 +359,14 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                         Icons.account_balance,
 
                         color: isDark
-                            ? const Color(0xFF71E6D4)
-                            : const Color(0xFF7AA36A),
+                            ? const Color(0xFF67F5D4)
+                          : const Color(0xFF53B29A),
                       ),
 
                       hintText: "E.g. UNIV2024",
 
                       hintStyle: TextStyle(
-                        color: isDark ? Colors.white38 : Colors.black38,
+                        color: isDark ? Colors.white38 : const Color(0xFF9DA3A8),
                       ),
                     ),
                   ),
@@ -385,54 +386,7 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                     );
                   },
 
-                  child: Container(
-                    height: 64,
-                    width: double.infinity,
-
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-
-                      gradient: LinearGradient(
-                        colors: isDark
-                            ? [const Color(0xFF014B50), const Color(0xFF0DA8A0)]
-                            : [
-                                const Color(0xFF9BC283),
-                                const Color(0xFF7EAA68),
-                              ],
-                      ),
-
-                      boxShadow: [
-                        BoxShadow(
-                          color: isDark
-                              ? const Color(0xFF71E6D4).withOpacity(0.25)
-                              : const Color(0xFF7EAA68).withOpacity(0.25),
-
-                          blurRadius: 24,
-                          spreadRadius: 1,
-                        ),
-                      ],
-                    ),
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-
-                      children: [
-                        Text(
-                          "CONTINUE",
-
-                          style: GoogleFonts.poppins(
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-
-                        const SizedBox(width: 14),
-
-                        const Icon(Icons.arrow_forward, color: Colors.white),
-                      ],
-                    ),
-                  ),
+                  child: const GlassButton(text: "Continue"),
                 ),
 
                 const SizedBox(height: 22),
@@ -446,7 +400,7 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                           text: "Already have an account? ",
 
                           style: TextStyle(
-                            color: isDark ? Colors.white54 : Colors.black45,
+                            color: isDark ? Colors.white54 : const Color(0xFF70737C),
                           ),
                         ),
 
@@ -464,8 +418,8 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
 
                           style: TextStyle(
                             color: isDark
-                                ? const Color(0xFF71E6D4)
-                                : const Color(0xFF7AA36A),
+                                ? const Color(0xFF67F5D4)
+                          : const Color(0xFF53B29A),
 
                             fontWeight: FontWeight.w600,
                           ),
@@ -485,9 +439,8 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                     borderRadius: BorderRadius.circular(24),
 
                     border: Border.all(
-                      color: isDark
-                          ? const Color(0xFF71E6D4).withOpacity(0.15)
-                          : const Color(0xFF7AA36A).withOpacity(0.15),
+                      color: isDark ? const Color(0xFF67F5D4).withOpacity(0.15)
+                          : const Color(0xFF53B29A).withOpacity(0.15),
                     ),
 
                     color: isDark
@@ -508,8 +461,8 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
 
                           border: Border.all(
                             color: isDark
-                                ? const Color(0xFF71E6D4)
-                                : const Color(0xFF7AA36A),
+                                ? const Color(0xFF67F5D4)
+                          : const Color(0xFF53B29A),
                           ),
                         ),
 
@@ -518,8 +471,8 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                           size: 20,
 
                           color: isDark
-                              ? const Color(0xFF71E6D4)
-                              : const Color(0xFF7AA36A),
+                              ? const Color(0xFF67F5D4)
+                          : const Color(0xFF53B29A),
                         ),
                       ),
 
@@ -551,7 +504,7 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
                                 height: 1.7,
                                 fontSize: 12,
 
-                                color: isDark ? Colors.white60 : Colors.black54,
+                                color: isDark ? Colors.white60 : const Color(0xFF70737C),
                               ),
                             ),
                           ],
@@ -602,7 +555,7 @@ class _VerifyCampusScreenState extends State<VerifyCampusScreen> {
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: const Color(0xFF71E6D4),
+        color: const Color(0xFF53B29A),
       ),
     );
   }

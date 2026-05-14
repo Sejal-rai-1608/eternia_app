@@ -15,11 +15,11 @@ class GlassButton extends StatelessWidget {
     final isDark = provider.isDark;
 
     final Color primaryColor = isDark
-        ? const Color.fromARGB(255, 71, 202, 182)
-        : const Color.fromARGB(255, 84, 120, 79);
+        ? const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A);
     final Color primaryLight = isDark
         ? const Color(0xFF97FFE7)
-        : const Color(0xFF9BC283);
+        : const Color(0xFF7DCDB8);
 
     return Container(
       height: 62,

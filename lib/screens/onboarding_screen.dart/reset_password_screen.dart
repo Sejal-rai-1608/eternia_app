@@ -3,7 +3,7 @@
 // FULL UPDATED UI
 // ==========================================================
 
-import 'package:eternia_ef/screens/onboarding_screen.dart/otp_verificationScreen.dart';
+import 'package:eternia_ef/Screens/onboarding_screen.dart/otp_verificationScreen.dart';
 import 'package:eternia_ef/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -59,40 +59,27 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             width: 40,
                             height: 40,
 
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-
-                              color: isDark
-                                  ? Colors.white.withOpacity(0.05)
-                                  : Colors.white,
-
-                              border: Border.all(
-                                color: isDark ? Colors.white10 : Colors.black12,
-                              ),
-                            ),
-
                             child: Icon(
                               Icons.arrow_back,
 
-                              size: 18,
+                              size: 28,
 
                               color: isDark ? Colors.white : Colors.black87,
                             ),
                           ),
                         ),
 
-                        const Spacer(),
+                        // const Spacer(),
 
-                        Text(
-                          "ETERNIA",
+                       Text(
+                          "Eternia",
 
                           style: GoogleFonts.playfairDisplay(
-                            fontSize: 24,
-                            letterSpacing: 2,
-
+                            fontSize: 28,
                             fontWeight: FontWeight.w600,
 
-                            color: primaryColor,
+                            color: isDark ?  const Color(0xFF67F5D4)
+        : const Color(0xFF53B29A),
                           ),
                         ),
 
@@ -184,7 +171,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         fontSize: 13,
                         height: 1.7,
 
-                        color: isDark ? Colors.white60 : Colors.black54,
+                        color: isDark ? Colors.white60 : const Color(0xFF70737C),
                       ),
                     ),
 
@@ -216,7 +203,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         borderRadius: BorderRadius.circular(18),
 
                         color: isDark
-                            ? Colors.white.withOpacity(0.04)
+                            ? (isDark ? Colors.white.withOpacity(0.04) : Colors.white.withOpacity(0.92))
                             : Colors.white,
 
                         border: Border.all(
@@ -239,7 +226,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           hintText: "pseudonym@eternia.io",
 
                           hintStyle: TextStyle(
-                            color: isDark ? Colors.white38 : Colors.black38,
+                            color: isDark ? Colors.white38 : const Color(0xFF9DA3A8),
                           ),
 
                           prefixIcon: Icon(
@@ -273,7 +260,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             : const Color(0xFFF1F0E8),
 
                         border: Border.all(
-                          color: isDark ? Colors.white10 : Colors.black12,
+                          color: isDark ? Colors.white10 : const Color(0xFFE7E2D8),
                         ),
                       ),
 
@@ -422,8 +409,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         text: "Send Reset Code",
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.white,
+                          fontSize: 18,
+                          color: const Color.fromARGB(255, 7, 7, 7),
                         ),
                       ),
                     ),
@@ -506,7 +493,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               text: "Remembered it? ",
 
                               style: TextStyle(
-                                color: isDark ? Colors.white54 : Colors.black45,
+                                color: isDark ? Colors.white54 : const Color(0xFF70737C),
                               ),
                             ),
 
