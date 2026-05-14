@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
+import 'package:eternia_ef/ConnectPage/recommend_screen.dart';
 
 class ExpertGuidanceScreen extends StatefulWidget {
   const ExpertGuidanceScreen({super.key});
@@ -88,7 +89,7 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                                 color: cardColor,
                                 border: Border.all(color: borderColor),
                               ),
-                              child: Icon(Icons.menu, color: primary),
+                              child: Icon(Icons.arrow_back_ios_new, color: primary, size: 20),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -98,15 +99,20 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                           ),
                         ],
                       ),
-                      Container(
-                        height: 42,
-                        width: 42,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: cardColor,
-                          border: Border.all(color: borderColor),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const PrivateProfileScreen()));
+                        },
+                        child: Container(
+                          height: 42,
+                          width: 42,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: cardColor,
+                            border: Border.all(color: borderColor),
+                          ),
+                          child: Icon(Icons.person_outline, color: primary),
                         ),
-                        child: Icon(Icons.person_outline, color: primary),
                       ),
                     ],
                   ),
@@ -210,96 +216,76 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
 
                           const SizedBox(height: 24),
 
-                          // EXPERT LIST
-                          _buildExpertCard(
-                            name: "Aria Vance", specialty: "Anxiety & Trauma", experience: "8 Years",
-                            sessions: "320+", rating: "4.9", status: "ONLINE NOW", isOnline: true,
-                            avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80",
-                            illustrationPath: "assets/figma/moon.png", buttonText: "Book Session", buttonIcon: Icons.arrow_forward,
-                            isDark: isDark, primary: primary, cardColor: cardColor, borderColor: borderColor, textPrimary: textPrimary, textSecondary: textSecondary, textTertiary: textTertiary,
-                          ),
-                          const SizedBox(height: 16),
-                          _buildExpertCard(
-                            name: "Julian Thorne", specialty: "Academic Stress", experience: "12 Years",
-                            sessions: "450+", rating: "5.0", status: "ONLINE NOW", isOnline: true,
-                            avatarUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
-                            illustrationPath: "assets/figma/books.png", buttonText: "Book Session", buttonIcon: Icons.calendar_today_outlined,
-                            isDark: isDark, primary: primary, cardColor: cardColor, borderColor: borderColor, textPrimary: textPrimary, textSecondary: textSecondary, textTertiary: textTertiary,
-                          ),
-                          const SizedBox(height: 16),
-                          _buildExpertCard(
-                            name: "Lila Chen", specialty: "Focus & Mindfulness", experience: "5 Years",
-                            sessions: "210+", rating: "4.8", status: "AVAILABLE IN 2H", isOnline: false,
-                            avatarUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&q=80",
-                            illustrationPath: "assets/figma/zen.png", buttonText: "Join Waitlist", buttonIcon: Icons.notifications_none_outlined,
-                            isDark: isDark, primary: primary, cardColor: cardColor, borderColor: borderColor, textPrimary: textPrimary, textSecondary: textSecondary, textTertiary: textTertiary,
-                          ),
-                          const SizedBox(height: 16),
-                          _buildExpertCard(
-                            name: "Dr. Silas Thorne", specialty: "Complex Relations", experience: "20 Years",
-                            sessions: "680+", rating: "4.9", status: "ONLINE NOW", isOnline: true,
-                            avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
-                            illustrationPath: "assets/figma/chairs.png", buttonText: "Book Session", buttonIcon: Icons.arrow_forward,
-                            isDark: isDark, primary: primary, cardColor: cardColor, borderColor: borderColor, textPrimary: textPrimary, textSecondary: textSecondary, textTertiary: textTertiary,
-                          ),
+                          const SizedBox(height: 24),
+
+                          // EXPERT LIST (FILTERED)
+                          ..._getExperts(isDark, primary, cardColor, borderColor, textPrimary, textSecondary, textTertiary),
 
                           const SizedBox(height: 24),
 
-                          // FIND MATCH CARD
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              color: cardColor,
-                              border: Border.all(color: borderColor),
-                              boxShadow: [BoxShadow(color: primary.withOpacity(0.03), blurRadius: 20)],
-                            ),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.asset("assets/figma/door.png", width: 80, height: 100, fit: BoxFit.cover),
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Can't find the right expert?",
-                                        style: GoogleFonts.playfairDisplay(color: textPrimary, fontSize: 20, fontWeight: FontWeight.w600),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        "Tell us what you need and we'll match you with the best expert for you.",
-                                        style: GoogleFonts.poppins(color: textSecondary, fontSize: 10, height: 1.5),
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(12),
-                                          color: primary.withOpacity(isDark ? 0.8 : 1.0),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Flexible(
-                                              child: Text(
-                                                "Find My Match",
-                                                style: GoogleFonts.poppins(color: isDark ? Colors.black : Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 6),
-                                            Icon(Icons.auto_awesome, color: isDark ? Colors.black : Colors.white, size: 14),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                           // FIND MATCH CARD
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const RecommendScreen()),
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                color: cardColor,
+                                border: Border.all(color: borderColor),
+                                boxShadow: [BoxShadow(color: primary.withOpacity(0.03), blurRadius: 20)],
+                              ),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.asset("assets/figma/door.png", width: 80, height: 100, fit: BoxFit.cover),
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Can't find the right expert?",
+                                          style: GoogleFonts.playfairDisplay(color: textPrimary, fontSize: 20, fontWeight: FontWeight.w600),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          "Tell us what you need and we'll match you with the best expert for you.",
+                                          style: GoogleFonts.poppins(color: textSecondary, fontSize: 10, height: 1.5),
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(12),
+                                            color: primary.withOpacity(isDark ? 0.8 : 1.0),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  "Find My Match",
+                                                  style: GoogleFonts.poppins(color: isDark ? Colors.black : Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              const SizedBox(width: 6),
+                                              Icon(Icons.auto_awesome, color: isDark ? Colors.black : Colors.white, size: 14),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
 
@@ -310,41 +296,7 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                   ),
                 ),
 
-                // BOTTOM BAR
-                Container(
-                  margin: const EdgeInsets.only(left: 18, right: 18, bottom: 18),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: cardColor,
-                    border: Border.all(color: borderColor),
-                    boxShadow: [
-                      BoxShadow(color: primary.withOpacity(0.15), blurRadius: 24, spreadRadius: 1),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _navItem(icon: Icons.home_rounded, index: 0, isDark: isDark, primary: primary),
-                      _navItem(icon: Icons.self_improvement, index: 1, isDark: isDark, primary: primary),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 62,
-                          width: 62,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(colors: [primary, primary.withOpacity(0.7)]),
-                            boxShadow: [BoxShadow(color: primary.withOpacity(0.45), blurRadius: 22)],
-                          ),
-                          child: Icon(Icons.add, color: isDark ? Colors.black : Colors.white, size: 32),
-                        ),
-                      ),
-                      _navItem(icon: Icons.favorite_border, index: 2, isDark: isDark, primary: primary),
-                      _navItem(icon: Icons.person_outline, index: 3, isDark: isDark, primary: primary),
-                    ],
-                  ),
-                ),
+                // BOTTOM BAR REMOVED PER USER REQUEST (MAIN APP BAR IS ALREADY VISIBLE)
               ],
             ),
           ),
@@ -353,29 +305,95 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
     );
   }
 
-  Widget _navItem({required IconData icon, required int index, required bool isDark, required Color primary}) {
-    bool selected = navIndex == index;
-    return GestureDetector(
-      onTap: () {
-        if (index == 0) {
-          Navigator.pop(context);
-        } else if (index == 3) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PrivateProfileScreen()));
-        } else {
-          setState(() => navIndex = index);
-        }
+  List<Widget> _getExperts(bool isDark, Color primary, Color cardColor, Color borderColor, Color textPrimary, Color textSecondary, Color textTertiary) {
+    final allExperts = [
+      {
+        'name': "Aria Vance",
+        'specialty': "Anxiety & Trauma",
+        'category': "Anxiety",
+        'experience': "8 Years",
+        'sessions': "320+",
+        'rating': "4.9",
+        'status': "ONLINE NOW",
+        'isOnline': true,
+        'avatarUrl': "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80",
+        'illustrationPath': "assets/figma/moon.png",
+        'buttonText': "Book Session",
+        'buttonIcon': Icons.arrow_forward,
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        height: 48,
-        width: 48,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: selected ? primary.withOpacity(0.12) : Colors.transparent,
+      {
+        'name': "Julian Thorne",
+        'specialty': "Academic Stress",
+        'category': "Academic Stress",
+        'experience': "12 Years",
+        'sessions': "450+",
+        'rating': "5.0",
+        'status': "ONLINE NOW",
+        'isOnline': true,
+        'avatarUrl': "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&q=80",
+        'illustrationPath': "assets/figma/books.png",
+        'buttonText': "Book Session",
+        'buttonIcon': Icons.calendar_today_outlined,
+      },
+      {
+        'name': "Lila Chen",
+        'specialty': "Focus & Mindfulness",
+        'category': "Anxiety", // Map to Anxiety for demo or add more categories
+        'experience': "5 Years",
+        'sessions': "210+",
+        'rating': "4.8",
+        'status': "AVAILABLE IN 2H",
+        'isOnline': false,
+        'avatarUrl': "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&q=80",
+        'illustrationPath': "assets/figma/zen.png",
+        'buttonText': "Join Waitlist",
+        'buttonIcon': Icons.notifications_none_outlined,
+      },
+      {
+        'name': "Dr. Silas Thorne",
+        'specialty': "Complex Relations",
+        'category': "Relationships",
+        'experience': "20 Years",
+        'sessions': "680+",
+        'rating': "4.9",
+        'status': "ONLINE NOW",
+        'isOnline': true,
+        'avatarUrl': "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
+        'illustrationPath': "assets/figma/chairs.png",
+        'buttonText': "Book Session",
+        'buttonIcon': Icons.arrow_forward,
+      },
+    ];
+
+    final filtered = selectedFilterIndex == 0
+        ? allExperts
+        : allExperts.where((e) => e['category'] == filters[selectedFilterIndex]).toList();
+
+    return filtered.map((e) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: _buildExpertCard(
+          name: e['name'] as String,
+          specialty: e['specialty'] as String,
+          experience: e['experience'] as String,
+          sessions: e['sessions'] as String,
+          rating: e['rating'] as String,
+          status: e['status'] as String,
+          isOnline: e['isOnline'] as bool,
+          avatarUrl: e['avatarUrl'] as String,
+          illustrationPath: e['illustrationPath'] as String,
+          buttonText: e['buttonText'] as String,
+          buttonIcon: e['buttonIcon'] as IconData,
+          isDark: isDark,
+          primary: primary,
+          cardColor: cardColor,
+          borderColor: borderColor,
+          textPrimary: textPrimary,
+          textSecondary: textSecondary,
+          textTertiary: textTertiary,
         ),
-        child: Icon(icon, color: selected ? primary : (isDark ? Colors.white38 : Colors.black38), size: 24),
-      ),
-    );
+      );
+    }).toList();
   }
 
   Widget _buildExpertCard({
@@ -487,24 +505,28 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("EXPERIENCE", style: GoogleFonts.poppins(color: textTertiary, fontSize: 9, letterSpacing: 1, fontWeight: FontWeight.w600)),
-                            const SizedBox(height: 4),
-                            Text(experience, style: GoogleFonts.poppins(color: textPrimary, fontSize: 13)),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("EXPERIENCE", style: GoogleFonts.poppins(color: textTertiary, fontSize: 9, letterSpacing: 1, fontWeight: FontWeight.w600)),
+                              const SizedBox(height: 4),
+                              Text(experience, style: GoogleFonts.poppins(color: textPrimary, fontSize: 13), overflow: TextOverflow.ellipsis),
+                            ],
+                          ),
                         ),
-                        const SizedBox(width: 32),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("SESSIONS", style: GoogleFonts.poppins(color: textTertiary, fontSize: 9, letterSpacing: 1, fontWeight: FontWeight.w600)),
-                            const SizedBox(height: 4),
-                            Text(sessions, style: GoogleFonts.poppins(color: textPrimary, fontSize: 13)),
-                          ],
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("SESSIONS", style: GoogleFonts.poppins(color: textTertiary, fontSize: 9, letterSpacing: 1, fontWeight: FontWeight.w600)),
+                              const SizedBox(height: 4),
+                              Text(sessions, style: GoogleFonts.poppins(color: textPrimary, fontSize: 13), overflow: TextOverflow.ellipsis),
+                            ],
+                          ),
                         ),
-                        const Spacer(),
+                        const SizedBox(width: 12),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(
@@ -512,7 +534,7 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                             ));
                           },
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
                               color: isDark ? Colors.black : primary.withOpacity(0.1),

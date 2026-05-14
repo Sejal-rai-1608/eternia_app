@@ -33,13 +33,27 @@ class _ConnectTabWrapperState extends State<ConnectTabWrapper> {
               case '/':
                 return ConnectHomeScreen(
                   onExpertConnect: () {
-                    _navigatorKey.currentState?.pushNamed('/expert-guidance');
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(builder: (_) => const ExpertGuidanceScreen()),
+                    );
                   },
                   onPeerConnect: () {
-                    _navigatorKey.currentState?.pushNamed('/peer-options');
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (_) => PeerOptionScreen(
+                          onPeerSelected: (name) {
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(builder: (_) => const ChatScreen()),
+                            );
+                          },
+                        ),
+                      ),
+                    );
                   },
                   onJoinSession: () {
-                    _navigatorKey.currentState?.pushNamed('/group-session');
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(builder: (_) => const GroupSessionScreen()),
+                    );
                   },
                 );
               case '/expert-guidance':
@@ -47,7 +61,9 @@ class _ConnectTabWrapperState extends State<ConnectTabWrapper> {
               case '/peer-options':
                 return PeerOptionScreen(
                   onPeerSelected: (name) {
-                    _navigatorKey.currentState?.pushNamed('/chat');
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(builder: (_) => const ChatScreen()),
+                    );
                   },
                 );
               case '/chat':
@@ -63,8 +79,24 @@ class _ConnectTabWrapperState extends State<ConnectTabWrapper> {
                 );
               default:
                 return ConnectHomeScreen(
-                  onExpertConnect: () => _navigatorKey.currentState?.pushNamed('/expert-guidance'),
-                  onPeerConnect: () => _navigatorKey.currentState?.pushNamed('/peer-options'),
+                  onExpertConnect: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(builder: (_) => const ExpertGuidanceScreen()),
+                    );
+                  },
+                  onPeerConnect: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (_) => PeerOptionScreen(
+                          onPeerSelected: (name) {
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(builder: (_) => const ChatScreen()),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  },
                   onJoinSession: () => _navigatorKey.currentState?.pushNamed('/group-session'),
                 );
             }

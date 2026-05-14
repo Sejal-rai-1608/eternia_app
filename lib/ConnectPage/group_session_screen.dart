@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
+import 'package:eternia_ef/ConnectPage/live_session_screen.dart';
 
 class GroupSessionScreen extends StatelessWidget {
   const GroupSessionScreen({super.key});
@@ -113,18 +114,23 @@ class GroupSessionScreen extends StatelessWidget {
                       style: GoogleFonts.poppins(color: textSecondary, fontSize: 10),
                     ),
                     const SizedBox(height: 28),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-                      decoration: BoxDecoration(
-                        color: primary,
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: Text(
-                        "Join Session",
-                        style: GoogleFonts.poppins(
-                          color: isDark ? Colors.black : Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => const LiveSessionScreen()));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                        decoration: BoxDecoration(
+                          color: primary,
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: Text(
+                          "Join Session",
+                          style: GoogleFonts.poppins(
+                            color: isDark ? Colors.black : Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
@@ -144,9 +150,9 @@ class GroupSessionScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              _buildSessionItem("Deep Sleep Guide", "Today, 9 PM", isDark: isDark, primary: primary, cardColor: cardColor, borderColor: borderColor, textPrimary: textPrimary, textSecondary: textSecondary),
+              _buildSessionItem(context, "Deep Sleep Guide", "Today, 9 PM", isDark: isDark, primary: primary, cardColor: cardColor, borderColor: borderColor, textPrimary: textPrimary, textSecondary: textSecondary),
               const SizedBox(height: 12),
-              _buildSessionItem("Exam Stress Relief", "Tomorrow, 4 PM", isDark: isDark, primary: primary, cardColor: cardColor, borderColor: borderColor, textPrimary: textPrimary, textSecondary: textSecondary),
+              _buildSessionItem(context, "Exam Stress Relief", "Tomorrow, 4 PM", isDark: isDark, primary: primary, cardColor: cardColor, borderColor: borderColor, textPrimary: textPrimary, textSecondary: textSecondary),
               const SizedBox(height: 120),
             ],
           ),
@@ -156,6 +162,7 @@ class GroupSessionScreen extends StatelessWidget {
   }
 
   Widget _buildSessionItem(
+    BuildContext context,
     String title,
     String time, {
     required bool isDark,
@@ -193,7 +200,19 @@ class GroupSessionScreen extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.notifications_none_outlined, color: isDark ? Colors.white24 : Colors.black26, size: 20),
+          GestureDetector(
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Notification On", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+                  backgroundColor: primary,
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+              );
+            },
+            child: Icon(Icons.notifications_none_outlined, color: isDark ? Colors.white24 : Colors.black26, size: 20),
+          ),
         ],
       ),
     );

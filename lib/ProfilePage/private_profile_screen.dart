@@ -10,6 +10,8 @@ import 'package:eternia_ef/screens/home_screen/sign_in_screen.dart';
 import 'package:eternia_ef/ProfilePage/settings_screen.dart';
 import 'package:eternia_ef/ProfilePage/notifications_screen.dart';
 import 'package:eternia_ef/ProfilePage/edit_profile_screen.dart';
+import 'package:eternia_ef/ProfilePage/emergency_support_screen.dart';
+import 'package:eternia_ef/ProfilePage/privacy_safety_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 
@@ -122,10 +124,29 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
   }
 
   Widget _buildHeader(Color primaryColor) {
+    bool canPop = Navigator.canPop(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Identity Control", style: GoogleFonts.cormorantGaramond(color: primaryColor, fontSize: 28, fontWeight: FontWeight.bold)),
+        Row(
+          children: [
+            if (canPop) ...[
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.05),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(Icons.arrow_back_ios_new, color: primaryColor, size: 18),
+                ),
+              ),
+              const SizedBox(width: 16),
+            ],
+            Text("Identity Control", style: GoogleFonts.cormorantGaramond(color: primaryColor, fontSize: 28, fontWeight: FontWeight.bold)),
+          ],
+        ),
         Row(
           children: [
             GestureDetector(
@@ -224,25 +245,32 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
   Widget _buildSafetyGroup(bool isDark, Color primaryColor, Color cardColor, Color borderColor) {
     return Column(
       children: [
-        _buildListTile(Icons.emergency_outlined, "Emergency Contact", isDark, primaryColor, cardColor, borderColor),
+        _buildListTile(Icons.emergency_outlined, "Emergency Contact", isDark, primaryColor, cardColor, borderColor, () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => const EmergencySupportScreen()));
+        }),
         const SizedBox(height: 12),
-        _buildListTile(Icons.visibility_off_outlined, "Privacy Center", isDark, primaryColor, cardColor, borderColor),
+        _buildListTile(Icons.visibility_off_outlined, "Privacy Center", isDark, primaryColor, cardColor, borderColor, () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacySafetyScreen()));
+        }),
       ],
     );
   }
 
-  Widget _buildListTile(IconData icon, String title, bool isDark, Color primaryColor, Color cardColor, Color borderColor) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(24), border: Border.all(color: borderColor)),
-      child: Row(
-        children: [
-          Icon(icon, color: primaryColor, size: 22),
-          const SizedBox(width: 16),
-          Text(title, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14)),
-          const Spacer(),
-          const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
-        ],
+  Widget _buildListTile(IconData icon, String title, bool isDark, Color primaryColor, Color cardColor, Color borderColor, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(24), border: Border.all(color: borderColor)),
+        child: Row(
+          children: [
+            Icon(icon, color: primaryColor, size: 22),
+            const SizedBox(width: 16),
+            Text(title, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14, color: isDark ? Colors.white : const Color(0xFF1B2722))),
+            const Spacer(),
+            const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+          ],
+        ),
       ),
     );
   }

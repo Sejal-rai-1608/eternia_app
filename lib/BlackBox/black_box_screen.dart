@@ -8,6 +8,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 import 'package:eternia_ef/BlackBox/create_entry_screen.dart';
+import 'package:eternia_ef/BlackBox/voice_recording_screen.dart';
+import 'package:eternia_ef/BlackBox/journal_writing_screen.dart';
+import 'package:eternia_ef/BlackBox/memory_archive_screen.dart';
+import 'package:eternia_ef/BlackBox/memory_history_screen.dart';
 
 class BlackBoxScreen extends StatefulWidget {
   const BlackBoxScreen({super.key});
@@ -75,20 +79,17 @@ bool isDark = provider.isDark;
                   ],
                 ),
 
-                Container(
-                  height: 54,
-                  width: 54,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: isDark ? Colors.white12 : Colors.black12,
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MemoryHistoryScreen())),
+                      child: Container(
+                        height: 54, width: 54,
+                        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: isDark ? Colors.white12 : Colors.black12)),
+                        child: Icon(Icons.history_rounded, color: primaryColor, size: 28),
+                      ),
                     ),
-                  ),
-                  child: Icon(
-                    Icons.person_outline,
-                    color: primaryColor,
-                    size: 28,
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -277,12 +278,14 @@ bool isDark = provider.isDark;
 
                             const SizedBox(height: 8),
 
-                            Text(
-                              "Start Recording →",
-
-                              style: GoogleFonts.poppins(
-                                color: primaryColor,
-                                fontWeight: FontWeight.w600,
+                            GestureDetector(
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VoiceRecordingScreen())),
+                              child: Text(
+                                "Start Recording →",
+                                style: GoogleFonts.poppins(
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ],
@@ -389,12 +392,14 @@ bool isDark = provider.isDark;
 
                           const SizedBox(height: 1),
 
-                          const Text(
-                            "Begin Writing →",
-
-                            style: TextStyle(
-                              color: Color(0xFFB47CFF),
-                              fontWeight: FontWeight.w600,
+                          GestureDetector(
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const JournalWritingScreen())),
+                            child: const Text(
+                              "Begin Writing →",
+                              style: TextStyle(
+                                color: Color(0xFFB47CFF),
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ],
@@ -441,12 +446,14 @@ bool isDark = provider.isDark;
                   ),
                 ),
 
-                Text(
-                  "View All ⊙",
-
-                  style: GoogleFonts.poppins(
-                    color: primaryColor,
-                    fontWeight: FontWeight.w600,
+                GestureDetector(
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MemoryArchiveScreen())),
+                  child: Text(
+                    "View All ⊙",
+                    style: GoogleFonts.poppins(
+                      color: primaryColor,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
@@ -490,40 +497,37 @@ bool isDark = provider.isDark;
           ],
         ),
 
-            // FLOATING ADD BUTTON - positioned above bottom bar
+            // FLOATING ADD BUTTON - positioned at bottom right
             Positioned(
-              bottom: 90,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const CreateEntryScreen()),
-                    );
-                  },
-                  child: Container(
-                    height: 68,
-                    width: 68,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        colors: [primaryColor, primaryColor.withOpacity(0.82)],
+              bottom: 100,
+              right: 20,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const CreateEntryScreen()),
+                  );
+                },
+                child: Container(
+                  height: 68,
+                  width: 68,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      colors: [primaryColor, primaryColor.withOpacity(0.82)],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: primaryColor.withOpacity(0.35),
+                        blurRadius: 25,
+                        spreadRadius: 1,
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: primaryColor.withOpacity(0.35),
-                          blurRadius: 25,
-                          spreadRadius: 1,
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: 36,
-                      color: isDark ? Colors.black : Colors.white,
-                    ),
+                    ],
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    size: 36,
+                    color: isDark ? Colors.black : Colors.white,
                   ),
                 ),
               ),

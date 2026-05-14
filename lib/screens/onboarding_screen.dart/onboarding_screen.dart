@@ -1,4 +1,5 @@
 import 'package:eternia_ef/screens/onboarding_screen.dart/guidance_screen.dart';
+import 'package:eternia_ef/ProfilePage/privacy_safety_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -208,10 +209,15 @@ class OnboardingScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          "Privacy Policy",
-                          style: TextStyle(
-                            color: isDark ? Colors.white54 : Colors.black45,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacySafetyScreen()));
+                          },
+                          child: Text(
+                            "Privacy Policy",
+                            style: TextStyle(
+                              color: isDark ? Colors.white54 : Colors.black45,
+                            ),
                           ),
                         ),
 
@@ -228,10 +234,15 @@ class OnboardingScreen extends StatelessWidget {
 
                         const SizedBox(width: 18),
 
-                        Text(
-                          "Terms of Service",
-                          style: TextStyle(
-                            color: isDark ? Colors.white54 : Colors.black45,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacySafetyScreen()));
+                          },
+                          child: Text(
+                            "Terms of Service",
+                            style: TextStyle(
+                              color: isDark ? Colors.white54 : Colors.black45,
+                            ),
                           ),
                         ),
                       ],

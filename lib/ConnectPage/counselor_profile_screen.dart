@@ -1,9 +1,6 @@
-// ==========================================================
-// COUNSELOR PROFILE SCREEN - PREMIUM ADAPTIVE
-// counselor_profile_screen.dart
-// ==========================================================
-
 import 'package:eternia_ef/ConnectPage/chat_screen.dart';
+import 'package:eternia_ef/ConnectPage/video_call_screen.dart';
+import 'package:eternia_ef/ConnectPage/audio_call_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +26,39 @@ class CounselorProfileScreen extends StatefulWidget {
 
 class _CounselorProfileScreenState extends State<CounselorProfileScreen> {
   int selectedTimeIndex = 1;
+  DateTime _currentMonth = DateTime(2024, 9);
+  DateTime _selectedDate = DateTime(2024, 9, 3);
+
+  final List<String> _monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  void _nextMonth() {
+    setState(() {
+      _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + 1);
+    });
+  }
+
+  void _prevMonth() {
+    setState(() {
+      _currentMonth = DateTime(_currentMonth.year, _currentMonth.month - 1);
+    });
+  }
+
+  List<DateTime> _getDaysInMonth(DateTime month) {
+    final firstDay = DateTime(month.year, month.month, 1);
+    final lastDay = DateTime(month.year, month.month + 1, 0);
+    
+    // Find the previous Monday (to align the grid)
+    final firstMonday = firstDay.subtract(Duration(days: firstDay.weekday - 1));
+    
+    List<DateTime> days = [];
+    for (int i = 0; i < 42; i++) {
+      days.add(firstMonday.add(Duration(days: i)));
+    }
+    return days;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -220,14 +250,20 @@ class _CounselorProfileScreenState extends State<CounselorProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "September\n2024",
+                            "${_monthNames[_currentMonth.month - 1]}\n${_currentMonth.year}",
                             style: GoogleFonts.cormorantGaramond(color: textPrimary, fontSize: 18, fontWeight: FontWeight.w600, height: 1.2),
                           ),
                           Row(
                             children: [
-                              Icon(Icons.chevron_left, color: textTertiary),
+                              GestureDetector(
+                                onTap: _prevMonth,
+                                child: Icon(Icons.chevron_left, color: textTertiary),
+                              ),
                               const SizedBox(width: 12),
-                              Icon(Icons.chevron_right, color: textPrimary),
+                              GestureDetector(
+                                onTap: _nextMonth,
+                                child: Icon(Icons.chevron_right, color: textPrimary),
+                              ),
                               const SizedBox(width: 20),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,36 +280,46 @@ class _CounselorProfileScreenState extends State<CounselorProfileScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-                            .map((day) => Text(day, style: GoogleFonts.poppins(color: textTertiary, fontSize: 12)))
+                            .map((day) => Expanded(child: Center(child: Text(day, style: GoogleFonts.poppins(color: textTertiary, fontSize: 12)))))
                             .toList(),
                       ),
                       const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildDate("26", false, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("27", false, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("28", false, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("29", false, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("30", false, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("31", false, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("1", true, isWhite: true, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildDate("2", true, isWhite: true, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("3", true, isSelected: true, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("4", true, isWhite: true, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("5", true, isWhite: true, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("6", true, isWhite: true, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("7", true, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                          _buildDate("8", true, isDark: isDark, primary: primary, selectedDateBg: selectedDateBg, textPrimary: textPrimary),
-                        ],
-                      ),
-                      const SizedBox(height: 32),
+                      // CALENDAR GRID
+                      ...List.generate(6, (row) {
+                        final days = _getDaysInMonth(_currentMonth);
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: List.generate(7, (col) {
+                              final day = days[row * 7 + col];
+                              final isCurrentMonth = day.month == _currentMonth.month;
+                              final isSelected = day.year == _selectedDate.year && day.month == _selectedDate.month && day.day == _selectedDate.day;
+                              
+                              return Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (isCurrentMonth) {
+                                      setState(() => _selectedDate = day);
+                                    }
+                                  },
+                                  child: _buildDate(
+                                    day.day.toString(),
+                                    isCurrentMonth,
+                                    isSelected: isSelected,
+                                    isDark: isDark,
+                                    primary: primary,
+                                    selectedDateBg: selectedDateBg,
+                                    textPrimary: textPrimary,
+                                  ),
+                                ),
+                              );
+                            }),
+                          ),
+                        );
+                      }),
+                      
+                      const SizedBox(height: 24),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -282,7 +328,7 @@ class _CounselorProfileScreenState extends State<CounselorProfileScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Available Times for Sept 3", style: GoogleFonts.poppins(color: textPrimary, fontSize: 11)),
+                                Text("Available Times for ${_monthNames[_selectedDate.month-1].substring(0,3)} ${_selectedDate.day}", style: GoogleFonts.poppins(color: textPrimary, fontSize: 11)),
                                 const SizedBox(height: 12),
                                 Wrap(
                                   spacing: 10,
@@ -425,7 +471,11 @@ class _CounselorProfileScreenState extends State<CounselorProfileScreen> {
       child: GestureDetector(
         onTap: () {
           if (text == "Chat") {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChatScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(counselorName: widget.name)));
+          } else if (text == "Video") {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => VideoCallScreen(counselorName: widget.name, avatarUrl: widget.avatarUrl)));
+          } else if (text == "Audio") {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AudioCallScreen(counselorName: widget.name, avatarUrl: widget.avatarUrl)));
           }
         },
         child: Container(
@@ -448,14 +498,14 @@ class _CounselorProfileScreenState extends State<CounselorProfileScreen> {
     );
   }
 
-  Widget _buildDate(String date, bool isCurrentMonth, {bool isSelected = false, bool isWhite = false, required bool isDark, required Color primary, required Color selectedDateBg, required Color textPrimary}) {
+  Widget _buildDate(String date, bool isCurrentMonth, {bool isSelected = false, required bool isDark, required Color primary, required Color selectedDateBg, required Color textPrimary}) {
     Color textColor;
     if (isSelected) {
       textColor = isDark ? Colors.white : primary;
-    } else if (isWhite) {
+    } else if (isCurrentMonth) {
       textColor = textPrimary;
     } else {
-      textColor = isDark ? Colors.white30 : Colors.black26;
+      textColor = isDark ? Colors.white10 : Colors.black12;
     }
 
     return Container(

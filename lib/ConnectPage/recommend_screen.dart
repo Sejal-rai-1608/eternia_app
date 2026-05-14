@@ -1,8 +1,4 @@
-// ==========================================================
-// RECOMMEND SCREEN - PREMIUM ADAPTIVE
-// recommend_screen.dart
-// ==========================================================
-
+import 'package:eternia_ef/ConnectPage/group_chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +12,51 @@ class RecommendScreen extends StatefulWidget {
 }
 
 class _RecommendScreenState extends State<RecommendScreen> {
+  // Track state for each group: null (not joined), 'loading', 'joined'
+  final Map<String, String?> _joinStates = {};
+
+  void _handleJoin(String groupName, Color primary) {
+    if (_joinStates[groupName] == 'joined') {
+      // Already joined, just navigate
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) => GroupChatScreen(
+          groupName: groupName,
+          onLeave: () => setState(() => _joinStates[groupName] = null),
+        ),
+      ));
+      return;
+    }
+
+    setState(() => _joinStates[groupName] = 'loading');
+
+    // Simulate joining process
+    Future.delayed(const Duration(seconds: 1), () {
+      if (!mounted) return;
+      setState(() => _joinStates[groupName] = 'joined');
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Welcome to $groupName! Your safe space is ready.", style: GoogleFonts.poppins(fontSize: 12)),
+          backgroundColor: primary,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+
+      // Navigate after a small delay to let user see the checkmark
+      Future.delayed(const Duration(milliseconds: 500), () {
+        if (!mounted) return;
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => GroupChatScreen(
+            groupName: groupName,
+            onLeave: () => setState(() => _joinStates[groupName] = null),
+          ),
+        ));
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context);
@@ -47,36 +88,18 @@ class _RecommendScreenState extends State<RecommendScreen> {
               _buildHeader(textPrimary, textSecondary, primary, isDark),
               const SizedBox(height: 32),
               _buildRecommendationCard(
-                "Peer Circle #242",
-                "Anxiety Support",
-                "12 Active Nodes",
-                isDark,
-                primary,
-                cardColor,
-                borderColor,
-                textPrimary,
+                "Peer Circle #242", "Anxiety Support", "12 Active Nodes",
+                isDark, primary, cardColor, borderColor, textPrimary,
               ),
               const SizedBox(height: 16),
               _buildRecommendationCard(
-                "Meditation Club",
-                "Mindfulness",
-                "45 Active Nodes",
-                isDark,
-                primary,
-                cardColor,
-                borderColor,
-                textPrimary,
+                "Meditation Club", "Mindfulness", "45 Active Nodes",
+                isDark, primary, cardColor, borderColor, textPrimary,
               ),
               const SizedBox(height: 16),
               _buildRecommendationCard(
-                "Academic Hub",
-                "Study Stress",
-                "28 Active Nodes",
-                isDark,
-                primary,
-                cardColor,
-                borderColor,
-                textPrimary,
+                "Academic Hub", "Study Stress", "28 Active Nodes",
+                isDark, primary, cardColor, borderColor, textPrimary,
               ),
               const SizedBox(height: 120),
             ],
@@ -97,54 +120,36 @@ class _RecommendScreenState extends State<RecommendScreen> {
         const SizedBox(height: 20),
         Text(
           "Peer\nRecommendations",
-          style: GoogleFonts.cormorantGaramond(
-            color: primary,
-            fontSize: 36,
-            fontWeight: FontWeight.bold,
-            height: 1,
-          ),
+          style: GoogleFonts.cormorantGaramond(color: primary, fontSize: 36, fontWeight: FontWeight.bold, height: 1),
         ),
         const SizedBox(height: 8),
         Text(
           "Based on your recent journey and reflections.",
-          style: GoogleFonts.poppins(
-            color: textSecondary,
-            fontSize: 12,
-          ),
+          style: GoogleFonts.poppins(color: textSecondary, fontSize: 12),
         ),
       ],
     );
   }
 
   Widget _buildRecommendationCard(
-    String title,
-    String tag,
-    String nodes,
-    bool isDark,
-    Color primary,
-    Color cardColor,
-    Color borderColor,
-    Color textPrimary,
+    String title, String tag, String nodes,
+    bool isDark, Color primary, Color cardColor, Color borderColor, Color textPrimary,
   ) {
+    final state = _joinStates[title];
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: cardColor,
         borderRadius: BorderRadius.circular(28),
         border: Border.all(color: borderColor),
-        boxShadow: isDark
-            ? []
-            : [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 10, offset: const Offset(0, 4))],
+        boxShadow: isDark ? [] : [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 10, offset: const Offset(0, 4))],
       ),
       child: Row(
         children: [
           Container(
-            height: 54,
-            width: 54,
-            decoration: BoxDecoration(
-              color: primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(18),
-            ),
+            height: 54, width: 54,
+            decoration: BoxDecoration(color: primary.withOpacity(0.1), borderRadius: BorderRadius.circular(18)),
             child: Icon(Icons.people_outline, color: primary),
           ),
           const SizedBox(width: 20),
@@ -152,37 +157,30 @@ class _RecommendScreenState extends State<RecommendScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  tag.toUpperCase(),
-                  style: GoogleFonts.poppins(
-                    color: primary,
-                    fontSize: 8,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.5,
-                  ),
-                ),
-                Text(
-                  title,
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: textPrimary,
-                  ),
-                ),
-                Text(
-                  nodes,
-                  style: GoogleFonts.poppins(color: Colors.grey, fontSize: 10),
-                ),
+                Text(tag.toUpperCase(), style: GoogleFonts.poppins(color: primary, fontSize: 8, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                Text(title, style: GoogleFonts.playfairDisplay(fontSize: 18, fontWeight: FontWeight.bold, color: textPrimary)),
+                Text(nodes, style: GoogleFonts.poppins(color: Colors.grey, fontSize: 10)),
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: primary.withOpacity(0.2)),
+          GestureDetector(
+            onTap: () => _handleJoin(title, primary),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              padding: EdgeInsets.all(state == 'loading' ? 8 : 10),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: state == 'joined' ? primary : Colors.transparent,
+                border: Border.all(color: state == 'joined' ? primary : primary.withOpacity(0.2)),
+              ),
+              child: state == 'loading'
+                  ? SizedBox(height: 18, width: 18, child: CircularProgressIndicator(strokeWidth: 2, color: primary))
+                  : Icon(
+                      state == 'joined' ? Icons.check : Icons.add,
+                      color: state == 'joined' ? (isDark ? Colors.black : Colors.white) : primary,
+                      size: 18,
+                    ),
             ),
-            child: Icon(Icons.add, color: primary, size: 18),
           ),
         ],
       ),

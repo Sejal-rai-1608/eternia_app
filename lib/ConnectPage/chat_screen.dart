@@ -5,13 +5,60 @@ import 'package:provider/provider.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  final String counselorName;
+  const ChatScreen({super.key, this.counselorName = "Counselor"});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final TextEditingController _controller = TextEditingController();
+  final List<Map<String, dynamic>> _messages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Initial messages
+    _messages.add({
+      'isSent': false,
+      'text': "Hello. How are you feeling today?",
+      'time': "10:04 AM",
+      'sender': widget.counselorName,
+    });
+  }
+
+  void _sendMessage() {
+    if (_controller.text.trim().isEmpty) return;
+    
+    final userText = _controller.text.trim();
+    final now = DateTime.now();
+    final timeStr = "${now.hour}:${now.minute.toString().padLeft(2, '0')} ${now.hour >= 12 ? 'PM' : 'AM'}";
+
+    setState(() {
+      _messages.add({
+        'isSent': true,
+        'text': userText,
+        'time': "DELIVERED - $timeStr",
+      });
+      _controller.clear();
+    });
+
+    // Auto-reply
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _messages.add({
+            'isSent': false,
+            'text': "Thank you for sharing that with me. I'm here to listen and help you navigate through these feelings. What do you think triggered this?",
+            'time': timeStr,
+            'sender': widget.counselorName,
+          });
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context);
@@ -40,18 +87,11 @@ class _ChatScreenState extends State<ChatScreen> {
       backgroundColor: bg,
       body: Stack(
         children: [
-          // Background landscape/moon hint
           Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
+            bottom: 0, left: 0, right: 0,
             child: Opacity(
               opacity: isDark ? 0.15 : 0.06,
-              child: Image.asset(
-                "assets/figma/moon.png",
-                fit: BoxFit.cover,
-                height: 250,
-              ),
+              child: Image.asset("assets/figma/moon.png", fit: BoxFit.cover, height: 250),
             ),
           ),
 
@@ -68,40 +108,18 @@ class _ChatScreenState extends State<ChatScreen> {
                         children: [
                           GestureDetector(
                             onTap: () => Navigator.pop(context),
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: isDark ? Colors.white70 : Colors.black54,
-                              size: 18,
-                            ),
+                            child: Icon(Icons.arrow_back_ios, color: isDark ? Colors.white70 : Colors.black54, size: 18),
                           ),
                           const SizedBox(width: 8),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "ETERNIA",
-                                style: GoogleFonts.cormorantGaramond(
-                                  color: primary,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 2,
-                                ),
-                              ),
-                              Text(
-                                "RESIDENT #XJ-882",
-                                style: GoogleFonts.poppins(
-                                  color: textSecondary,
-                                  fontSize: 9,
-                                  letterSpacing: 1.5,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              Text("ETERNIA", style: GoogleFonts.cormorantGaramond(color: primary, fontSize: 22, fontWeight: FontWeight.w600, letterSpacing: 2)),
+                              Text(widget.counselorName.toUpperCase(), style: GoogleFonts.poppins(color: textSecondary, fontSize: 9, letterSpacing: 1.5, fontWeight: FontWeight.w600)),
                             ],
                           ),
                         ],
                       ),
-
-                      // End Session Button
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                         decoration: BoxDecoration(
@@ -113,14 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           children: [
                             const Icon(Icons.lock_outline, color: Color(0xFFFF8A8A), size: 14),
                             const SizedBox(width: 6),
-                            Text(
-                              "End Session",
-                              style: GoogleFonts.poppins(
-                                color: const Color(0xFFFF8A8A),
-                                fontSize: 11,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            Text("End Session", style: GoogleFonts.poppins(color: const Color(0xFFFF8A8A), fontSize: 11, fontWeight: FontWeight.w500)),
                           ],
                         ),
                       ),
@@ -129,110 +140,70 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
 
                 Expanded(
-                  child: ListView(
+                  child: ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     physics: const BouncingScrollPhysics(),
-                    children: [
-                      // SAFE SPACE PROTOCOL CARD
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: primary.withOpacity(0.2)),
-                          color: cardColor,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
+                    itemCount: _messages.length + 1, // +1 for the header card
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 32),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: primary.withOpacity(0.2)),
+                              color: cardColor,
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(4),
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: primary.withOpacity(0.1),
-                                        ),
-                                        child: Icon(Icons.verified_user_outlined, color: primary, size: 16),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Flexible(
-                                        child: Text(
-                                          "Safe Space Protocol Active",
-                                          style: GoogleFonts.poppins(
-                                            color: primary,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.all(4),
+                                            decoration: BoxDecoration(shape: BoxShape.circle, color: primary.withOpacity(0.1)),
+                                            child: Icon(Icons.verified_user_outlined, color: primary, size: 16),
                                           ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
+                                          const SizedBox(width: 8),
+                                          Flexible(child: Text("Safe Space Protocol Active", style: GoogleFonts.poppins(color: primary, fontSize: 12, fontWeight: FontWeight.w600), overflow: TextOverflow.ellipsis)),
+                                        ],
                                       ),
+                                      const SizedBox(height: 12),
+                                      Text("Your identity is shielded\nConversations vanish instantly after the session ends.", style: GoogleFonts.poppins(color: isDark ? Colors.white70 : Colors.black54, fontSize: 11, height: 1.6)),
                                     ],
                                   ),
-                                  const SizedBox(height: 12),
-                                  Text(
-                                    "Your identity is shielded\nConversations are end-to-end encrypted and vanish instantly after the session ends.",
-                                    style: GoogleFonts.poppins(
-                                      color: isDark ? Colors.white70 : Colors.black54,
-                                      fontSize: 11,
-                                      height: 1.6,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Expanded(flex: 2, child: Image.asset("assets/figma/calendar_illustration.png", height: 100, fit: BoxFit.contain)),
+                              ],
                             ),
-                            Expanded(
-                              flex: 2,
-                              child: Image.asset(
-                                "assets/figma/calendar_illustration.png",
-                                height: 100,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-
-                      // CHAT BUBBLES
-                      _buildReceivedMessage(
-                        "Resident #AQ-441",
-                        "Hello. I'm feeling a bit overwhelmed by the pace of things lately. Is this a good time to talk?",
-                        "10:04 AM",
-                        isDark: isDark,
-                        textPrimary: textPrimary,
-                        textSecondary: textSecondary,
-                        borderColor: borderColor,
-                        bubbleColor: receivedBubbleColor,
-                      ),
-                      const SizedBox(height: 20),
-
-                      _buildSentMessage(
-                        "It's always a good time here. This space is meant for exactly that. Is there something that's been on your mind specifically?",
-                        "DELIVERED - 10:05 AM",
-                        isDark: isDark,
-                        primary: primary,
-                        textSecondary: textSecondary,
-                        bubbleColor: sentBubbleColor,
-                      ),
-                      const SizedBox(height: 20),
-
-                      _buildReceivedMessage(
-                        "Resident #AQ-441",
-                        "Thank you. It's just the feeling of being watched, even if it's for 'safety'. I miss the quiet moments when no one knew where I was.",
-                        "10:06 AM",
-                        isDark: isDark,
-                        textPrimary: textPrimary,
-                        textSecondary: textSecondary,
-                        borderColor: borderColor,
-                        bubbleColor: receivedBubbleColor,
-                      ),
-
-                      const SizedBox(height: 40),
-                    ],
+                          ),
+                        );
+                      }
+                      
+                      final msg = _messages[index - 1];
+                      if (msg['isSent']) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: _buildSentMessage(
+                            msg['text'], msg['time'],
+                            isDark: isDark, primary: primary, textSecondary: textSecondary, bubbleColor: sentBubbleColor,
+                          ),
+                        );
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: _buildReceivedMessage(
+                            msg['sender'], msg['text'], msg['time'],
+                            isDark: isDark, textPrimary: textPrimary, textSecondary: textSecondary, borderColor: borderColor, bubbleColor: receivedBubbleColor,
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
 
@@ -245,7 +216,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                       child: Container(
                         height: 56,
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: isDark ? Colors.white.withOpacity(0.05) : Colors.white.withOpacity(0.8),
@@ -253,37 +224,26 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                         child: Row(
                           children: [
-                            const SizedBox(width: 4),
-                            Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(color: isDark ? Colors.white24 : Colors.black12),
-                              ),
-                              child: Icon(Icons.add, color: isDark ? Colors.white54 : Colors.black45),
-                            ),
+                            Icon(Icons.add_circle_outline, color: isDark ? Colors.white54 : Colors.black45),
                             const SizedBox(width: 12),
                             Expanded(
-                              child: Text(
-                                "Share your thoughts anonymously",
-                                style: GoogleFonts.poppins(
-                                  color: textSecondary,
-                                  fontSize: 13,
+                              child: TextField(
+                                controller: _controller,
+                                onSubmitted: (_) => _sendMessage(),
+                                style: GoogleFonts.poppins(color: textPrimary, fontSize: 13),
+                                decoration: InputDecoration(
+                                  hintText: "Share your thoughts...",
+                                  hintStyle: GoogleFonts.poppins(color: textSecondary, fontSize: 13),
+                                  border: InputBorder.none,
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 44,
-                              width: 44,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: primary,
-                              ),
-                              child: Icon(
-                                Icons.auto_awesome,
-                                color: isDark ? const Color(0xFF040B0D) : Colors.white,
-                                size: 20,
+                            GestureDetector(
+                              onTap: _sendMessage,
+                              child: Container(
+                                height: 40, width: 40,
+                                decoration: BoxDecoration(shape: BoxShape.circle, color: primary),
+                                child: Icon(Icons.send_rounded, color: isDark ? const Color(0xFF040B0D) : Colors.white, size: 18),
                               ),
                             ),
                           ],

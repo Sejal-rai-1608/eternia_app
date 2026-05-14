@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'package:eternia_ef/providers/theme_provider.dart';
 import 'package:eternia_ef/utils/theme_config.dart';
+import 'package:eternia_ef/BlackBox/voice_recording_screen.dart';
 
 class CreateEntryScreen extends StatefulWidget {
   const CreateEntryScreen({super.key});
@@ -137,29 +138,33 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
     );
   }
 
+
   Widget _buildRecordToggle(Color primaryColor, bool isDark, Color cardColor, Color borderColor) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(24), border: Border.all(color: borderColor)),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: primaryColor.withOpacity(0.1), shape: BoxShape.circle),
-            child: Icon(Icons.mic, color: primaryColor),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Voice Note", style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 14)),
-                Text("Express through sound", style: GoogleFonts.poppins(color: Colors.grey, fontSize: 10)),
-              ],
+    return GestureDetector(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VoiceRecordingScreen())),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(24), border: Border.all(color: borderColor)),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(color: primaryColor.withOpacity(0.1), shape: BoxShape.circle),
+              child: Icon(Icons.mic, color: primaryColor),
             ),
-          ),
-          const Icon(Icons.play_circle_outline, color: Colors.grey),
-        ],
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Voice Note", style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 14)),
+                  Text("Express through sound", style: GoogleFonts.poppins(color: Colors.grey, fontSize: 10)),
+                ],
+              ),
+            ),
+            const Icon(Icons.play_circle_outline, color: Colors.grey),
+          ],
+        ),
       ),
     );
   }

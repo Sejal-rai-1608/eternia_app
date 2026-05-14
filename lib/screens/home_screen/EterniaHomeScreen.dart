@@ -2,6 +2,7 @@
 // ETERNIA HOME SCREEN - FINAL PERFECT VERSION
 // =======================================================
 
+import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'package:eternia_ef/providers/theme_provider.dart';
 import 'package:eternia_ef/Tools/sound_therapy_screen.dart';
+import 'package:eternia_ef/ProfilePage/private_profile_screen.dart';
 
 class EterniaHomeScreen extends StatefulWidget {
   const EterniaHomeScreen({super.key});
@@ -20,6 +22,38 @@ class EterniaHomeScreen extends StatefulWidget {
 
 class _EterniaHomeScreenState
     extends State<EterniaHomeScreen> {
+  int _insightIndex = 0;
+  Timer? _insightTimer;
+  String? _selectedMood;
+
+  final List<String> _insights = [
+    "Focus on your breath, let go of the rest.",
+    "Your potential is endless. Go do what you were created to do.",
+    "The only way to do great work is to love what you do.",
+    "Believe you can and you're halfway there.",
+    "Happiness is not something readymade. It comes from your own actions.",
+    "Quiet the mind, and the soul will speak.",
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _insightTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (mounted) {
+        setState(() {
+          _insightIndex = (_insightIndex + 1) % _insights.length;
+        });
+        print("Insight changed to: $_insightIndex");
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _insightTimer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider =
@@ -129,37 +163,36 @@ class _EterniaHomeScreenState
                         ],
                       ),
 
-                      Container(
-                        height: 62,
-                        width: 62,
-                        decoration:
-                            BoxDecoration(
-                          shape:
-                              BoxShape.circle,
-                          color: isDark
-                              ? Colors.white
-                                  .withOpacity(0.04)
-                              : Colors.white,
-                          border: Border.all(
-                            color: borderColor,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivateProfileScreen()));
+                        },
+                        child: Container(
+                          height: 62,
+                          width: 62,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: isDark
+                                ? Colors.white.withOpacity(0.04)
+                                : Colors.white,
+                            border: Border.all(
+                              color: borderColor,
+                            ),
+                            boxShadow: isDark
+                                ? []
+                                : [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.05),
+                                      blurRadius: 18,
+                                      offset: const Offset(0, 8),
+                                    ),
+                                  ],
                           ),
-                          boxShadow: isDark
-                              ? []
-                              : [
-                                  BoxShadow(
-                                    color: Colors.black
-                                        .withOpacity(0.05),
-                                    blurRadius: 18,
-                                    offset:
-                                        const Offset(
-                                            0, 8),
-                                  ),
-                                ],
-                        ),
-                        child: Icon(
-                          Icons.person_outline,
-                          color: primaryColor,
-                          size: 30,
+                          child: Icon(
+                            Icons.person_outline,
+                            color: primaryColor,
+                            size: 30,
+                          ),
                         ),
                       ),
                     ],
@@ -262,48 +295,52 @@ class _EterniaHomeScreenState
                                     ),
                                   ),
 
-                                  // QUOTE
-                                  Text(
-                                    "“Focus on your\nbreath,\nlet go of the rest.”",
-                                    style:
-                                        GoogleFonts.playfairDisplay(
-                                      color: textColor,
-                                      fontSize: 18,
-                                      height: 1.6,
-                                      fontWeight:
-                                          FontWeight.w700,
+                                   // QUOTE
+                                  AnimatedSwitcher(
+                                    duration: const Duration(milliseconds: 500),
+                                    child: Text(
+                                      "“${_insights[_insightIndex]}”",
+                                      key: ValueKey<int>(_insightIndex),
+                                      style: GoogleFonts.playfairDisplay(
+                                        color: textColor,
+                                        fontSize: 16,
+                                        height: 1.5,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
 
                                   // BUTTON
-                                  Container(
-                                    padding:
-                                        const EdgeInsets.symmetric(
-                                      horizontal: 6,
-                                      vertical: 13,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          primaryColor,
-                                          primaryColor
-                                              .withOpacity(0.85),
-                                        ],
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => DailyInsightDetailScreen(insight: _insights[_insightIndex]),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 12,
                                       ),
-                                      borderRadius:
-                                          BorderRadius.circular(
-                                              20),
-                                    ),
-                                    child: Text(
-                                      "Get Insight ✨",
-                                      style:
-                                          GoogleFonts.poppins(
-                                        color: isDark
-                                            ? Colors.black
-                                            : Colors.white,
-                                        fontWeight:
-                                            FontWeight.w600,
-                                        fontSize: 12,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            primaryColor,
+                                            primaryColor.withOpacity(0.85),
+                                          ],
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Text(
+                                        "Get Insight ✨",
+                                        style: GoogleFonts.poppins(
+                                          color: isDark ? Colors.black : Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -383,27 +420,32 @@ class _EterniaHomeScreenState
 
                         const SizedBox(height: 28),
 
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment
-                                  .spaceBetween,
-                          children: [
-                            _mood("😊",
-                                "Joyful",
-                                textColor),
-                            _mood("😟",
-                                "Worried",
-                                textColor),
-                            _mood("😞",
-                                "Drained",
-                                textColor),
-                            _mood("😠",
-                                "Frustrated",
-                                textColor),
-                            _mood("😌",
-                                "Peaceful",
-                                textColor),
-                          ],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          child: Row(
+                            children: [
+                              _mood("😊", "Joyful", textColor, _selectedMood == "Joyful", () {
+                                setState(() => _selectedMood = "Joyful");
+                              }),
+                              const SizedBox(width: 20),
+                              _mood("😟", "Worried", textColor, _selectedMood == "Worried", () {
+                                setState(() => _selectedMood = "Worried");
+                              }),
+                              const SizedBox(width: 20),
+                              _mood("😞", "Drained", textColor, _selectedMood == "Drained", () {
+                                setState(() => _selectedMood = "Drained");
+                              }),
+                              const SizedBox(width: 20),
+                              _mood("😠", "Frustrated", textColor, _selectedMood == "Frustrated", () {
+                                setState(() => _selectedMood = "Frustrated");
+                              }),
+                              const SizedBox(width: 20),
+                              _mood("😌", "Peaceful", textColor, _selectedMood == "Peaceful", () {
+                                setState(() => _selectedMood = "Peaceful");
+                              }),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -665,26 +707,162 @@ class _EterniaHomeScreenState
     String emoji,
     String title,
     Color textColor,
+    bool isSelected,
+    VoidCallback onTap,
   ) {
-    return Column(
-      children: [
-        Text(
-          emoji,
-          style:
-              const TextStyle(fontSize: 34),
-        ),
-
-        const SizedBox(height: 10),
-
-        Text(
-          title,
-          style: GoogleFonts.poppins(
-            color: textColor,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: isSelected ? textColor.withOpacity(0.1) : Colors.transparent,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected ? textColor.withOpacity(0.2) : Colors.transparent,
           ),
         ),
-      ],
+        child: Column(
+          children: [
+            Text(
+              emoji,
+              style: TextStyle(
+                fontSize: isSelected ? 40 : 34,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: GoogleFonts.poppins(
+                color: isSelected ? textColor : textColor.withOpacity(0.6),
+                fontSize: 12,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// =======================================================
+// DAILY INSIGHT DETAIL SCREEN
+// =======================================================
+
+class DailyInsightDetailScreen extends StatelessWidget {
+  final String insight;
+  const DailyInsightDetailScreen({super.key, required this.insight});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Provider.of<ThemeProvider>(context).isDark;
+    final primary = isDark ? const Color(0xFF67F5D4) : const Color(0xFF53B29A);
+    final textPrimary = isDark ? Colors.white : const Color(0xFF1B2722);
+
+    return Scaffold(
+      backgroundColor: isDark ? const Color(0xFF071011) : const Color(0xFFF6F3ED),
+      body: Stack(
+        children: [
+          // Background Glows
+          if (isDark) ...[
+            Positioned(
+              top: -100,
+              right: -100,
+              child: Container(
+                width: 300,
+                height: 300,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: primary.withOpacity(0.1),
+                ),
+              ),
+            ),
+          ],
+          SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(Icons.arrow_back_ios_new, color: textPrimary),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.auto_awesome, color: primary, size: 50),
+                        const SizedBox(height: 40),
+                        Text(
+                          insight,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.playfairDisplay(
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold,
+                            color: textPrimary,
+                            height: 1.3,
+                          ),
+                        ),
+                        const SizedBox(height: 60),
+                        Container(
+                          padding: const EdgeInsets.all(24),
+                          decoration: BoxDecoration(
+                            color: isDark ? Colors.white.withOpacity(0.05) : Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(color: primary.withOpacity(0.2)),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Mindfulness Tip",
+                                style: GoogleFonts.poppins(
+                                  color: primary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  letterSpacing: 2,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                "Take three deep breaths. Inhale for 4 seconds, hold for 4, and exhale for 8. Feel the tension leave your body.",
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  color: textPrimary.withOpacity(0.7),
+                                  fontSize: 15,
+                                  height: 1.6,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Center(
+                    child: Text(
+                      "ETERNIA • DAILY WISDOM",
+                      style: GoogleFonts.poppins(
+                        color: textPrimary.withOpacity(0.3),
+                        fontSize: 12,
+                        letterSpacing: 4,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

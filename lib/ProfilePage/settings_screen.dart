@@ -7,6 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 import 'package:eternia_ef/utils/eternia_theme.dart';
+import 'package:eternia_ef/ProfilePage/edit_profile_screen.dart';
+import 'package:eternia_ef/ProfilePage/about_screen.dart';
+import 'package:eternia_ef/ProfilePage/privacy_safety_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -63,7 +66,9 @@ class SettingsScreen extends StatelessWidget {
               // ACCOUNT
               _sectionTitle("ACCOUNT", theme),
               const SizedBox(height: 12),
-              _buildNavTile(icon: Icons.person_outline, title: "Edit Profile", theme: theme, onTap: () {}),
+              _buildNavTile(icon: Icons.person_outline, title: "Edit Profile", theme: theme, onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const EditProfileScreen()));
+              }),
               const SizedBox(height: 12),
               _buildNavTile(icon: Icons.lock_outline, title: "Account Security", theme: theme, onTap: () {}),
               const SizedBox(height: 12),
@@ -75,9 +80,13 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 12),
               _buildNavTile(icon: Icons.help_outline, title: "Help & Support", theme: theme, onTap: () {}),
               const SizedBox(height: 12),
-              _buildNavTile(icon: Icons.info_outline, title: "About Eternia", theme: theme, onTap: () {}),
+              _buildNavTile(icon: Icons.info_outline, title: "About Eternia", theme: theme, onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()));
+              }),
               const SizedBox(height: 12),
-              _buildNavTile(icon: Icons.description_outlined, title: "Terms & Privacy", theme: theme, onTap: () {}),
+              _buildNavTile(icon: Icons.description_outlined, title: "Terms & Privacy", theme: theme, onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacySafetyScreen()));
+              }),
               const SizedBox(height: 32),
 
               // LOGOUT

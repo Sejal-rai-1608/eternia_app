@@ -3,6 +3,7 @@
 // ==========================================================
 
 import 'package:eternia_ef/widgets/glass_button.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -22,6 +23,7 @@ class InstitutionalScanScreen extends StatefulWidget {
 }
 
 class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final MobileScannerController controller = MobileScannerController();
 
   bool scanned = false;
@@ -50,6 +52,8 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
     final isDark = provider.isDark;
 
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: _buildDrawer(isDark, context),
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -75,13 +79,17 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.menu,
-                          size: 22,
-
-                          color: isDark
-                              ? const Color(0xFF71E6D4)
-                              : const Color(0xFF7BA268),
+                        GestureDetector(
+                          onTap: () {
+                            _scaffoldKey.currentState?.openDrawer();
+                          },
+                          child: Icon(
+                            Icons.menu,
+                            size: 22,
+                            color: isDark
+                                ? const Color(0xFF71E6D4)
+                                : const Color(0xFF7BA268),
+                          ),
                         ),
 
                         const SizedBox(width: 10),
@@ -444,29 +452,34 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
                 // MANUAL
                 // ==================================================
                 Center(
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Can't scan? ",
-
-                          style: TextStyle(
-                            color: isDark ? Colors.white54 : Colors.black45,
-                          ),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Can't scan? ",
+                              style: TextStyle(
+                                color: isDark ? Colors.white54 : Colors.black45,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "Enter code manually →",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: isDark
+                                    ? const Color(0xFF71E6D4)
+                                    : const Color(0xFF7BA268),
+                              ),
+                            ),
+                          ],
                         ),
-
-                        TextSpan(
-                          text: "Enter code manually →",
-
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-
-                            color: isDark
-                                ? const Color(0xFF71E6D4)
-                                : const Color(0xFF7BA268),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -607,6 +620,66 @@ class _InstitutionalScanScreenState extends State<InstitutionalScanScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildDrawer(bool isDark, BuildContext context) {
+    return Drawer(
+      backgroundColor: isDark ? const Color(0xFF040F0F) : const Color(0xFFF6FBF6),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: isDark
+                    ? [const Color(0xFF014B50), const Color(0xFF0DA8A0)]
+                    : [const Color(0xFF9BC283), const Color(0xFF7EAA68)],
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.white24,
+                  child: Icon(Icons.person, color: Colors.white, size: 35),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  "ETERNIA USER",
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _drawerTile(Icons.home_outlined, "Home", isDark, () => Navigator.pop(context)),
+          _drawerTile(Icons.info_outline, "About Us", isDark, () {}),
+          _drawerTile(Icons.help_outline, "Support", isDark, () {}),
+          _drawerTile(Icons.privacy_tip_outlined, "Privacy", isDark, () {}),
+          const Divider(),
+          _drawerTile(Icons.logout, "Logout", isDark, () {}),
+        ],
+      ),
+    );
+  }
+
+  Widget _drawerTile(IconData icon, String title, bool isDark, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon, color: isDark ? const Color(0xFF71E6D4) : const Color(0xFF7BA268)),
+      title: Text(
+        title,
+        style: GoogleFonts.poppins(
+          color: isDark ? Colors.white : Colors.black87,
+          fontSize: 15,
+        ),
+      ),
+      onTap: onTap,
     );
   }
 }

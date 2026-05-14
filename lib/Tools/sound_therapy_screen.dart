@@ -24,19 +24,19 @@ class _SoundTherapyScreenState extends State<SoundTherapyScreen> with SingleTick
 
   final List<Map<String, String>> tracks = [
     {
-      "title": "Rain in the Sanctuary",
+      "title": "Celestial Echoes",
       "image": "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800&q=80",
-      "desc": "Nature Sounds"
+      "desc": "Zen Piano"
     },
     {
-      "title": "Deep Zen Meditation",
+      "title": "Whispering Willows",
       "image": "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=800&q=80",
-      "desc": "Binaural Beats"
+      "desc": "Soft Flute"
     },
     {
-      "title": "Morning Forest Mist",
+      "title": "Etheric Rainfall",
       "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
-      "desc": "Ambient"
+      "desc": "Rain & Chimes"
     },
   ];
 

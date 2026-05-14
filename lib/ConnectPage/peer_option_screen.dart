@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 import 'package:eternia_ef/ConnectPage/recommend_screen.dart';
+import 'package:eternia_ef/ConnectPage/institutional_support_screen.dart';
 
 class PeerOptionScreen extends StatelessWidget {
   final Function(String) onPeerSelected;
@@ -91,7 +92,11 @@ class PeerOptionScreen extends StatelessWidget {
                 "Institutional Support",
                 "Connect within your organization",
                 Icons.account_balance_outlined,
-                () {},
+                () {
+                  Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(builder: (_) => InstitutionalSupportScreen()),
+                  );
+                },
                 isDark: isDark,
                 primary: primary,
                 cardColor: cardColor,

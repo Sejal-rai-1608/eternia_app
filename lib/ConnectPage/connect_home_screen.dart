@@ -537,16 +537,19 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                           const SizedBox(height: 8),
                           Row(
                             children: [
-                              Text(
-                                subtitle,
-                                style: GoogleFonts.poppins(
-                                  color: isDark ? Colors.white54 : Colors.black54,
-                                  fontSize: 11,
+                              Expanded(
+                                child: Text(
+                                  subtitle,
+                                  style: GoogleFonts.poppins(
+                                    color: isDark ? Colors.white54 : Colors.black54,
+                                    fontSize: 11,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              const SizedBox(width: 12),
-                              Container(height: 1, width: 20, color: isDark ? Colors.white12 : Colors.black12),
-                              const SizedBox(width: 12),
+                              const SizedBox(width: 8),
+                              Container(height: 1, width: 12, color: isDark ? Colors.white12 : Colors.black12),
+                              const SizedBox(width: 8),
                               Text(
                                 bottomLabel,
                                 style: GoogleFonts.poppins(
