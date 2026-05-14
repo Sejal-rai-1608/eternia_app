@@ -554,7 +554,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                                 bottomLabel,
                                 style: GoogleFonts.poppins(
                                   color: glowColor.withOpacity(0.7),
-                                  fontSize: 10,
+                                  fontSize: 9,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),

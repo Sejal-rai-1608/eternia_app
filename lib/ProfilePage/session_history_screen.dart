@@ -51,15 +51,21 @@ class SessionHistoryScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final s = sessions[index];
                   final isCancelled = s["status"] == "Cancelled";
-                  return Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: theme.cardSolid,
-                      borderRadius: BorderRadius.circular(22),
-                      border: Border.all(color: theme.border),
-                    ),
-                    child: Row(
-                      children: [
+                  return GestureDetector(
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("${s["type"]} with ${s["counselor"]}")),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: theme.cardSolid,
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(color: theme.border),
+                      ),
+                      child: Row(
+                        children: [
                         Container(
                           height: 48, width: 48,
                           decoration: BoxDecoration(
@@ -101,7 +107,8 @@ class SessionHistoryScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },

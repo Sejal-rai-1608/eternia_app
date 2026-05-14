@@ -23,86 +23,95 @@ class _ConnectTabWrapperState extends State<ConnectTabWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      key: _navigatorKey,
-      onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (BuildContext context) {
-            switch (settings.name) {
-              case '/':
-                return ConnectHomeScreen(
-                  onExpertConnect: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(builder: (_) => const ExpertGuidanceScreen()),
-                    );
-                  },
-                  onPeerConnect: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(
-                        builder: (_) => PeerOptionScreen(
-                          onPeerSelected: (name) {
-                            Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(builder: (_) => const ChatScreen()),
-                            );
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                  onJoinSession: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(builder: (_) => const GroupSessionScreen()),
-                    );
-                  },
-                );
-              case '/expert-guidance':
-                return const ExpertGuidanceScreen();
-              case '/peer-options':
-                return PeerOptionScreen(
-                  onPeerSelected: (name) {
-                    Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(builder: (_) => const ChatScreen()),
-                    );
-                  },
-                );
-              case '/chat':
-                return const ChatScreen();
-              case '/group-session':
-                return const GroupSessionScreen();
-              case '/counselor-profile':
-                return const CounselorProfileScreen(
-                  name: "Dr. Aria Vance",
-                  specialty: "Psychologist",
-                  experience: "10 Years",
-                  avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80",
-                );
-              default:
-                return ConnectHomeScreen(
-                  onExpertConnect: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(builder: (_) => const ExpertGuidanceScreen()),
-                    );
-                  },
-                  onPeerConnect: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(
-                        builder: (_) => PeerOptionScreen(
-                          onPeerSelected: (name) {
-                            Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(builder: (_) => const ChatScreen()),
-                            );
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                  onJoinSession: () => _navigatorKey.currentState?.pushNamed('/group-session'),
-                );
-            }
-          },
-        );
+    return WillPopScope(
+      onWillPop: () async {
+        if (_navigatorKey.currentState != null && _navigatorKey.currentState!.canPop()) {
+          _navigatorKey.currentState!.pop();
+          return false;
+        }
+        return true;
       },
+      child: Navigator(
+        key: _navigatorKey,
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (BuildContext context) {
+              switch (settings.name) {
+                case '/':
+                  return ConnectHomeScreen(
+                    onExpertConnect: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(builder: (_) => const ExpertGuidanceScreen()),
+                      );
+                    },
+                    onPeerConnect: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                          builder: (_) => PeerOptionScreen(
+                            onPeerSelected: (name) {
+                              Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(builder: (_) => const ChatScreen()),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                    onJoinSession: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(builder: (_) => const GroupSessionScreen()),
+                      );
+                    },
+                  );
+                case '/expert-guidance':
+                  return const ExpertGuidanceScreen();
+                case '/peer-options':
+                  return PeerOptionScreen(
+                    onPeerSelected: (name) {
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(builder: (_) => const ChatScreen()),
+                      );
+                    },
+                  );
+                case '/chat':
+                  return const ChatScreen();
+                case '/group-session':
+                  return const GroupSessionScreen();
+                case '/counselor-profile':
+                  return const CounselorProfileScreen(
+                    name: "Dr. Aria Vance",
+                    specialty: "Psychologist",
+                    experience: "10 Years",
+                    avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80",
+                  );
+                default:
+                  return ConnectHomeScreen(
+                    onExpertConnect: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(builder: (_) => const ExpertGuidanceScreen()),
+                      );
+                    },
+                    onPeerConnect: () {
+                      Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                          builder: (_) => PeerOptionScreen(
+                            onPeerSelected: (name) {
+                              Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(builder: (_) => const ChatScreen()),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                    onJoinSession: () => _navigatorKey.currentState?.pushNamed('/group-session'),
+                  );
+              }
+            },
+          );
+        },
+      ),
     );
   }
 }

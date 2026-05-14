@@ -304,13 +304,14 @@ class _SignInScreenState extends State<SignInScreen> {
 
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
+                                  Navigator.pushAndRemoveUntil(
                                     context,
 
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           const MainNavigation(),
                                     ),
+                                    (route) => false,
                                   );
                                 },
 

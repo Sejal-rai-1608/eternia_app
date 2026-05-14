@@ -15,6 +15,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final _searchController = TextEditingController();
+  String _query = "";
 
   final List<Map<String, dynamic>> _categories = [
     {"title": "Counselors", "icon": Icons.psychology_outlined, "count": "24"},
@@ -36,6 +37,13 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = EterniaTheme.of(context);
+    final query = _query.trim().toLowerCase();
+    final recent = query.isEmpty
+        ? _recent
+        : _recent.where((term) => term.toLowerCase().contains(query)).toList();
+    final categories = query.isEmpty
+        ? _categories
+        : _categories.where((cat) => (cat["title"] as String).toLowerCase().contains(query)).toList();
 
     return Scaffold(
       backgroundColor: theme.bg,
@@ -70,6 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     Expanded(
                       child: TextField(
                         controller: _searchController,
+                        onChanged: (value) => setState(() => _query = value),
                         style: GoogleFonts.poppins(color: theme.textPrimary, fontSize: 14),
                         decoration: InputDecoration(
                           hintText: "Search Eternia...",
@@ -90,20 +99,27 @@ class _SearchScreenState extends State<SearchScreen> {
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
-                children: _recent.map((term) => Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: theme.cardSolid,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: theme.border),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.history, color: theme.textTertiary, size: 14),
-                      const SizedBox(width: 8),
-                      Text(term, style: GoogleFonts.poppins(color: theme.textSecondary, fontSize: 11)),
-                    ],
+                children: recent.map((term) => GestureDetector(
+                  onTap: () {
+                    _searchController.text = term;
+                    _searchController.selection = TextSelection.collapsed(offset: term.length);
+                    setState(() => _query = term);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: theme.cardSolid,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: theme.border),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.history, color: theme.textTertiary, size: 14),
+                        const SizedBox(width: 8),
+                        Text(term, style: GoogleFonts.poppins(color: theme.textSecondary, fontSize: 11)),
+                      ],
+                    ),
                   ),
                 )).toList(),
               ),
@@ -119,26 +135,34 @@ class _SearchScreenState extends State<SearchScreen> {
                 mainAxisSpacing: 14,
                 crossAxisSpacing: 14,
                 childAspectRatio: 1.5,
-                children: _categories.map((cat) => Container(
-                  padding: const EdgeInsets.all(18),
-                  decoration: BoxDecoration(
-                    color: theme.cardSolid,
-                    borderRadius: BorderRadius.circular(22),
-                    border: Border.all(color: theme.border),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(cat["icon"] as IconData, color: theme.primary, size: 24),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(cat["title"] as String, style: GoogleFonts.poppins(color: theme.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
-                          Text("${cat["count"]} items", style: GoogleFonts.poppins(color: theme.textTertiary, fontSize: 9)),
-                        ],
-                      ),
-                    ],
+                children: categories.map((cat) => GestureDetector(
+                  onTap: () {
+                    final title = cat["title"] as String;
+                    _searchController.text = title;
+                    _searchController.selection = TextSelection.collapsed(offset: title.length);
+                    setState(() => _query = title);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(18),
+                    decoration: BoxDecoration(
+                      color: theme.cardSolid,
+                      borderRadius: BorderRadius.circular(22),
+                      border: Border.all(color: theme.border),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(cat["icon"] as IconData, color: theme.primary, size: 24),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(cat["title"] as String, style: GoogleFonts.poppins(color: theme.textPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+                            Text("${cat["count"]} items", style: GoogleFonts.poppins(color: theme.textTertiary, fontSize: 9)),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 )).toList(),
               ),

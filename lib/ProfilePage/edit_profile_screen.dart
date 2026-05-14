@@ -14,9 +14,45 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final _nameController = TextEditingController(text: "Anonymous Node");
-  final _bioController = TextEditingController(text: "Finding peace in the digital sanctuary.");
-  final _emailController = TextEditingController(text: "node@eternia.app");
+  static String _savedName = "Anonymous Node";
+  static String _savedBio = "Finding peace in the digital sanctuary.";
+  static String _savedEmail = "node@eternia.app";
+
+  late final _nameController = TextEditingController(text: _savedName);
+  late final _bioController = TextEditingController(text: _savedBio);
+  late final _emailController = TextEditingController(text: _savedEmail);
+
+  void _saveProfile() {
+    final name = _nameController.text.trim();
+    final bio = _bioController.text.trim();
+    final email = _emailController.text.trim();
+
+    if (name.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Display name is required.")),
+      );
+      return;
+    }
+
+    if (email.isEmpty || !email.contains("@")) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Enter a valid email address.")),
+      );
+      return;
+    }
+
+    setState(() {
+      _savedName = name;
+      _savedBio = bio;
+      _savedEmail = email;
+    });
+
+    Navigator.pop(context, {
+      "name": _savedName,
+      "bio": _savedBio,
+      "email": _savedEmail,
+    });
+  }
 
   @override
   void dispose() {
@@ -48,7 +84,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: Icon(Icons.arrow_back_ios_new_rounded, color: theme.iconSecondary, size: 20),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: _saveProfile,
                     child: Text("Save", style: GoogleFonts.poppins(color: theme.primary, fontWeight: FontWeight.bold, fontSize: 14)),
                   ),
                 ],

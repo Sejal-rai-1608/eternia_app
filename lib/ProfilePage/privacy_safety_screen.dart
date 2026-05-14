@@ -3,10 +3,14 @@
 // privacy_safety_screen.dart
 // ==========================================================
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'package:eternia_ef/ProfilePage/emergency_support_screen.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 
 class PrivacySafetyScreen extends StatefulWidget {
@@ -17,6 +21,37 @@ class PrivacySafetyScreen extends StatefulWidget {
 }
 
 class _PrivacySafetyScreenState extends State<PrivacySafetyScreen> {
+  bool _anonymousEncryption = true;
+  bool _stealthMode = false;
+  String? _recoveryPhrase;
+
+  void _generateRecoveryPhrase() {
+    const words = [
+      "calm",
+      "river",
+      "anchor",
+      "forest",
+      "lantern",
+      "breathe",
+      "meadow",
+      "stone",
+      "harbor",
+      "gentle",
+      "signal",
+      "haven",
+      "mirror",
+      "north",
+      "circle",
+      "quiet",
+    ];
+    final random = Random();
+    _recoveryPhrase = List.generate(12, (_) => words[random.nextInt(words.length)]).join(" ");
+    Clipboard.setData(ClipboardData(text: _recoveryPhrase!));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Recovery phrase generated and copied.")),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isDark = Provider.of<ThemeProvider>(context).isDark;
@@ -39,15 +74,20 @@ class _PrivacySafetyScreenState extends State<PrivacySafetyScreen> {
               const SizedBox(height: 32),
               _buildSectionTitle("SECURITY LAYER", primaryColor),
               const SizedBox(height: 12),
-              _buildToggleItem("Anonymous Encryption", "All data is zero-knowledge encrypted.", true, isDark, primaryColor, cardColor, borderColor),
+              _buildToggleItem("Anonymous Encryption", "All data is zero-knowledge encrypted.", _anonymousEncryption, isDark, primaryColor, cardColor, borderColor, (v) => setState(() => _anonymousEncryption = v)),
               const SizedBox(height: 12),
-              _buildToggleItem("Stealth Mode", "Hide your node from public discovery.", false, isDark, primaryColor, cardColor, borderColor),
+              _buildToggleItem("Stealth Mode", "Hide your node from public discovery.", _stealthMode, isDark, primaryColor, cardColor, borderColor, (v) => setState(() => _stealthMode = v)),
               const SizedBox(height: 32),
               _buildSectionTitle("RECOVERY", primaryColor),
               const SizedBox(height: 12),
-              _buildActionTile(Icons.vpn_key_outlined, "Recovery Phrase", "Generate 12-word seed", isDark, primaryColor, cardColor, borderColor),
+              _buildActionTile(Icons.vpn_key_outlined, "Recovery Phrase", "Generate 12-word seed", isDark, primaryColor, cardColor, borderColor, _generateRecoveryPhrase),
               const SizedBox(height: 12),
-              _buildActionTile(Icons.emergency_outlined, "Emergency Contact", "Manage trusted node", isDark, primaryColor, cardColor, borderColor),
+              _buildActionTile(Icons.emergency_outlined, "Emergency Contact", "Manage trusted node", isDark, primaryColor, cardColor, borderColor, () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const EmergencySupportScreen()),
+                );
+              }),
               const SizedBox(height: 120),
             ],
           ),
@@ -69,7 +109,7 @@ class _PrivacySafetyScreenState extends State<PrivacySafetyScreen> {
     );
   }
 
-  Widget _buildToggleItem(String title, String sub, bool val, bool isDark, Color primaryColor, Color cardColor, Color borderColor) {
+  Widget _buildToggleItem(String title, String sub, bool val, bool isDark, Color primaryColor, Color cardColor, Color borderColor, ValueChanged<bool> onChanged) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(24), border: Border.all(color: borderColor)),
@@ -84,31 +124,34 @@ class _PrivacySafetyScreenState extends State<PrivacySafetyScreen> {
               ],
             ),
           ),
-          Switch(value: val, activeColor: primaryColor, onChanged: (v) {}),
+          Switch(value: val, activeColor: primaryColor, onChanged: onChanged),
         ],
       ),
     );
   }
 
-  Widget _buildActionTile(IconData icon, String title, String sub, bool isDark, Color primaryColor, Color cardColor, Color borderColor) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(24), border: Border.all(color: borderColor)),
-      child: Row(
-        children: [
-          Icon(icon, color: primaryColor, size: 22),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 14)),
-                Text(sub, style: GoogleFonts.poppins(color: Colors.grey, fontSize: 10)),
-              ],
+  Widget _buildActionTile(IconData icon, String title, String sub, bool isDark, Color primaryColor, Color cardColor, Color borderColor, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(24), border: Border.all(color: borderColor)),
+        child: Row(
+          children: [
+            Icon(icon, color: primaryColor, size: 22),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 14)),
+                  Text(sub, style: GoogleFonts.poppins(color: Colors.grey, fontSize: 10)),
+                ],
+              ),
             ),
-          ),
-          const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
-        ],
+            const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+          ],
+        ),
       ),
     );
   }
