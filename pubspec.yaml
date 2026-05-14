@@ -42,6 +42,7 @@ dependencies:
   image_picker: ^1.2.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  just_audio: ^0.9.42
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,7 @@ flutter:
   assets:
     - assets/figma/
     - assets/images/
+    - assets/audio/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

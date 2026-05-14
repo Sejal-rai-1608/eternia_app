@@ -7,6 +7,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 
 class SoundTherapyScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class SoundTherapyScreen extends StatefulWidget {
 class _SoundTherapyScreenState extends State<SoundTherapyScreen> with SingleTickerProviderStateMixin {
   late AnimationController _breathingController;
   late Animation<double> _pulseAnimation;
+  late AudioPlayer _audioPlayer;
   bool isPlaying = false;
   int currentTrackIndex = 0;
 
@@ -28,29 +30,68 @@ class _SoundTherapyScreenState extends State<SoundTherapyScreen> with SingleTick
     {
       "title": "Celestial Echoes",
       "image": "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800&q=80",
-      "desc": "Zen Piano"
+      "desc": "Zen Piano",
+      "url": "assets/audio/leberch-meditation-meditation-music-523576.mp3"
     },
     {
       "title": "Whispering Willows",
       "image": "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=800&q=80",
-      "desc": "Soft Flute"
+      "desc": "Soft Flute",
+      "url": "assets/audio/leberch-meditation-meditation-music-523576.mp3"
     },
     {
       "title": "Etheric Rainfall",
       "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
-      "desc": "Rain & Chimes"
+      "desc": "Rain & Chimes",
+      "url": "assets/audio/leberch-meditation-meditation-music-523576.mp3"
     },
   ];
 
   @override
   void initState() {
     super.initState();
+    _audioPlayer = AudioPlayer();
     _breathingController = AnimationController(vsync: this, duration: const Duration(seconds: 4))..repeat(reverse: true);
     _pulseAnimation = Tween<double>(begin: 1.0, end: 1.4).animate(CurvedAnimation(parent: _breathingController, curve: Curves.easeInOut));
+    
+    _loadTrack(0);
+  }
+
+  Future<void> _loadTrack(int index) async {
+    try {
+      await _audioPlayer.setAsset(tracks[index]['url']!);
+    } catch (e) {
+      debugPrint("Error loading audio: $e");
+    }
+  }
+
+  void _togglePlayback() async {
+    setState(() {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        _audioPlayer.play();
+        _breathingController.repeat(reverse: true);
+      } else {
+        _audioPlayer.pause();
+        _breathingController.stop();
+      }
+    });
+  }
+
+  void _changeTrack(int index) async {
+    setState(() {
+      currentTrackIndex = index;
+      isPlaying = false;
+      _breathingController.stop();
+    });
+    await _audioPlayer.stop();
+    await _loadTrack(index);
+    _togglePlayback();
   }
 
   @override
   void dispose() {
+    _audioPlayer.dispose();
     _breathingController.dispose();
     super.dispose();
   }
@@ -196,10 +237,9 @@ class _SoundTherapyScreenState extends State<SoundTherapyScreen> with SingleTick
       children: [
         GestureDetector(
           onTap: () {
-            setState(() {
-              currentTrackIndex = (currentTrackIndex - 1) % tracks.length;
-              if (currentTrackIndex < 0) currentTrackIndex = tracks.length - 1;
-            });
+            int nextIndex = (currentTrackIndex - 1) % tracks.length;
+            if (nextIndex < 0) nextIndex = tracks.length - 1;
+            _changeTrack(nextIndex);
           },
           child: Container(
             padding: const EdgeInsets.all(16),
@@ -209,11 +249,7 @@ class _SoundTherapyScreenState extends State<SoundTherapyScreen> with SingleTick
         ),
         const SizedBox(width: 32),
         GestureDetector(
-          onTap: () => setState(() {
-            isPlaying = !isPlaying;
-            if (isPlaying) _breathingController.repeat(reverse: true);
-            else _breathingController.stop();
-          }),
+          onTap: _togglePlayback,
           child: Container(
             height: 88,
             width: 88,
@@ -229,7 +265,9 @@ class _SoundTherapyScreenState extends State<SoundTherapyScreen> with SingleTick
         ),
         const SizedBox(width: 32),
         GestureDetector(
-          onTap: () => setState(() => currentTrackIndex = (currentTrackIndex + 1) % tracks.length),
+          onTap: () {
+            _changeTrack((currentTrackIndex + 1) % tracks.length);
+          },
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.1)),
@@ -250,7 +288,7 @@ class _SoundTherapyScreenState extends State<SoundTherapyScreen> with SingleTick
         itemBuilder: (context, index) {
           bool isSelected = index == currentTrackIndex;
           return GestureDetector(
-            onTap: () => setState(() => currentTrackIndex = index),
+            onTap: () => _changeTrack(index),
             child: Container(
               margin: const EdgeInsets.only(right: 12),
               width: 80,

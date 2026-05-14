@@ -94,31 +94,36 @@ class _DailyCheckinScreenState extends State<DailyCheckinScreen> {
                   border: Border.all(color: theme.border),
                   boxShadow: isDark ? [] : [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 20, offset: const Offset(0, 10))],
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: List.generate(_moods.length, (i) {
-                    final selected = _selectedMood == i;
-                    return GestureDetector(
-                      onTap: () => setState(() => _selectedMood = i),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 250),
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                        decoration: BoxDecoration(
-                          color: selected ? theme.primary.withOpacity(0.15) : Colors.transparent,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: selected ? theme.primary.withOpacity(0.4) : Colors.transparent),
-                          boxShadow: selected ? [BoxShadow(color: theme.primary.withOpacity(0.2), blurRadius: 15)] : [],
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: List.generate(_moods.length, (i) {
+                      final selected = _selectedMood == i;
+                      return GestureDetector(
+                        onTap: () => setState(() => _selectedMood = i),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 250),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                          decoration: BoxDecoration(
+                            color: selected ? theme.primary.withOpacity(0.15) : Colors.transparent,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: selected ? theme.primary.withOpacity(0.4) : Colors.transparent),
+                            boxShadow: selected ? [BoxShadow(color: theme.primary.withOpacity(0.2), blurRadius: 15)] : [],
+                          ),
+                          child: Column(
+                            children: [
+                              Text(_moods[i]["emoji"], style: TextStyle(fontSize: selected ? 36 : 28)),
+                              const SizedBox(height: 8),
+                              Text(_moods[i]["label"], style: GoogleFonts.poppins(color: selected ? theme.primary : theme.textTertiary, fontSize: 10, fontWeight: selected ? FontWeight.bold : FontWeight.w500)),
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Text(_moods[i]["emoji"], style: TextStyle(fontSize: selected ? 36 : 28)),
-                            const SizedBox(height: 8),
-                            Text(_moods[i]["label"], style: GoogleFonts.poppins(color: selected ? theme.primary : theme.textTertiary, fontSize: 10, fontWeight: selected ? FontWeight.bold : FontWeight.w500)),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+                      );
+                    }),
+                  ),
                 ),
               ),
               const SizedBox(height: 40),

@@ -7,6 +7,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:eternia_ef/Screens/onboarding_screen.dart/sign_in_screen.dart';
+import 'package:eternia_ef/Screens/onboarding_screen.dart/onboarding_screen.dart';
 import 'package:eternia_ef/Tabs/ProfilePage/settings_screen.dart';
 import 'package:eternia_ef/Tabs/ProfilePage/notifications_screen.dart';
 import 'package:eternia_ef/Tabs/ProfilePage/edit_profile_screen.dart';
@@ -693,8 +694,12 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
               "You will be returned to the sign in screen. Your node data remains intact.",
               () {
                 Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => const SignInScreen()),
+                  MaterialPageRoute(builder: (_) => const OnboardingScreen()),
                   (route) => false,
+                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SignInScreen()),
                 );
               },
             ),
@@ -713,8 +718,12 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
               () {
                 // TODO: call delete API here
                 Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => const SignInScreen()),
+                  MaterialPageRoute(builder: (_) => const OnboardingScreen()),
                   (route) => false,
+                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SignInScreen()),
                 );
               },
             ),

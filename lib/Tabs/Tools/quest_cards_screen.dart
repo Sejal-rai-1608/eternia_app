@@ -18,23 +18,110 @@ class QuestCardsScreen extends StatefulWidget {
 }
 
 class _QuestCardsScreenState extends State<QuestCardsScreen> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  final Set<int> _completedQuests = {};
+
   final List<Map<String, String>> _quests = [
     {
       "title": "The Inner Sanctuary",
-      "desc":
-          "Identify one thing in your life that makes you feel completely safe.",
+      "desc": "Identify one thing in your life that makes you feel completely safe.",
+      "icon": "🛡️",
     },
     {
       "title": "Echoes of Silence",
-      "desc":
-          "Spend 2 minutes observing the sounds around you without judgment.",
+      "desc": "Spend 2 minutes observing the sounds around you without judgment.",
+      "icon": "👂",
     },
     {
       "title": "The Root of Joy",
-      "desc":
-          "What was the last thing that made you smile without any external reason?",
+      "desc": "What was the last thing that made you smile without any external reason?",
+      "icon": "✨",
+    },
+    {
+      "title": "Grateful Heart",
+      "desc": "List three small things you are grateful for today.",
+      "icon": "💝",
+    },
+    {
+      "title": "Present Moment",
+      "desc": "Take five deep breaths and focus purely on the sensation of air.",
+      "icon": "🌬️",
     },
   ];
+
+  void _onReflect(int index) {
+    if (_completedQuests.contains(index)) return;
+
+    setState(() {
+      _completedQuests.add(index);
+    });
+
+    _showSuccessDialog();
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            color: Provider.of<ThemeProvider>(context).isDark 
+                ? const Color(0xFF0E1718) 
+                : Colors.white,
+            borderRadius: BorderRadius.circular(32),
+            border: Border.all(color: const Color(0xFF53B29A).withOpacity(0.2)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text("✨", style: TextStyle(fontSize: 50)),
+              const SizedBox(height: 16),
+              Text(
+                "Quest Completed",
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF53B29A),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                "Your reflection has been recorded in your journey.",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: Provider.of<ThemeProvider>(context).isDark 
+                      ? Colors.white70 
+                      : Colors.black54,
+                ),
+              ),
+              const SizedBox(height: 24),
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF53B29A),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    "Continue",
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +141,17 @@ class _QuestCardsScreenState extends State<QuestCardsScreen> {
             const SizedBox(height: 20),
             Expanded(
               child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (index) => setState(() => _currentPage = index),
                 physics: const BouncingScrollPhysics(),
                 itemCount: _quests.length,
                 itemBuilder: (context, index) {
-                  return _buildQuestCard(_quests[index], isDark, primaryColor);
+                  return _buildQuestCard(
+                    _quests[index], 
+                    index,
+                    isDark, 
+                    primaryColor
+                  );
                 },
               ),
             ),
@@ -115,13 +209,15 @@ class _QuestCardsScreenState extends State<QuestCardsScreen> {
 
   Widget _buildQuestCard(
     Map<String, String> quest,
+    int index,
     bool isDark,
     Color primaryColor,
   ) {
+    final bool isCompleted = _completedQuests.contains(index);
     final cardColor = isDark ? const Color(0xFF111C1E) : Colors.white;
     final borderColor = isDark
-        ? Colors.white.withOpacity(0.08)
-        : const Color(0xFFE7E2D8);
+        ? (isCompleted ? primaryColor.withOpacity(0.3) : Colors.white.withOpacity(0.08))
+        : (isCompleted ? primaryColor.withOpacity(0.3) : const Color(0xFFE7E2D8));
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
@@ -174,28 +270,43 @@ class _QuestCardsScreenState extends State<QuestCardsScreen> {
             ),
           ),
           const Spacer(),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: primaryColor.withOpacity(0.4),
-                  blurRadius: 15,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              "Reflect Now",
-              style: GoogleFonts.poppins(
-                color: isDark ? const Color(0xFF071011) : Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                letterSpacing: 1,
+          GestureDetector(
+            onTap: () => _onReflect(index),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                color: isCompleted ? Colors.transparent : primaryColor,
+                borderRadius: BorderRadius.circular(24),
+                border: isCompleted ? Border.all(color: primaryColor) : null,
+                boxShadow: isCompleted ? [] : [
+                  BoxShadow(
+                    color: primaryColor.withOpacity(0.4),
+                    blurRadius: 15,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (isCompleted) ...[
+                    Icon(Icons.check_circle_rounded, color: primaryColor, size: 20),
+                    const SizedBox(width: 8),
+                  ],
+                  Text(
+                    isCompleted ? "COMPLETED" : "Reflect Now",
+                    style: GoogleFonts.poppins(
+                      color: isCompleted 
+                          ? primaryColor 
+                          : (isDark ? const Color(0xFF071011) : Colors.white),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -207,37 +318,22 @@ class _QuestCardsScreenState extends State<QuestCardsScreen> {
   Widget _buildPagination(Color primaryColor) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 32,
+      children: List.generate(_quests.length, (index) {
+        final bool isCurrent = _currentPage == index;
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+          width: isCurrent ? 24 : 8,
           height: 6,
           decoration: BoxDecoration(
-            color: primaryColor,
+            color: isCurrent ? primaryColor : Colors.grey.withOpacity(0.3),
             borderRadius: BorderRadius.circular(3),
-            boxShadow: [
+            boxShadow: isCurrent ? [
               BoxShadow(color: primaryColor.withOpacity(0.5), blurRadius: 8),
-            ],
+            ] : [],
           ),
-        ),
-        const SizedBox(width: 8),
-        Container(
-          width: 8,
-          height: 6,
-          decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(3),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Container(
-          width: 8,
-          height: 6,
-          decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(3),
-          ),
-        ),
-      ],
+        );
+      }),
     );
   }
 }

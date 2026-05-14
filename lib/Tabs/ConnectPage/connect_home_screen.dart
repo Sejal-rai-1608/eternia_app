@@ -657,12 +657,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                                             255,
                                             255,
                                           )
-                                        : const Color.fromARGB(
-                                            137,
-                                            228,
-                                            222,
-                                            222,
-                                          ),
+                                        : const Color(0xFF0D2B26), // Darker green for light mode visibility
                                     fontSize: 11,
                                   ),
                                   overflow: TextOverflow.ellipsis,
@@ -678,9 +673,11 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                               Text(
                                 bottomLabel,
                                 style: GoogleFonts.poppins(
-                                  color: glowColor.withOpacity(0.7),
+                                  color: isDark 
+                                      ? glowColor.withOpacity(0.7)
+                                      : const Color(0xFF0D2B26), // Darker green for light mode visibility
                                   fontSize: 9,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ],
@@ -768,7 +765,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                           style: GoogleFonts.poppins(
                             color: isDark
                                 ? Colors.white38
-                                : const Color.fromARGB(136, 244, 238, 238),
+                                : Colors.black.withOpacity(0.6), // Darker text for visibility in light mode
                             fontSize: 10,
                           ),
                         ),

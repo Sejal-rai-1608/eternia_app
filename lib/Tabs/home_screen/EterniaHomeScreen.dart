@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:eternia_ef/Screens/onboarding_screen.dart/sign_in_screen.dart';
+import 'package:eternia_ef/Screens/onboarding_screen.dart/onboarding_screen.dart';
 import 'package:eternia_ef/Tabs/ProfilePage/about_screen.dart';
 import 'package:eternia_ef/Tabs/ProfilePage/notifications_screen.dart';
 import 'package:eternia_ef/Tabs/ProfilePage/privacy_safety_screen.dart';
@@ -804,7 +805,17 @@ class _EterniaHomeScreenState
           _drawerTile(Icons.help_outline, "Notification", isDark, () {Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()));}),
           _drawerTile(Icons.privacy_tip_outlined, "Privacy", isDark, () {Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacySafetyScreen()));}),
           const Divider(),
-          _drawerTile(Icons.logout, "Logout", isDark, () {Navigator.push(context, MaterialPageRoute(builder: (_) => const SignInScreen()));}),
+          _drawerTile(Icons.logout, "Logout", isDark, () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+              (route) => false,
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const SignInScreen()),
+            );
+          }),
         ],
       ),
     );

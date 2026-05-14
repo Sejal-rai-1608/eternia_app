@@ -10,6 +10,7 @@ import 'package:eternia_ef/Tabs/ProfilePage/edit_profile_screen.dart';
 import 'package:eternia_ef/Tabs/ProfilePage/emergency_support_screen.dart';
 import 'package:eternia_ef/Tabs/ProfilePage/privacy_safety_screen.dart';
 import 'package:eternia_ef/Screens/onboarding_screen.dart/sign_in_screen.dart';
+import 'package:eternia_ef/Screens/onboarding_screen.dart/onboarding_screen.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 import 'dart:ui';
 
@@ -498,8 +499,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         "Are you sure you want to exit Eternia?",
         () {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (_) => const SignInScreen()),
+            MaterialPageRoute(builder: (_) => const OnboardingScreen()),
             (route) => false,
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const SignInScreen()),
           );
         },
       ),

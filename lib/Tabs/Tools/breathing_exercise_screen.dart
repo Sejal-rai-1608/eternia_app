@@ -19,6 +19,8 @@ class _BreathingExerciseScreenState extends State<BreathingExerciseScreen>
   late AnimationController _controller;
   bool _isActive = false;
   String _phase = "Tap to Begin";
+  int _selectedDurationIndex = 1;
+  final List<String> _durations = ["2 min", "5 min", "10 min"];
 
   @override
   void initState() {
@@ -307,13 +309,63 @@ class _BreathingExerciseScreenState extends State<BreathingExerciseScreen>
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(color: theme.border),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _buildDuration("2 min", false, theme),
-                        _buildDuration("5 min", true, theme),
-                        _buildDuration("10 min", false, theme),
-                      ],
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        final double width = (constraints.maxWidth) / 3;
+                        return Stack(
+                          children: [
+                            // SLIDING BACKGROUND
+                            AnimatedPositioned(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeOutCubic,
+                              left: _selectedDurationIndex * width,
+                              child: Container(
+                                width: width,
+                                height: 44,
+                                decoration: BoxDecoration(
+                                  color: theme.primary,
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: theme.primary.withOpacity(0.3),
+                                      blurRadius: 12,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            // TEXT BUTTONS
+                            Row(
+                              children: List.generate(_durations.length, (index) {
+                                final isSelected = _selectedDurationIndex == index;
+                                return Expanded(
+                                  child: GestureDetector(
+                                    onTap: () => setState(() => _selectedDurationIndex = index),
+                                    behavior: HitTestBehavior.opaque,
+                                    child: Container(
+                                      height: 44,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        _durations[index],
+                                        style: GoogleFonts.poppins(
+                                          color: isSelected
+                                              ? (isDark ? Colors.black : Colors.white)
+                                              : theme.textTertiary,
+                                          fontSize: 13,
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),

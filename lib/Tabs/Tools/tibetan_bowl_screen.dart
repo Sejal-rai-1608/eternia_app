@@ -21,8 +21,9 @@ class TibetanBowlScreen extends StatefulWidget {
 class _TibetanBowlScreenState extends State<TibetanBowlScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _vibrationController;
-
   bool _isPlaying = false;
+  double _volume = 0.8;
+  int _timerMinutes = 0; // 0, 5, 10, 15
 
   @override
   void initState() {
@@ -46,6 +47,44 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
     setState(() {
       _isPlaying = !_isPlaying;
     });
+  }
+
+  void _cycleVolume() {
+    setState(() {
+      if (_volume >= 1.0) {
+        _volume = 0.0;
+      } else {
+        _volume += 0.5;
+      }
+    });
+    String msg = _volume == 0.0 ? "Muted" : "Volume: ${(_volume * 100).toInt()}%";
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg, style: GoogleFonts.poppins()),
+        backgroundColor: const Color(0xFF53B29A),
+        duration: const Duration(seconds: 1),
+        behavior: SnackBarBehavior.floating,
+        width: 150,
+      ),
+    );
+  }
+
+  void _cycleTimer() {
+    setState(() {
+      _timerMinutes = (_timerMinutes + 5) % 20;
+    });
+    String msg = _timerMinutes == 0 ? "Timer Off" : "Timer: $_timerMinutes min";
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg, style: GoogleFonts.poppins()),
+        backgroundColor: const Color(0xFF53B29A),
+        duration: const Duration(seconds: 1),
+        behavior: SnackBarBehavior.floating,
+        width: 150,
+      ),
+    );
   }
 
   @override
@@ -289,7 +328,13 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
 
       children: [
         // VOLUME
-        _buildMiniBtn(Icons.volume_up_outlined, textDark, cardBg, borderColor),
+        _buildMiniBtn(
+          _volume == 0.0 ? Icons.volume_off_outlined : Icons.volume_up_outlined,
+          textDark,
+          cardBg,
+          borderColor,
+          _cycleVolume,
+        ),
 
         const SizedBox(width: 32),
 
@@ -330,7 +375,13 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
         const SizedBox(width: 32),
 
         // TIMER
-        _buildMiniBtn(Icons.timer_outlined, textDark, cardBg, borderColor),
+        _buildMiniBtn(
+          _timerMinutes == 0 ? Icons.timer_outlined : Icons.timer_rounded,
+          textDark,
+          cardBg,
+          borderColor,
+          _cycleTimer,
+        ),
       ],
     );
   }
@@ -344,23 +395,22 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
     Color textDark,
     Color cardBg,
     Color borderColor,
+    VoidCallback onTap,
   ) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-
-      decoration: BoxDecoration(
-        color: cardBg,
-
-        shape: BoxShape.circle,
-
-        border: Border.all(color: borderColor),
-
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 12),
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          color: cardBg,
+          shape: BoxShape.circle,
+          border: Border.all(color: borderColor),
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 12),
+          ],
+        ),
+        child: Icon(icon, color: textDark, size: 24),
       ),
-
-      child: Icon(icon, color: textDark, size: 24),
     );
   }
 }
