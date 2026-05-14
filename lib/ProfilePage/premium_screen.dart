@@ -6,8 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:eternia_ef/utils/eternia_theme.dart';
 
-class PremiumScreen extends StatelessWidget {
+class PremiumScreen extends StatefulWidget {
   const PremiumScreen({super.key});
+
+  @override
+  State<PremiumScreen> createState() => _PremiumScreenState();
+}
+
+class _PremiumScreenState extends State<PremiumScreen> {
+  bool _trialStarted = false;
+
+  void _startTrial() {
+    final alreadyStarted = _trialStarted;
+    setState(() => _trialStarted = true);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(alreadyStarted ? "Free trial is active." : "Free trial started.")),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +124,7 @@ class PremiumScreen extends StatelessWidget {
                     Text("per month", style: GoogleFonts.poppins(color: theme.textTertiary, fontSize: 12)),
                     const SizedBox(height: 20),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: _startTrial,
                       child: Container(
                         width: double.infinity,
                         height: 54,

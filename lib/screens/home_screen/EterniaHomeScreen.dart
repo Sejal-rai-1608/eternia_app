@@ -6,7 +6,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
+import 'package:eternia_ef/ProfilePage/private_profile_screen.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 import 'package:eternia_ef/Tools/sound_therapy_screen.dart';
 
@@ -156,10 +156,21 @@ class _EterniaHomeScreenState
                                   ),
                                 ],
                         ),
-                        child: Icon(
-                          Icons.person_outline,
-                          color: primaryColor,
-                          size: 30,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const PrivateProfileScreen(),
+                              ),
+                            );
+                          },
+
+                          child: Icon(
+                            Icons.person_outline,
+                            color: primaryColor,
+                            size: 30,
+                          ),
                         ),
                       ),
                     ],

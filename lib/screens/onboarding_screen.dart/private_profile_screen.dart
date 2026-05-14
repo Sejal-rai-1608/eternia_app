@@ -494,11 +494,12 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                     // ==================================================
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const MainNavigation(),
                           ),
+                          (route) => false,
                         );
                       },
                       child: Container(

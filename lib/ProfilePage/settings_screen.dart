@@ -5,11 +5,37 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:eternia_ef/ProfilePage/about_screen.dart';
+import 'package:eternia_ef/ProfilePage/edit_profile_screen.dart';
+import 'package:eternia_ef/ProfilePage/emergency_support_screen.dart';
+import 'package:eternia_ef/ProfilePage/privacy_safety_screen.dart';
+import 'package:eternia_ef/screens/home_screen/sign_in_screen.dart';
 import 'package:eternia_ef/providers/theme_provider.dart';
 import 'package:eternia_ef/utils/eternia_theme.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  bool _pushNotifications = true;
+  bool _messageAlerts = true;
+
+  void _open(Widget screen) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => screen),
+    );
+  }
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,34 +81,39 @@ class SettingsScreen extends StatelessWidget {
               // NOTIFICATIONS
               _sectionTitle("NOTIFICATIONS", theme),
               const SizedBox(height: 12),
-              _buildToggleTile(icon: Icons.notifications_outlined, title: "Push Notifications", subtitle: "Session reminders and updates", value: true, onChanged: (_) {}, theme: theme),
+              _buildToggleTile(icon: Icons.notifications_outlined, title: "Push Notifications", subtitle: "Session reminders and updates", value: _pushNotifications, onChanged: (val) => setState(() => _pushNotifications = val), theme: theme),
               const SizedBox(height: 12),
-              _buildToggleTile(icon: Icons.chat_bubble_outline, title: "Message Alerts", subtitle: "Peer and counselor messages", value: true, onChanged: (_) {}, theme: theme),
+              _buildToggleTile(icon: Icons.chat_bubble_outline, title: "Message Alerts", subtitle: "Peer and counselor messages", value: _messageAlerts, onChanged: (val) => setState(() => _messageAlerts = val), theme: theme),
               const SizedBox(height: 32),
 
               // ACCOUNT
               _sectionTitle("ACCOUNT", theme),
               const SizedBox(height: 12),
-              _buildNavTile(icon: Icons.person_outline, title: "Edit Profile", theme: theme, onTap: () {}),
+              _buildNavTile(icon: Icons.person_outline, title: "Edit Profile", theme: theme, onTap: () => _open(const EditProfileScreen())),
               const SizedBox(height: 12),
-              _buildNavTile(icon: Icons.lock_outline, title: "Account Security", theme: theme, onTap: () {}),
+              _buildNavTile(icon: Icons.lock_outline, title: "Account Security", theme: theme, onTap: () => _open(const PrivacySafetyScreen())),
               const SizedBox(height: 12),
-              _buildNavTile(icon: Icons.language_outlined, title: "Language", theme: theme, onTap: () {}),
+              _buildNavTile(icon: Icons.language_outlined, title: "Language", theme: theme, onTap: () => _showMessage("Language settings are up to date.")),
               const SizedBox(height: 32),
 
               // SUPPORT
               _sectionTitle("SUPPORT", theme),
               const SizedBox(height: 12),
-              _buildNavTile(icon: Icons.help_outline, title: "Help & Support", theme: theme, onTap: () {}),
+              _buildNavTile(icon: Icons.help_outline, title: "Help & Support", theme: theme, onTap: () => _open(const EmergencySupportScreen())),
               const SizedBox(height: 12),
-              _buildNavTile(icon: Icons.info_outline, title: "About Eternia", theme: theme, onTap: () {}),
+              _buildNavTile(icon: Icons.info_outline, title: "About Eternia", theme: theme, onTap: () => _open(const AboutScreen())),
               const SizedBox(height: 12),
-              _buildNavTile(icon: Icons.description_outlined, title: "Terms & Privacy", theme: theme, onTap: () {}),
+              _buildNavTile(icon: Icons.description_outlined, title: "Terms & Privacy", theme: theme, onTap: () => _open(const PrivacySafetyScreen())),
               const SizedBox(height: 32),
 
               // LOGOUT
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const SignInScreen()),
+                    (route) => false,
+                  );
+                },
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 18),

@@ -23,54 +23,64 @@ class _ConnectTabWrapperState extends State<ConnectTabWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      key: _navigatorKey,
-      onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (BuildContext context) {
-            switch (settings.name) {
-              case '/':
-                return ConnectHomeScreen(
-                  onExpertConnect: () {
-                    _navigatorKey.currentState?.pushNamed('/expert-guidance');
-                  },
-                  onPeerConnect: () {
-                    _navigatorKey.currentState?.pushNamed('/peer-options');
-                  },
-                  onJoinSession: () {
-                    _navigatorKey.currentState?.pushNamed('/group-session');
-                  },
-                );
-              case '/expert-guidance':
-                return const ExpertGuidanceScreen();
-              case '/peer-options':
-                return PeerOptionScreen(
-                  onPeerSelected: (name) {
-                    _navigatorKey.currentState?.pushNamed('/chat');
-                  },
-                );
-              case '/chat':
-                return const ChatScreen();
-              case '/group-session':
-                return const GroupSessionScreen();
-              case '/counselor-profile':
-                return const CounselorProfileScreen(
-                  name: "Dr. Aria Vance",
-                  specialty: "Psychologist",
-                  experience: "10 Years",
-                  avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80",
-                );
-              default:
-                return ConnectHomeScreen(
-                  onExpertConnect: () => _navigatorKey.currentState?.pushNamed('/expert-guidance'),
-                  onPeerConnect: () => _navigatorKey.currentState?.pushNamed('/peer-options'),
-                  onJoinSession: () => _navigatorKey.currentState?.pushNamed('/group-session'),
-                );
-            }
-          },
-        );
+    return WillPopScope(
+      onWillPop: () async {
+        if (_navigatorKey.currentState != null && _navigatorKey.currentState!.canPop()) {
+          _navigatorKey.currentState!.pop();
+          return false; // Prevent bubbling up to the main app navigator
+        }
+        return true; // Let the app handle it if we are at the root of the tab
       },
+      child: Navigator(
+        key: _navigatorKey,
+        initialRoute: '/',
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (BuildContext context) {
+              switch (settings.name) {
+                case '/':
+                  return ConnectHomeScreen(
+                    onExpertConnect: () {
+                      _navigatorKey.currentState?.pushNamed('/expert');
+                    },
+                    onPeerConnect: () {
+                      _navigatorKey.currentState?.pushNamed('/peer');
+                    },
+                    onJoinSession: () {
+                      _navigatorKey.currentState?.pushNamed('/session');
+                    },
+                  );
+                case '/expert':
+                  return const ExpertGuidanceScreen();
+                case '/peer':
+                  return PeerOptionScreen(
+                    onPeerSelected: (name) {
+                      _navigatorKey.currentState?.pushNamed('/chat');
+                    },
+                  );
+                case '/chat':
+                  return const ChatScreen();
+                case '/session':
+                  return const GroupSessionScreen();
+                case '/counselor-profile':
+                  return const CounselorProfileScreen(
+                    name: "Dr. Aria Vance",
+                    specialty: "Psychologist",
+                    experience: "10 Years",
+                    avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80",
+                  );
+                default:
+                  return ConnectHomeScreen(
+                    onExpertConnect: () => _navigatorKey.currentState?.pushNamed('/expert'),
+                    onPeerConnect: () => _navigatorKey.currentState?.pushNamed('/peer'),
+                    onJoinSession: () => _navigatorKey.currentState?.pushNamed('/session'),
+                  );
+              }
+            },
+          );
+        },
+      ),
     );
   }
 }

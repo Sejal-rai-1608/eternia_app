@@ -544,14 +544,14 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                                   fontSize: 11,
                                 ),
                               ),
-                              const SizedBox(width: 12),
-                              Container(height: 1, width: 20, color: isDark ? Colors.white12 : Colors.black12),
-                              const SizedBox(width: 12),
+                              const SizedBox(width: 5),
+                              Container(height: 1, width: 12, color: isDark ? Colors.white12 : Colors.black12),
+                              const SizedBox(width: 5),
                               Text(
                                 bottomLabel,
                                 style: GoogleFonts.poppins(
                                   color: glowColor.withOpacity(0.7),
-                                  fontSize: 10,
+                                  fontSize: 9,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
