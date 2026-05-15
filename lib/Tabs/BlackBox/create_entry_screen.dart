@@ -33,16 +33,15 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
   @override
   Widget build(BuildContext context) {
     bool isDark = Provider.of<ThemeProvider>(context).isDark;
-    final primaryColor = isDark
-        ? SanctuaryTheme.darkPrimary
-        : SanctuaryTheme.lightPrimary;
+    final primaryColor =
+        isDark ? SanctuaryTheme.darkPrimary : SanctuaryTheme.lightPrimary;
     final textColor = isDark ? Colors.white : SanctuaryTheme.lightPrimary;
     final cardColor = isDark
-        ? Colors.white.withOpacity(0.06)
-        : Colors.white.withOpacity(0.7);
+        ? Colors.white.withValues(alpha: 0.06)
+        : Colors.white.withValues(alpha: 0.7);
     final borderColor = isDark
-        ? Colors.white.withOpacity(0.1)
-        : Colors.white.withOpacity(0.5);
+        ? Colors.white.withValues(alpha: 0.1)
+        : Colors.white.withValues(alpha: 0.5);
 
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF120F18) : Colors.white,
@@ -57,7 +56,8 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: Icon(Icons.close, color: textColor.withOpacity(0.4)),
+                    child: Icon(Icons.close,
+                        color: textColor.withValues(alpha: 0.4)),
                   ),
                   Text(
                     "New Reflection",
@@ -92,7 +92,7 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
                     Text(
                       "HOW ARE YOU FEELING?",
                       style: GoogleFonts.poppins(
-                        color: primaryColor.withOpacity(0.6),
+                        color: primaryColor.withValues(alpha: 0.6),
                         fontSize: 10,
                         letterSpacing: 2,
                         fontWeight: FontWeight.bold,
@@ -109,7 +109,7 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
                     Text(
                       "YOUR THOUGHTS",
                       style: GoogleFonts.poppins(
-                        color: primaryColor.withOpacity(0.6),
+                        color: primaryColor.withValues(alpha: 0.6),
                         fontSize: 10,
                         letterSpacing: 2,
                         fontWeight: FontWeight.bold,
@@ -193,7 +193,7 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.03),
+        color: Colors.black.withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(28),
         border: Border.all(color: Colors.greenAccent),
       ),
@@ -226,7 +226,7 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.03),
+          color: Colors.black.withValues(alpha: 0.03),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(color: Colors.greenAccent),
         ),
@@ -235,7 +235,7 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: primaryColor.withOpacity(0.1),
+                color: primaryColor.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.mic, color: primaryColor),

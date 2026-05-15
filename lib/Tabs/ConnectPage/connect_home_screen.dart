@@ -41,20 +41,17 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
     final provider = Provider.of<ThemeProvider>(context);
     final bool isDark = provider.isDark;
 
-    final Color primary = isDark
-        ? const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A);
+    final Color primary =
+        isDark ? const Color(0xFF67F5D4) : const Color(0xFF53B29A);
     final Color bg = isDark ? const Color(0xFF040B0D) : const Color(0xFFF6F3ED);
     final Color textPrimary = isDark ? Colors.white : const Color(0xFF1B2722);
-    final Color textSecondary = isDark
-        ? Colors.white38
-        : const Color(0xFF70737C);
+    final Color textSecondary =
+        isDark ? Colors.white38 : const Color(0xFF70737C);
     final Color cardColor = isDark
-        ? Colors.white.withOpacity(0.04)
-        : Colors.white.withOpacity(0.7);
-    final Color borderColor = isDark
-        ? Colors.white.withOpacity(0.07)
-        : const Color(0xFFE7E2D8);
+        ? Colors.white.withValues(alpha: 0.04)
+        : Colors.white.withValues(alpha: 0.7);
+    final Color borderColor =
+        isDark ? Colors.white.withValues(alpha: 0.07) : const Color(0xFFE7E2D8);
 
     return Scaffold(
       backgroundColor: bg,
@@ -70,7 +67,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [primary.withOpacity(0.07), Colors.transparent],
+                  colors: [primary.withValues(alpha: 0.07), Colors.transparent],
                 ),
               ),
             ),
@@ -84,7 +81,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [primary.withOpacity(0.08), Colors.transparent],
+                  colors: [primary.withValues(alpha: 0.08), Colors.transparent],
                 ),
               ),
             ),
@@ -109,11 +106,9 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                           children: [
                             Text(
                               "Connect",
-
                               style: GoogleFonts.playfairDisplay(
                                 fontSize: 28,
                                 fontWeight: FontWeight.w600,
-
                                 color: isDark
                                     ? const Color(0xFF67F5D4)
                                     : const Color(0xFF53B29A),
@@ -135,8 +130,9 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: primary.withOpacity(0.08),
-                            border: Border.all(color: primary.withOpacity(0.2)),
+                            color: primary.withValues(alpha: 0.08),
+                            border: Border.all(
+                                color: primary.withValues(alpha: 0.2)),
                           ),
                           child: Row(
                             children: [
@@ -219,11 +215,12 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(16),
                                         color: isSelected
-                                            ? primary.withOpacity(0.15)
+                                            ? primary.withValues(alpha: 0.15)
                                             : Colors.transparent,
                                         border: isSelected
                                             ? Border.all(
-                                                color: primary.withOpacity(0.4),
+                                                color: primary.withValues(
+                                                    alpha: 0.4),
                                               )
                                             : Border.all(
                                                 color: Colors.transparent,
@@ -268,7 +265,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                     Text(
                       "CHOOSE YOUR PATH",
                       style: GoogleFonts.poppins(
-                        color: primary.withOpacity(0.5),
+                        color: primary.withValues(alpha: 0.5),
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 2,
@@ -285,7 +282,6 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                       tagIcon: Icons.verified_outlined,
                       bottomLabel: "320+ Sessions •4.9★",
                       onTap: widget.onExpertConnect,
-
                       gradient: isDark
                           ? const LinearGradient(
                               begin: Alignment.topLeft,
@@ -440,12 +436,10 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
-
                                 colors: [
                                   isDark
                                       ? const Color(0xFF102924)
                                       : const Color.fromARGB(255, 71, 152, 139),
-
                                   isDark
                                       ? const Color(0xFF071614)
                                       : const Color.fromARGB(
@@ -457,7 +451,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                                 ],
                               ),
                               border: Border.all(
-                                color: primary.withOpacity(0.2),
+                                color: primary.withValues(alpha: 0.2),
                               ),
                             ),
                             child: Row(
@@ -467,9 +461,9 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                                   width: 52,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.white.withOpacity(0.15),
+                                    color: Colors.white.withValues(alpha: 0.15),
                                     border: Border.all(
-                                      color: primary.withOpacity(0.3),
+                                      color: primary.withValues(alpha: 0.3),
                                     ),
                                   ),
                                   child: Icon(
@@ -496,7 +490,8 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                                       Text(
                                         "Tap to match with a peer instantly",
                                         style: GoogleFonts.poppins(
-                                          color: Colors.white.withOpacity(0.7),
+                                          color: Colors.white
+                                              .withValues(alpha: 0.7),
                                           fontSize: 11,
                                         ),
                                       ),
@@ -505,7 +500,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                                 ),
                                 Icon(
                                   Icons.arrow_forward_ios_rounded,
-                                  color: Colors.white.withOpacity(0.6),
+                                  color: Colors.white.withValues(alpha: 0.6),
                                   size: 16,
                                 ),
                               ],
@@ -550,10 +545,10 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               gradient: gradient,
-              border: Border.all(color: glowColor.withOpacity(0.15)),
+              border: Border.all(color: glowColor.withValues(alpha: 0.15)),
               boxShadow: [
                 BoxShadow(
-                  color: glowColor.withOpacity(0.08),
+                  color: glowColor.withValues(alpha: 0.08),
                   blurRadius: 30,
                   spreadRadius: 0,
                 ),
@@ -567,7 +562,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                   child: Icon(
                     icon,
                     size: 160,
-                    color: glowColor.withOpacity(0.05),
+                    color: glowColor.withValues(alpha: 0.05),
                   ),
                 ),
                 Positioned(
@@ -580,7 +575,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          glowColor.withOpacity(0.1),
+                          glowColor.withValues(alpha: 0.1),
                           Colors.transparent,
                         ],
                       ),
@@ -603,9 +598,9 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: glowColor.withOpacity(0.12),
+                              color: glowColor.withValues(alpha: 0.12),
                               border: Border.all(
-                                color: glowColor.withOpacity(0.3),
+                                color: glowColor.withValues(alpha: 0.3),
                               ),
                             ),
                             child: Row(
@@ -626,7 +621,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                           ),
                           Icon(
                             Icons.arrow_forward_ios_rounded,
-                            color: glowColor.withOpacity(0.5),
+                            color: glowColor.withValues(alpha: 0.5),
                             size: 14,
                           ),
                         ],
@@ -657,7 +652,8 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                                             255,
                                             255,
                                           )
-                                        : const Color(0xFF0D2B26), // Darker green for light mode visibility
+                                        : const Color(
+                                            0xFF0D2B26), // Darker green for light mode visibility
                                     fontSize: 11,
                                   ),
                                   overflow: TextOverflow.ellipsis,
@@ -673,9 +669,10 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                               Text(
                                 bottomLabel,
                                 style: GoogleFonts.poppins(
-                                  color: isDark 
-                                      ? glowColor.withOpacity(0.7)
-                                      : const Color(0xFF0D2B26), // Darker green for light mode visibility
+                                  color: isDark
+                                      ? glowColor.withValues(alpha: 0.7)
+                                      : const Color(
+                                          0xFF0D2B26), // Darker green for light mode visibility
                                   fontSize: 9,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -717,9 +714,10 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               gradient: gradient,
-              border: Border.all(color: glowColor.withOpacity(0.15)),
+              border: Border.all(color: glowColor.withValues(alpha: 0.15)),
               boxShadow: [
-                BoxShadow(color: glowColor.withOpacity(0.06), blurRadius: 20),
+                BoxShadow(
+                    color: glowColor.withValues(alpha: 0.06), blurRadius: 20),
               ],
             ),
             child: Stack(
@@ -730,7 +728,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                   child: Icon(
                     icon,
                     size: 90,
-                    color: glowColor.withOpacity(0.06),
+                    color: glowColor.withValues(alpha: 0.06),
                   ),
                 ),
                 Column(
@@ -742,8 +740,9 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                       width: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
-                        color: glowColor.withOpacity(0.12),
-                        border: Border.all(color: glowColor.withOpacity(0.25)),
+                        color: glowColor.withValues(alpha: 0.12),
+                        border: Border.all(
+                            color: glowColor.withValues(alpha: 0.25)),
                       ),
                       child: Icon(icon, color: glowColor, size: 20),
                     ),
@@ -765,7 +764,9 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
                           style: GoogleFonts.poppins(
                             color: isDark
                                 ? Colors.white38
-                                : Colors.black.withOpacity(0.6), // Darker text for visibility in light mode
+                                : Colors.black.withValues(
+                                    alpha:
+                                        0.6), // Darker text for visibility in light mode
                             fontSize: 10,
                           ),
                         ),
@@ -792,7 +793,7 @@ class _ConnectHomeScreenState extends State<ConnectHomeScreen> {
   ) {
     return Column(
       children: [
-        Icon(icon, color: primary.withOpacity(0.5), size: 18),
+        Icon(icon, color: primary.withValues(alpha: 0.5), size: 18),
         const SizedBox(height: 8),
         Text(
           value,

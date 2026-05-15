@@ -100,9 +100,8 @@ class _VoiceRecordingScreenState extends State<VoiceRecordingScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context);
     final bool isDark = provider.isDark;
-    final Color primary = isDark
-        ? const Color(0xFF7CF5D7)
-        : const Color(0xFF53B29A);
+    final Color primary =
+        isDark ? const Color(0xFF7CF5D7) : const Color(0xFF53B29A);
     final Color bg = isDark ? const Color(0xFF040707) : const Color(0xFFF6F3ED);
 
     return Scaffold(
@@ -135,7 +134,7 @@ class _VoiceRecordingScreenState extends State<VoiceRecordingScreen> {
                       height: isPaused ? 10 : (20 + (index % 5) * 15.0),
                       margin: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
-                        color: primary.withOpacity(0.6),
+                        color: primary.withValues(alpha: 0.6),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -160,8 +159,8 @@ class _VoiceRecordingScreenState extends State<VoiceRecordingScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
               decoration: BoxDecoration(
                 color: isDark
-                    ? Colors.white.withOpacity(0.05)
-                    : const Color(0xFFE7E2D8).withOpacity(0.5),
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : const Color(0xFFE7E2D8).withValues(alpha: 0.5),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
@@ -174,7 +173,7 @@ class _VoiceRecordingScreenState extends State<VoiceRecordingScreen> {
                     children: [
                       _circleBtn(
                         Icons.delete_outline,
-                        Colors.redAccent.withOpacity(0.2),
+                        Colors.redAccent.withValues(alpha: 0.2),
                         Colors.redAccent,
                         () => Navigator.pop(context),
                       ),
@@ -182,7 +181,7 @@ class _VoiceRecordingScreenState extends State<VoiceRecordingScreen> {
                         isPaused
                             ? Icons.play_arrow_rounded
                             : Icons.pause_rounded,
-                        primary.withOpacity(0.2),
+                        primary.withValues(alpha: 0.2),
                         primary,
                         () => setState(() => isPaused = !isPaused),
                       ),

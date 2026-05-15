@@ -31,7 +31,6 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
 
     _vibrationController = AnimationController(
       vsync: this,
-
       duration: const Duration(milliseconds: 500),
     )..repeat(reverse: true);
   }
@@ -57,7 +56,8 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
         _volume += 0.5;
       }
     });
-    String msg = _volume == 0.0 ? "Muted" : "Volume: ${(_volume * 100).toInt()}%";
+    String msg =
+        _volume == 0.0 ? "Muted" : "Volume: ${(_volume * 100).toInt()}%";
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -97,29 +97,24 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
     // THEME COLORS
     // =========================================================
 
-    final Color bgColor = isDark
-        ? const Color(0xFF071011)
-        : const Color(0xFFF6F3ED);
+    final Color bgColor =
+        isDark ? const Color(0xFF071011) : const Color(0xFFF6F3ED);
 
-    final Color primaryGreen = isDark
-        ? const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A);
+    final Color primaryGreen =
+        isDark ? const Color(0xFF67F5D4) : const Color(0xFF53B29A);
 
     final Color textDark = isDark ? Colors.white : const Color(0xFF1B2722);
 
     final Color textLight = isDark ? Colors.white70 : const Color(0xFF70737C);
 
-    final Color cardBg = isDark
-        ? const Color(0xFF0E1718)
-        : Colors.white.withOpacity(0.92);
+    final Color cardBg =
+        isDark ? const Color(0xFF0E1718) : Colors.white.withValues(alpha: 0.92);
 
-    final Color borderColor = isDark
-        ? const Color(0xFF1A2B2B)
-        : const Color(0xFFE7E2D8);
+    final Color borderColor =
+        isDark ? const Color(0xFF1A2B2B) : const Color(0xFFE7E2D8);
 
     return Scaffold(
       backgroundColor: bgColor,
-
       body: SafeArea(
         child: Column(
           children: [
@@ -163,31 +158,24 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
   Widget _buildTopBar(BuildContext context, Color textDark, Color cardBg) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // BACK BUTTON
           GestureDetector(
             onTap: () => Navigator.pop(context),
-
             child: Container(
               padding: const EdgeInsets.all(12),
-
               decoration: BoxDecoration(
                 color: cardBg,
-
                 shape: BoxShape.circle,
-
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
                   ),
                 ],
               ),
-
               child: Icon(Icons.arrow_back, color: textDark, size: 22),
             ),
           ),
@@ -195,17 +183,12 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
           // TITLE
           Text(
             "Singing Bowl",
-
             style: GoogleFonts.playfairDisplay(
               color: textDark,
-
               fontSize: 24,
-
               fontWeight: FontWeight.bold,
             ),
           ),
-
-         
         ],
       ),
     );
@@ -218,41 +201,31 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
   Widget _buildBowl(Color primaryGreen) {
     return GestureDetector(
       onTap: _toggleBowl,
-
       child: AnimatedBuilder(
         animation: _vibrationController,
-
         builder: (context, child) {
-          double shake = _isPlaying
-              ? sin(_vibrationController.value * 2 * pi) * 2
-              : 0;
+          double shake =
+              _isPlaying ? sin(_vibrationController.value * 2 * pi) * 2 : 0;
 
           return Transform.translate(
             offset: Offset(shake, 0),
-
             child: Stack(
               alignment: Alignment.center,
-
               children: [
                 // AMBIENT GLOW
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 1000),
-
                   width: _isPlaying ? 320 : 260,
-
                   height: _isPlaying ? 320 : 260,
-
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-
-                    color: primaryGreen.withOpacity(_isPlaying ? 0.10 : 0.04),
-
+                    color: primaryGreen.withValues(
+                        alpha: _isPlaying ? 0.10 : 0.04),
                     boxShadow: [
                       BoxShadow(
-                        color: primaryGreen.withOpacity(_isPlaying ? 0.30 : 0),
-
+                        color: primaryGreen.withValues(
+                            alpha: _isPlaying ? 0.30 : 0),
                         blurRadius: 100,
-
                         spreadRadius: 10,
                       ),
                     ],
@@ -262,9 +235,7 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
                 // IMAGE
                 Image.asset(
                   "assets/images/singing_bowl.png",
-
                   height: 300,
-
                   fit: BoxFit.contain,
                 ),
               ],
@@ -288,25 +259,18 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
       children: [
         Text(
           _isPlaying ? "RESONATING..." : "STILLNESS",
-
           style: GoogleFonts.poppins(
             color: primaryGreen,
-
             fontSize: 11,
-
             fontWeight: FontWeight.bold,
-
             letterSpacing: 2,
           ),
         ),
-
         const SizedBox(height: 12),
-
         Text(
           _isPlaying
               ? "Feel the healing vibrations."
               : "Tap the bowl to begin the resonance.",
-
           style: GoogleFonts.poppins(color: textLight, fontSize: 14),
         ),
       ],
@@ -325,7 +289,6 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
   ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-
       children: [
         // VOLUME
         _buildMiniBtn(
@@ -341,32 +304,23 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
         // PLAY BUTTON
         GestureDetector(
           onTap: _toggleBowl,
-
           child: Container(
             height: 90,
             width: 90,
-
             decoration: BoxDecoration(
               color: primaryGreen,
-
               shape: BoxShape.circle,
-
               boxShadow: [
                 BoxShadow(
-                  color: primaryGreen.withOpacity(0.35),
-
+                  color: primaryGreen.withValues(alpha: 0.35),
                   blurRadius: 28,
-
                   offset: const Offset(0, 10),
                 ),
               ],
             ),
-
             child: Icon(
               _isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
-
               color: Colors.white,
-
               size: 42,
             ),
           ),
@@ -406,7 +360,8 @@ class _TibetanBowlScreenState extends State<TibetanBowlScreen>
           shape: BoxShape.circle,
           border: Border.all(color: borderColor),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 12),
+            BoxShadow(
+                color: Colors.black.withValues(alpha: 0.04), blurRadius: 12),
           ],
         ),
         child: Icon(icon, color: textDark, size: 24),

@@ -68,26 +68,22 @@ class _ChatScreenState extends State<ChatScreen> {
     final provider = Provider.of<ThemeProvider>(context);
     final bool isDark = provider.isDark;
 
-    final Color primary = isDark
-        ? const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A);
+    final Color primary =
+        isDark ? const Color(0xFF67F5D4) : const Color(0xFF53B29A);
     final Color bg = isDark ? const Color(0xFF040B0D) : const Color(0xFFF6F3ED);
     final Color textPrimary = isDark ? Colors.white : const Color(0xFF1B2722);
-    final Color textSecondary = isDark
-        ? Colors.white38
-        : const Color(0xFF70737C);
+    final Color textSecondary =
+        isDark ? Colors.white38 : const Color(0xFF70737C);
     final Color cardColor = isDark
-        ? Colors.white.withOpacity(0.04)
-        : Colors.white.withOpacity(0.7);
-    final Color borderColor = isDark
-        ? Colors.white.withOpacity(0.07)
-        : const Color(0xFFE7E2D8);
-    final Color sentBubbleColor = isDark
-        ? const Color(0xFF15483E)
-        : primary.withOpacity(0.15);
+        ? Colors.white.withValues(alpha: 0.04)
+        : Colors.white.withValues(alpha: 0.7);
+    final Color borderColor =
+        isDark ? Colors.white.withValues(alpha: 0.07) : const Color(0xFFE7E2D8);
+    final Color sentBubbleColor =
+        isDark ? const Color(0xFF15483E) : primary.withValues(alpha: 0.15);
     final Color receivedBubbleColor = isDark
-        ? Colors.white.withOpacity(0.08)
-        : Colors.grey.withOpacity(0.1);
+        ? Colors.white.withValues(alpha: 0.08)
+        : Colors.grey.withValues(alpha: 0.1);
 
     return Scaffold(
       backgroundColor: bg,
@@ -157,11 +153,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           borderRadius: BorderRadius.circular(20),
                           color: const Color(
                             0xFF4A1E1E,
-                          ).withOpacity(isDark ? 0.3 : 0.1),
+                          ).withValues(alpha: isDark ? 0.3 : 0.1),
                           border: Border.all(
                             color: const Color(
                               0xFF4A1E1E,
-                            ).withOpacity(isDark ? 1.0 : 0.4),
+                            ).withValues(alpha: isDark ? 1.0 : 0.4),
                           ),
                         ),
                         child: Row(
@@ -204,7 +200,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: primary.withOpacity(0.2),
+                                color: primary.withValues(alpha: 0.2),
                               ),
                               color: cardColor,
                             ),
@@ -222,7 +218,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                             padding: const EdgeInsets.all(4),
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
-                                              color: primary.withOpacity(0.1),
+                                              color: primary.withValues(
+                                                  alpha: 0.1),
                                             ),
                                             child: Icon(
                                               Icons.verified_user_outlined,
@@ -317,8 +314,8 @@ class _ChatScreenState extends State<ChatScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: isDark
-                              ? Colors.white.withOpacity(0.05)
-                              : Colors.white.withOpacity(0.8),
+                              ? Colors.white.withValues(alpha: 0.05)
+                              : Colors.white.withValues(alpha: 0.8),
                           border: Border.all(color: borderColor),
                         ),
                         child: Row(
@@ -327,17 +324,14 @@ class _ChatScreenState extends State<ChatScreen> {
                               onTap: () {
                                 showModalBottomSheet(
                                   context: context,
-
                                   backgroundColor: isDark
                                       ? const Color(0xFF0E1718)
                                       : Colors.white,
-
                                   shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.vertical(
                                       top: Radius.circular(28),
                                     ),
                                   ),
-
                                   builder: (context) {
                                     final emojis = [
                                       "😊",
@@ -364,34 +358,25 @@ class _ChatScreenState extends State<ChatScreen> {
 
                                     return Padding(
                                       padding: const EdgeInsets.all(14),
-
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
-
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-
                                         children: [
                                           Text(
                                             "Choose Emoji",
-
                                             style: GoogleFonts.playfairDisplay(
                                               color: isDark
                                                   ? Colors.white
                                                   : const Color(0xFF1B2722),
-
                                               fontSize: 24,
-
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-
                                           const SizedBox(height: 24),
-
                                           Wrap(
                                             spacing: 14,
                                             runSpacing: 14,
-
                                             children: emojis.map((emoji) {
                                               final isSelected =
                                                   selectedEmoji == emoji;
@@ -404,39 +389,32 @@ class _ChatScreenState extends State<ChatScreen> {
 
                                                   Navigator.pop(context);
                                                 },
-
                                                 child: AnimatedContainer(
                                                   duration: const Duration(
                                                     milliseconds: 200,
                                                   ),
-
                                                   padding: const EdgeInsets.all(
                                                     14,
                                                   ),
-
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
-
                                                     color: isSelected
-                                                        ? primary.withOpacity(
-                                                            0.14,
+                                                        ? primary.withValues(
+                                                            alpha: 0.14,
                                                           )
                                                         : Colors.transparent,
-
                                                     border: Border.all(
                                                       color: isSelected
                                                           ? primary
                                                           : isDark
-                                                          ? Colors.white12
-                                                          : const Color(
-                                                              0xFFE7E2D8,
-                                                            ),
+                                                              ? Colors.white12
+                                                              : const Color(
+                                                                  0xFFE7E2D8,
+                                                                ),
                                                     ),
                                                   ),
-
                                                   child: Text(
                                                     emoji,
-
                                                     style: const TextStyle(
                                                       fontSize: 28,
                                                     ),
@@ -445,7 +423,6 @@ class _ChatScreenState extends State<ChatScreen> {
                                               );
                                             }).toList(),
                                           ),
-
                                           const SizedBox(height: 20),
                                         ],
                                       ),
@@ -453,29 +430,23 @@ class _ChatScreenState extends State<ChatScreen> {
                                   },
                                 );
                               },
-
                               child: Container(
                                 height: 34,
                                 width: 44,
-
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-
                                   color: isDark
-                                      ? Colors.white.withOpacity(0.05)
-                                      : Colors.black.withOpacity(0.03),
-
+                                      ? Colors.white.withValues(alpha: 0.05)
+                                      : Colors.black.withValues(alpha: 0.03),
                                   border: Border.all(
                                     color: isDark
                                         ? Colors.white10
                                         : const Color(0xFFE7E2D8),
                                   ),
                                 ),
-
                                 child: Center(
                                   child: Text(
                                     selectedEmoji,
-
                                     style: const TextStyle(fontSize: 22),
                                   ),
                                 ),
@@ -551,8 +522,8 @@ class _ChatScreenState extends State<ChatScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: isDark
-                ? Colors.white.withOpacity(0.05)
-                : Colors.grey.withOpacity(0.1),
+                ? Colors.white.withValues(alpha: 0.05)
+                : Colors.grey.withValues(alpha: 0.1),
             border: Border.all(color: borderColor),
           ),
           child: Icon(
@@ -665,9 +636,9 @@ class _ChatScreenState extends State<ChatScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: isDark
-                ? Colors.white.withOpacity(0.05)
-                : primary.withOpacity(0.08),
-            border: Border.all(color: primary.withOpacity(0.3)),
+                ? Colors.white.withValues(alpha: 0.05)
+                : primary.withValues(alpha: 0.08),
+            border: Border.all(color: primary.withValues(alpha: 0.3)),
           ),
           child: Icon(Icons.eco, color: primary, size: 18),
         ),

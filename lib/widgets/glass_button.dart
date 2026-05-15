@@ -14,12 +14,10 @@ class GlassButton extends StatelessWidget {
     final provider = Provider.of<ThemeProvider>(context);
     final isDark = provider.isDark;
 
-    final Color primaryColor = isDark
-        ? const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A);
-    final Color primaryLight = isDark
-        ? const Color(0xFF97FFE7)
-        : const Color(0xFF7DCDB8);
+    final Color primaryColor =
+        isDark ? const Color(0xFF67F5D4) : const Color(0xFF53B29A);
+    final Color primaryLight =
+        isDark ? const Color(0xFF97FFE7) : const Color(0xFF7DCDB8);
 
     return Container(
       height: 62,
@@ -31,7 +29,7 @@ class GlassButton extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: primaryColor.withOpacity(0.35),
+            color: primaryColor.withValues(alpha: 0.35),
             blurRadius: 40,
             spreadRadius: 1,
           ),
@@ -40,11 +38,12 @@ class GlassButton extends StatelessWidget {
       child: Center(
         child: Text(
           text,
-          style: style ?? TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: isDark ? Colors.black : Colors.white,
-          ),
+          style: style ??
+              TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: isDark ? Colors.black : Colors.white,
+              ),
         ),
       ),
     );

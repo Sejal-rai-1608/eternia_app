@@ -26,17 +26,14 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
     final provider = Provider.of<ThemeProvider>(context);
 
     bool isDark = provider.isDark;
-    final Color primaryColor = isDark
-        ? const Color(0xFF7CF5D7)
-        : const Color(0xFF5EAE9A);
+    final Color primaryColor =
+        isDark ? const Color(0xFF7CF5D7) : const Color(0xFF5EAE9A);
 
-    final Color bgColor = isDark
-        ? const Color(0xFF040707)
-        : const Color(0xFFF7F4EC);
+    final Color bgColor =
+        isDark ? const Color(0xFF040707) : const Color(0xFFF7F4EC);
 
-    final Color cardColor = isDark
-        ? const Color(0xFF0A1111)
-        : Colors.white.withOpacity(0.82);
+    final Color cardColor =
+        isDark ? const Color(0xFF0A1111) : Colors.white.withValues(alpha: 0.82);
 
     final Color textColor = isDark ? Colors.white : const Color(0xFF28312D);
 
@@ -44,29 +41,23 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
 
     return Scaffold(
       backgroundColor: bgColor,
-
       body: SafeArea(
         child: Stack(
           children: [
             ListView(
               physics: const BouncingScrollPhysics(),
-
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-
               children: [
                 // =====================================================
                 // APPBAR
                 // =====================================================
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                   children: [
                     Row(
                       children: [
                         Icon(Icons.menu, color: primaryColor, size: 30),
-
                         const SizedBox(width: 14),
-
                         Text(
                           "Eternia",
                           style: GoogleFonts.cormorantGaramond(
@@ -77,16 +68,15 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                         ),
                       ],
                     ),
-
                     Row(
                       children: [
                         GestureDetector(
                           onTap: () =>
                               Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(
-                                  builder: (_) => const MemoryHistoryScreen(),
-                                ),
-                              ),
+                            MaterialPageRoute(
+                              builder: (_) => const MemoryHistoryScreen(),
+                            ),
+                          ),
                           child: Container(
                             height: 54,
                             width: 54,
@@ -119,7 +109,6 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                 // =====================================================
                 SizedBox(
                   height: 420,
-
                   child: Stack(
                     children: [
                       Positioned.fill(
@@ -133,37 +122,32 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                           ),
                         ),
                       ),
-
                       Positioned.fill(
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(34),
-
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
                                 Colors.transparent,
-                                Colors.black.withOpacity(isDark ? 0.30 : 0.08),
+                                Colors.black
+                                    .withValues(alpha: isDark ? 0.30 : 0.08),
                               ],
                             ),
                           ),
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.only(
                           left: 22,
                           top: 28,
                           bottom: 34,
                         ),
-
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-
                           children: [
                             const Spacer(),
-
                             Text(
                               "Express\nFreely",
                               style: GoogleFonts.playfairDisplay(
@@ -173,9 +157,7 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-
                             const SizedBox(height: 18),
-
                             Row(
                               children: [
                                 Container(
@@ -186,9 +168,7 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-
                                 const SizedBox(width: 8),
-
                                 Container(
                                   width: 8,
                                   height: 8,
@@ -199,15 +179,11 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                                 ),
                               ],
                             ),
-
                             const SizedBox(height: 22),
-
                             SizedBox(
                               width: 220,
-
                               child: Text(
                                 "A sacred space for your unspoken thoughts.\nYour emotions, encrypted in light and silence.",
-
                                 style: GoogleFonts.poppins(
                                   color: const Color.fromARGB(179, 0, 0, 0),
                                   fontSize: 13,
@@ -230,78 +206,60 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                 _premiumCard(
                   isDark,
                   cardColor,
-
                   child: SizedBox(
                     height: 188,
-
                     child: Row(
                       children: [
                         Expanded(
                           flex: 56,
-
                           child: Padding(
                             padding: const EdgeInsets.all(6),
-
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-
                               mainAxisAlignment: MainAxisAlignment.center,
-
                               children: [
                                 Container(
                                   height: 48,
                                   width: 48,
-
                                   decoration: BoxDecoration(
-                                    color: primaryColor.withOpacity(0.14),
-
+                                    color: primaryColor.withValues(alpha: 0.14),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-
                                   child: Icon(
                                     Icons.mic,
                                     color: primaryColor,
                                     size: 34,
                                   ),
                                 ),
-
                                 const SizedBox(height: 0),
-
                                 Text(
                                   "Voice Entry",
-
                                   style: GoogleFonts.playfairDisplay(
                                     color: textColor,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-
                                 const SizedBox(height: 1),
-
                                 Text(
                                   "Capture the texture of your feelings through spoken word.",
-
                                   style: GoogleFonts.poppins(
                                     color: subText,
                                     fontSize: 12,
                                     height: 1.9,
                                   ),
                                 ),
-
                                 const SizedBox(height: 8),
-
                                 GestureDetector(
-                                  onTap: () =>
-                                      Navigator.of(
-                                        context,
-                                        rootNavigator: true,
-                                      ).push(
-                                        MaterialPageRoute(
-                                          builder: (_) =>
-                                              const VoiceRecordingScreen(),
-                                        ),
-                                      ),
+                                  onTap: () => Navigator.of(
+                                    context,
+                                    rootNavigator: true,
+                                  ).push(
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          const VoiceRecordingScreen(),
+                                    ),
+                                  ),
                                   child: Text(
                                     "Start Recording →",
                                     style: GoogleFonts.poppins(
@@ -314,7 +272,6 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                             ),
                           ),
                         ),
-
                         Expanded(
                           flex: 55,
                           child: Align(
@@ -344,89 +301,69 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                 // =====================================================
                 Container(
                   padding: const EdgeInsets.all(22),
-
                   decoration: BoxDecoration(
                     color: isDark
                         ? const Color(0xFF120F18)
                         : const Color(0xFFF9F1FC),
-
                     borderRadius: BorderRadius.circular(32),
-
                     border: Border.all(
                       color: isDark ? Colors.white10 : Colors.black12,
                     ),
                   ),
-
                   child: SizedBox(
                     height: 188,
-
                     child: Row(
                       children: [
                         Expanded(
                           flex: 56,
-
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-
                             mainAxisAlignment: MainAxisAlignment.center,
-
                             children: [
                               Container(
                                 height: 48,
                                 width: 48,
-
                                 decoration: BoxDecoration(
                                   color: const Color(
                                     0xFFB47CFF,
-                                  ).withOpacity(0.15),
-
+                                  ).withValues(alpha: 0.15),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-
                                 child: const Icon(
                                   Icons.edit_note,
                                   color: Color(0xFFB47CFF),
                                   size: 34,
                                 ),
                               ),
-
                               const SizedBox(height: 1),
-
                               Text(
                                 "Journal Entry",
-
                                 style: GoogleFonts.playfairDisplay(
                                   color: textColor,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-
                               const SizedBox(height: 8),
-
                               Text(
                                 "Transcribe your inner dialogue into a private digital sanctuary.",
-
                                 style: GoogleFonts.poppins(
                                   color: subText,
                                   fontSize: 12,
                                   height: 1.9,
                                 ),
                               ),
-
                               const SizedBox(height: 1),
-
                               GestureDetector(
-                                onTap: () =>
-                                    Navigator.of(
-                                      context,
-                                      rootNavigator: true,
-                                    ).push(
-                                      MaterialPageRoute(
-                                        builder: (_) =>
-                                            const JournalWritingScreen(),
-                                      ),
-                                    ),
+                                onTap: () => Navigator.of(
+                                  context,
+                                  rootNavigator: true,
+                                ).push(
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        const JournalWritingScreen(),
+                                  ),
+                                ),
                                 child: const Text(
                                   "Begin Writing →",
                                   style: TextStyle(
@@ -438,18 +375,14 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                             ],
                           ),
                         ),
-
                         Expanded(
                           flex: 55,
-
                           child: Align(
                             alignment: Alignment.bottomRight,
-
                             child: Image.asset(
                               isDark
                                   ? "assets/figma/book_black.png"
                                   : "assets/figma/Book_white.png",
-
                               height: 250,
                               fit: BoxFit.contain,
                             ),
@@ -467,25 +400,22 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                 // =====================================================
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                   children: [
                     Text(
                       "Memory Archive",
-
                       style: GoogleFonts.playfairDisplay(
                         color: textColor,
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-
                     GestureDetector(
                       onTap: () =>
                           Navigator.of(context, rootNavigator: true).push(
-                            MaterialPageRoute(
-                              builder: (_) => const MemoryArchiveScreen(),
-                            ),
-                          ),
+                        MaterialPageRoute(
+                          builder: (_) => const MemoryArchiveScreen(),
+                        ),
+                      ),
                       child: Text(
                         "View All ⊙",
                         style: GoogleFonts.poppins(
@@ -553,11 +483,14 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: LinearGradient(
-                      colors: [primaryColor, primaryColor.withOpacity(0.82)],
+                      colors: [
+                        primaryColor,
+                        primaryColor.withValues(alpha: 0.82)
+                      ],
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: primaryColor.withOpacity(0.35),
+                        color: primaryColor.withValues(alpha: 0.35),
                         blurRadius: 25,
                         spreadRadius: 1,
                       ),
@@ -584,24 +517,19 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
   Widget _premiumCard(bool isDark, Color cardColor, {required Widget child}) {
     return Container(
       padding: const EdgeInsets.all(22),
-
       decoration: BoxDecoration(
         color: cardColor,
-
         borderRadius: BorderRadius.circular(32),
-
         border: Border.all(color: isDark ? Colors.white10 : Colors.black12),
-
         boxShadow: [
           if (!isDark)
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 22,
               offset: const Offset(0, 10),
             ),
         ],
       ),
-
       child: child,
     );
   }
@@ -623,20 +551,15 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
   ) {
     return Container(
       padding: const EdgeInsets.all(16),
-
       decoration: BoxDecoration(
         color: cardColor,
-
         borderRadius: BorderRadius.circular(30),
-
         border: Border.all(color: isDark ? Colors.white10 : Colors.black12),
       ),
-
       child: Row(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(24),
-
             child: Image.asset(
               image,
               width: 150,
@@ -644,34 +567,25 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
               fit: BoxFit.cover,
             ),
           ),
-
           const SizedBox(width: 10),
-
           Expanded(
             child: SizedBox(
               height: 210,
-
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: [
                   Text(
                     tag,
-
                     style: GoogleFonts.poppins(
                       color: accentColor,
                       fontSize: 11,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-
                   const SizedBox(height: 14),
-
                   Text(
                     title,
-
                     style: GoogleFonts.playfairDisplay(
                       color: textColor,
                       fontSize: 15,
@@ -679,27 +593,20 @@ class _BlackBoxScreenState extends State<BlackBoxScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-
                   const SizedBox(height: 14),
-
                   Text(
                     subtitle,
-
                     style: GoogleFonts.poppins(
                       color: isDark ? Colors.white60 : Colors.black54,
-
                       fontSize: 11,
                       height: 1.9,
                     ),
                   ),
-
                   const SizedBox(height: 15),
-
                   Icon(
                     voice
                         ? Icons.play_circle_outline
                         : Icons.menu_book_outlined,
-
                     color: accentColor,
                     size: 32,
                   ),

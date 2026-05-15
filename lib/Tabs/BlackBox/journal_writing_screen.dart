@@ -131,7 +131,7 @@ class _JournalWritingScreenState extends State<JournalWritingScreen> {
               children: [
                 Icon(
                   Icons.lock_outline,
-                  color: primary.withOpacity(0.4),
+                  color: primary.withValues(alpha: 0.4),
                   size: 16,
                 ),
                 const SizedBox(width: 8),

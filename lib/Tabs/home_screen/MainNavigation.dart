@@ -34,7 +34,6 @@ class _MainNavigationState extends State<MainNavigation> {
 
     return PopScope(
       canPop: _selectedIndex == 0,
-
       onPopInvoked: (didPop) {
         if (didPop) return;
 
@@ -44,12 +43,10 @@ class _MainNavigationState extends State<MainNavigation> {
           _selectedIndex = 0;
         });
       },
-
       child: Scaffold(
         backgroundColor: theme.bg,
         body: Stack(
           children: [
-
             // Background glow
             Positioned(
               top: -100,
@@ -61,7 +58,7 @@ class _MainNavigationState extends State<MainNavigation> {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      theme.primary.withOpacity(0.06),
+                      theme.primary.withValues(alpha: 0.06),
                       Colors.transparent,
                     ],
                   ),

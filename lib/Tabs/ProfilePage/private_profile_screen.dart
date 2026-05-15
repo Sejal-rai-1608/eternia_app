@@ -38,11 +38,13 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
         child: AlertDialog(
           backgroundColor:
               (isDark ? const Color(0xFF071011) : const Color(0xFFF6F3ED))
-                  .withOpacity(0.95),
+                  .withValues(alpha: 0.95),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
             side: BorderSide(
-              color: isDark ? Colors.white10 : Colors.black.withOpacity(0.05),
+              color: isDark
+                  ? Colors.white10
+                  : Colors.black.withValues(alpha: 0.05),
             ),
           ),
           title: Text(
@@ -95,15 +97,12 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
         : const Color(0xFF335848); // Match image dark green text
     final Color bg = isDark ? const Color(0xFF071011) : const Color(0xFFF9F8F4);
     final Color textColor = isDark ? Colors.white : const Color(0xFF1B2722);
-    final Color cardColor = isDark
-        ? const Color(0xFF111A18)
-        : const Color(0xFFF0EFE9);
-    final Color innerCardColor = isDark
-        ? Colors.white.withOpacity(0.05)
-        : Colors.white;
-    final Color borderColor = isDark
-        ? Colors.white.withOpacity(0.08)
-        : const Color(0xFFE7E2D8);
+    final Color cardColor =
+        isDark ? const Color(0xFF111A18) : const Color(0xFFF0EFE9);
+    final Color innerCardColor =
+        isDark ? Colors.white.withValues(alpha: 0.05) : Colors.white;
+    final Color borderColor =
+        isDark ? Colors.white.withValues(alpha: 0.08) : const Color(0xFFE7E2D8);
 
     return Scaffold(
       backgroundColor: bg,
@@ -137,13 +136,13 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                   borderRadius: BorderRadius.circular(32),
                   border: Border.all(
                     color: isDark
-                        ? Colors.white.withOpacity(0.08)
-                        : Colors.white.withOpacity(0.6),
+                        ? Colors.white.withValues(alpha: 0.08)
+                        : Colors.white.withValues(alpha: 0.6),
                     width: 1.5,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: primaryColor.withOpacity(0.05),
+                      color: primaryColor.withValues(alpha: 0.05),
                       blurRadius: 20,
                       spreadRadius: 5,
                     ),
@@ -237,7 +236,7 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
             Text(
               "Your privacy. Your power.",
               style: GoogleFonts.poppins(
-                color: primaryColor.withOpacity(0.7),
+                color: primaryColor.withValues(alpha: 0.7),
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
@@ -366,14 +365,15 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                   Text(
                     "NODE ID: 8629-X-21",
                     style: GoogleFonts.poppins(
-                      color: textColor.withOpacity(0.5),
+                      color: textColor.withValues(alpha: 0.5),
                       fontSize: 11,
                       letterSpacing: 1,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(width: 6),
-                  Icon(Icons.copy, size: 12, color: textColor.withOpacity(0.5)),
+                  Icon(Icons.copy,
+                      size: 12, color: textColor.withValues(alpha: 0.5)),
                 ],
               ),
               const SizedBox(height: 12),
@@ -388,10 +388,10 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF53B29A).withOpacity(0.1),
+                    color: const Color(0xFF53B29A).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: const Color(0xFF53B29A).withOpacity(0.2),
+                      color: const Color(0xFF53B29A).withValues(alpha: 0.2),
                     ),
                   ),
                   child: Row(
@@ -533,7 +533,7 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -668,12 +668,10 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
   }
 
   Widget _buildDangerGroup(bool isDark, Color cardColor, Color borderColor) {
-    final Color dangerBg = isDark
-        ? dangerColor.withOpacity(0.05)
-        : const Color(0xFFFDF3F3);
-    final Color dangerBorder = isDark
-        ? dangerColor.withOpacity(0.2)
-        : const Color(0xFFF5D6D6);
+    final Color dangerBg =
+        isDark ? dangerColor.withValues(alpha: 0.05) : const Color(0xFFFDF3F3);
+    final Color dangerBorder =
+        isDark ? dangerColor.withValues(alpha: 0.2) : const Color(0xFFF5D6D6);
 
     return Container(
       decoration: BoxDecoration(
@@ -757,7 +755,7 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.15),
+                color: iconColor.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(icon, color: iconColor, size: 22),
@@ -788,7 +786,8 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
             ),
             Icon(
               Icons.chevron_right,
-              color: isDanger ? dangerColor.withOpacity(0.5) : Colors.grey,
+              color:
+                  isDanger ? dangerColor.withValues(alpha: 0.5) : Colors.grey,
               size: 20,
             ),
           ],

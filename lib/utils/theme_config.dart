@@ -27,8 +27,8 @@ class SanctuaryTheme {
         Positioned.fill(
           child: Container(color: const Color(0xFF040B0D)),
         ),
-        _glow(Alignment.topRight, darkPrimary.withOpacity(0.12), 350),
-        _glow(Alignment.bottomLeft, darkPrimary.withOpacity(0.08), 400),
+        _glow(Alignment.topRight, darkPrimary.withValues(alpha: 0.12), 350),
+        _glow(Alignment.bottomLeft, darkPrimary.withValues(alpha: 0.08), 400),
       ];
     } else {
       // Light mode — solid warm light background matching home screen
@@ -48,8 +48,9 @@ class SanctuaryTheme {
             ),
           ),
         ),
-        _glow(Alignment.topRight, lightPrimary.withOpacity(0.05), 350),
-        _glow(Alignment.bottomLeft, const Color(0xFF9BC283).withOpacity(0.04), 400),
+        _glow(Alignment.topRight, lightPrimary.withValues(alpha: 0.05), 350),
+        _glow(Alignment.bottomLeft,
+            const Color(0xFF9BC283).withValues(alpha: 0.04), 400),
       ];
     }
   }
@@ -58,7 +59,8 @@ class SanctuaryTheme {
     return Align(
       alignment: alignment,
       child: Container(
-        width: size, height: size,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: RadialGradient(colors: [color, Colors.transparent]),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-
   // =========================================================
   // LIGHT THEME COLORS
   // =========================================================
@@ -55,9 +54,7 @@ class AppTheme {
   }
 
   static Color card(bool isDark) {
-    return isDark
-        ? darkCard
-        : Colors.white.withOpacity(0.92);
+    return isDark ? darkCard : Colors.white.withValues(alpha: 0.92);
   }
 
   static Color text(bool isDark) {
@@ -78,7 +75,6 @@ class AppTheme {
 
   static List<Widget> buildBackground(bool isDark) {
     return [
-
       // MAIN BACKGROUND
 
       Positioned.fill(
@@ -89,7 +85,7 @@ class AppTheme {
                     center: const Alignment(-0.9, -1),
                     radius: 1.7,
                     colors: [
-                      darkPrimary.withOpacity(0.18),
+                      darkPrimary.withValues(alpha: 0.18),
                       darkBg,
                     ],
                   )
@@ -111,8 +107,8 @@ class AppTheme {
       _glow(
         Alignment.topRight,
         isDark
-            ? darkPrimary.withOpacity(0.10)
-            : lightPrimary.withOpacity(0.05),
+            ? darkPrimary.withValues(alpha: 0.10)
+            : lightPrimary.withValues(alpha: 0.05),
         350,
       ),
 
@@ -121,8 +117,8 @@ class AppTheme {
       _glow(
         Alignment.bottomLeft,
         isDark
-            ? darkPrimary.withOpacity(0.06)
-            : lightAccent.withOpacity(0.04),
+            ? darkPrimary.withValues(alpha: 0.06)
+            : lightAccent.withValues(alpha: 0.04),
         400,
       ),
     ];

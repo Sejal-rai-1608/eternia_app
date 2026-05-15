@@ -26,7 +26,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context);
     final isDark = provider.isDark;
-    final primaryColor = isDark ? SanctuaryTheme.darkPrimary : SanctuaryTheme.lightPrimary;
+    final primaryColor =
+        isDark ? SanctuaryTheme.darkPrimary : SanctuaryTheme.lightPrimary;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -40,10 +41,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   horizontal: 22,
                   vertical: 18,
                 ),
-
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
                     // =================================================
                     // TOP BAR
@@ -54,16 +53,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           onTap: () {
                             Navigator.pop(context);
                           },
-
                           child: Container(
                             width: 40,
                             height: 40,
-
                             child: Icon(
                               Icons.arrow_back,
-
                               size: 28,
-
                               color: isDark ? Colors.white : Colors.black87,
                             ),
                           ),
@@ -71,15 +66,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
                         // const Spacer(),
 
-                       Text(
+                        Text(
                           "Eternia",
-
                           style: GoogleFonts.playfairDisplay(
                             fontSize: 28,
                             fontWeight: FontWeight.w600,
-
-                            color: isDark ?  const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A),
+                            color: isDark
+                                ? const Color(0xFF67F5D4)
+                                : const Color(0xFF53B29A),
                           ),
                         ),
 
@@ -95,51 +89,40 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     Center(
                       child: Stack(
                         alignment: Alignment.center,
-
                         children: [
                           Container(
                             height: 180,
                             width: 180,
-
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-
                               gradient: RadialGradient(
                                 colors: isDark
                                     ? [
                                         const Color(
                                           0xFF00FFE0,
-                                        ).withOpacity(0.18),
-
+                                        ).withValues(alpha: 0.18),
                                         Colors.transparent,
                                       ]
                                     : [
                                         const Color(0xFFDDE9CB),
-
                                         Colors.transparent,
                                       ],
                               ),
                             ),
                           ),
-
                           Container(
                             height: 120,
                             width: 120,
-
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-
                               border: Border.all(
-                                color: primaryColor.withOpacity(0.25),
+                                color: primaryColor.withValues(alpha: 0.25),
                               ),
                             ),
                           ),
-
                           Icon(
                             Icons.shield_outlined,
-
                             size: 70,
-
                             color: primaryColor,
                           ),
                         ],
@@ -153,11 +136,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     // =================================================
                     Text(
                       "Reset Password",
-
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 38,
                         fontWeight: FontWeight.w600,
-
                         color: isDark ? Colors.white : const Color(0xFF2D2D2D),
                       ),
                     ),
@@ -166,12 +147,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
                     Text(
                       "Enter your email or pseudonym to receive a recovery code.",
-
                       style: TextStyle(
                         fontSize: 13,
                         height: 1.7,
-
-                        color: isDark ? Colors.white60 : const Color(0xFF70737C),
+                        color:
+                            isDark ? Colors.white60 : const Color(0xFF70737C),
                       ),
                     ),
 
@@ -182,11 +162,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     // =================================================
                     Text(
                       "Account Identity",
-
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-
                         color: isDark ? Colors.white70 : Colors.black54,
                       ),
                     ),
@@ -198,46 +176,38 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     // =================================================
                     Container(
                       height: 58,
-
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(18),
-
                         color: isDark
-                            ? (isDark ? Colors.white.withOpacity(0.04) : Colors.white.withOpacity(0.92))
+                            ? (isDark
+                                ? Colors.white.withValues(alpha: 0.04)
+                                : Colors.white.withValues(alpha: 0.92))
                             : Colors.white,
-
                         border: Border.all(
                           color: isDark
-                              ? primaryColor.withOpacity(0.25)
+                              ? primaryColor.withValues(alpha: 0.25)
                               : const Color(0xFFD9DFC8),
                         ),
                       ),
-
                       child: TextField(
                         controller: emailController,
-
                         style: TextStyle(
                           color: isDark ? Colors.white : Colors.black87,
                         ),
-
                         decoration: InputDecoration(
                           border: InputBorder.none,
-
                           hintText: "pseudonym@eternia.io",
-
                           hintStyle: TextStyle(
-                            color: isDark ? Colors.white38 : const Color(0xFF9DA3A8),
+                            color: isDark
+                                ? Colors.white38
+                                : const Color(0xFF9DA3A8),
                           ),
-
                           prefixIcon: Icon(
                             Icons.email_outlined,
-
                             color: primaryColor,
                           ),
-
                           suffixIcon: Icon(
                             Icons.alternate_email,
-
                             color: primaryColor,
                           ),
                         ),
@@ -251,71 +221,51 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     // =================================================
                     Container(
                       padding: const EdgeInsets.all(18),
-
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
-
                         color: isDark
-                            ? Colors.white.withOpacity(0.03)
+                            ? Colors.white.withValues(alpha: 0.03)
                             : const Color(0xFFF1F0E8),
-
                         border: Border.all(
-                          color: isDark ? Colors.white10 : const Color(0xFFE7E2D8),
+                          color:
+                              isDark ? Colors.white10 : const Color(0xFFE7E2D8),
                         ),
                       ),
-
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-
                         children: [
                           Container(
                             width: 44,
                             height: 44,
-
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-
-                              color: primaryColor.withOpacity(0.15),
+                              color: primaryColor.withValues(alpha: 0.15),
                             ),
-
                             child: Icon(
                               Icons.shield_outlined,
-
                               color: primaryColor,
                             ),
                           ),
-
                           const SizedBox(width: 14),
-
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-
                               children: [
                                 Text(
                                   "Secure Protocol",
-
                                   style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w600,
-
                                     fontSize: 14,
-
-                                    color: isDark
-                                        ? Colors.white
-                                        : Colors.black87,
+                                    color:
+                                        isDark ? Colors.white : Colors.black87,
                                   ),
                                 ),
-
                                 const SizedBox(height: 6),
-
                                 Text(
                                   "Your recovery request will be processed through our end-to-end encrypted sanctuary layer.",
-
                                   style: TextStyle(
                                     fontSize: 12,
-
                                     height: 1.7,
-
                                     color: isDark
                                         ? Colors.white60
                                         : Colors.black54,
@@ -350,7 +300,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     //                 ? [
                     //                     const Color(
                     //                       0xFF00FFE0,
-                    //                     ).withOpacity(0.15),
+                    //                     ).withValues(alpha:0.15),
 
                     //                     Colors.transparent,
                     //                   ]
@@ -371,7 +321,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     //           shape: BoxShape.circle,
 
                     //           border: Border.all(
-                    //             color: primaryColor.withOpacity(0.3),
+                    //             color: primaryColor.withValues(alpha:0.3),
                     //           ),
                     //         ),
                     //       ),
@@ -447,7 +397,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
                     //       boxShadow: [
                     //         BoxShadow(
-                    //           color: primaryColor.withOpacity(0.35),
+                    //           color: primaryColor.withValues(alpha:0.35),
 
                     //           blurRadius: 24,
                     //           offset: const Offset(0, 10),
@@ -491,18 +441,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           children: [
                             TextSpan(
                               text: "Remembered it? ",
-
                               style: TextStyle(
-                                color: isDark ? Colors.white54 : const Color(0xFF70737C),
+                                color: isDark
+                                    ? Colors.white54
+                                    : const Color(0xFF70737C),
                               ),
                             ),
-
                             TextSpan(
                               text: "Sign In",
-
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-
                                 color: primaryColor,
                               ),
                             ),

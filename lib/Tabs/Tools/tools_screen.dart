@@ -67,7 +67,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       ),
@@ -82,7 +82,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                             colors: [
-                              Colors.white.withOpacity(0.85),
+                              Colors.white.withValues(alpha: 0.85),
                               Colors.transparent,
                             ],
                             stops: const [0.0, 0.7],
@@ -119,7 +119,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                               child: Text(
                                 "Immersive spatial audio for deep focus and relaxation.",
                                 style: GoogleFonts.poppins(
-                                  color: textDark.withOpacity(0.8),
+                                  color: textDark.withValues(alpha: 0.8),
                                   fontSize: 12,
                                   height: 1.4,
                                   fontWeight: FontWeight.w500,
@@ -140,7 +140,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: primaryGreen.withOpacity(0.4),
+                                color: primaryGreen.withValues(alpha: 0.4),
                                 blurRadius: 15,
                                 offset: const Offset(0, 8),
                               ),
@@ -174,7 +174,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.03),
+                        color: Colors.black.withValues(alpha: 0.03),
                         blurRadius: 15,
                         offset: const Offset(0, 5),
                       ),
@@ -186,7 +186,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                         height: 56,
                         width: 56,
                         decoration: BoxDecoration(
-                          color: primaryGreen.withOpacity(0.15),
+                          color: primaryGreen.withValues(alpha: 0.15),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -221,7 +221,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                       ),
                       Icon(
                         Icons.arrow_forward_ios_rounded,
-                        color: textLight.withOpacity(0.5),
+                        color: textLight.withValues(alpha: 0.5),
                         size: 16,
                       ),
                     ],
@@ -248,7 +248,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                   Expanded(
                     child: Container(
                       height: 1,
-                      color: Colors.grey.withOpacity(0.2),
+                      color: Colors.grey.withValues(alpha: 0.2),
                     ),
                   ),
                 ],
@@ -342,7 +342,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
+              color: Colors.black.withValues(alpha: 0.03),
               blurRadius: 15,
               offset: const Offset(0, 5),
             ),
@@ -358,7 +358,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
                       height: 70,
                       width: 70,
                       // decoration: BoxDecoration(
-                      //   //color: primaryColor!.withOpacity(0.15),
+                      //   //color: primaryColor!.withValues(alpha:0.15),
                       //   //shape: BoxShape.circle,
                       // ),
                       child: Icon(icon, color: primaryColor, size: 36),

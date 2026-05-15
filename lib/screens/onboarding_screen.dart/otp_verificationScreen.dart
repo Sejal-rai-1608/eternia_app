@@ -33,7 +33,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context);
     final isDark = provider.isDark;
-    final primaryColor = isDark ? SanctuaryTheme.darkPrimary : SanctuaryTheme.lightPrimary;
+    final primaryColor =
+        isDark ? SanctuaryTheme.darkPrimary : SanctuaryTheme.lightPrimary;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -47,7 +48,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                   horizontal: 22,
                   vertical: 18,
                 ),
-
                 child: Column(
                   children: [
                     // =================================================
@@ -59,7 +59,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                           onTap: () {
                             Navigator.pop(context);
                           },
-
                           child: Container(
                             width: 40,
                             height: 40,
@@ -68,7 +67,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                             //   shape: BoxShape.circle,
 
                             //   color: isDark
-                            //       ? Colors.white.withOpacity(0.05)
+                            //       ? Colors.white.withValues(alpha:0.05)
                             //       : Colors.white,
 
                             //   border: Border.all(
@@ -78,9 +77,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
                             child: Icon(
                               Icons.arrow_back,
-
                               size: 28,
-
                               color: isDark ? Colors.white : Colors.black87,
                             ),
                           ),
@@ -90,13 +87,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
                         Text(
                           "Eternia",
-
                           style: GoogleFonts.playfairDisplay(
                             fontSize: 28,
                             fontWeight: FontWeight.w600,
-
-                            color: isDark ?  const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A),
+                            color: isDark
+                                ? const Color(0xFF67F5D4)
+                                : const Color(0xFF53B29A),
                           ),
                         ),
 
@@ -111,49 +107,39 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                     // =================================================
                     Stack(
                       alignment: Alignment.center,
-
                       children: [
                         Container(
                           height: 180,
                           width: 180,
-
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-
                             gradient: RadialGradient(
                               colors: isDark
                                   ? [
-                                      const Color(0xFF00FFE0).withOpacity(0.18),
-
+                                      const Color(0xFF00FFE0)
+                                          .withValues(alpha: 0.18),
                                       Colors.transparent,
                                     ]
                                   : [
                                       const Color(0xFFDDE9CB),
-
                                       Colors.transparent,
                                     ],
                             ),
                           ),
                         ),
-
                         Container(
                           height: 130,
                           width: 130,
-
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-
                             border: Border.all(
-                              color: primaryColor.withOpacity(0.3),
+                              color: primaryColor.withValues(alpha: 0.3),
                             ),
                           ),
                         ),
-
                         Icon(
                           Icons.shield_outlined,
-
                           size: 70,
-
                           color: primaryColor,
                         ),
                       ],
@@ -166,17 +152,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                     // =================================================
                     Align(
                       alignment: Alignment.centerLeft,
-
                       child: Text(
                         "Enter verification code",
-
                         style: GoogleFonts.playfairDisplay(
                           fontSize: 36,
                           fontWeight: FontWeight.w600,
-
-                          color: isDark
-                              ? Colors.white
-                              : const Color(0xFF2D2D2D),
+                          color:
+                              isDark ? Colors.white : const Color(0xFF2D2D2D),
                         ),
                       ),
                     ),
@@ -185,15 +167,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
                     Align(
                       alignment: Alignment.centerLeft,
-
                       child: Text(
                         "Check your email and enter the 4-digit code we sent to verify your sanctuary access.",
-
                         style: TextStyle(
                           fontSize: 13,
                           height: 1.7,
-
-                          color: isDark ? Colors.white60 : const Color(0xFF70737C),
+                          color:
+                              isDark ? Colors.white60 : const Color(0xFF70737C),
                         ),
                       ),
                     ),
@@ -205,60 +185,44 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                     // =================================================
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                       children: List.generate(4, (index) {
                         return SizedBox(
                           width: 68,
-
                           child: TextField(
                             controller: otpControllers[index],
-
                             keyboardType: TextInputType.number,
-
                             textAlign: TextAlign.center,
-
                             maxLength: 1,
-
                             style: GoogleFonts.poppins(
                               fontSize: 26,
                               fontWeight: FontWeight.w600,
-
                               color: primaryColor,
                             ),
-
                             decoration: InputDecoration(
                               counterText: "",
-
                               filled: true,
-
                               fillColor: isDark
-                                  ? Colors.white.withOpacity(0.03)
+                                  ? Colors.white.withValues(alpha: 0.03)
                                   : Colors.white,
-
                               contentPadding: const EdgeInsets.symmetric(
                                 vertical: 18,
                               ),
-
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(18),
-
                                 borderSide: BorderSide(
                                   color: isDark
-                                      ? primaryColor.withOpacity(0.25)
+                                      ? primaryColor.withValues(alpha: 0.25)
                                       : const Color(0xFFD6DCC9),
                                 ),
                               ),
-
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(18),
-
                                 borderSide: BorderSide(
                                   width: 1.6,
                                   color: primaryColor,
                                 ),
                               ),
                             ),
-
                             onChanged: (value) {
                               if (value.length == 1 && index < 3) {
                                 FocusScope.of(context).nextFocus();
@@ -276,22 +240,19 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                     // =================================================
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-
                       children: [
                         Text(
                           "Didn't receive a code? ",
-
                           style: TextStyle(
-                            color: isDark ? Colors.white54 : const Color(0xFF70737C),
+                            color: isDark
+                                ? Colors.white54
+                                : const Color(0xFF70737C),
                           ),
                         ),
-
                         Text(
                           "Resend",
-
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-
                             color: primaryColor,
                           ),
                         ),
@@ -386,7 +347,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                     //         BoxShadow(
                     //           color:
                     //               primaryColor
-                    //                   .withOpacity(
+                    //                   .withValues(alpha:
                     //                     0.35,
                     //                   ),
 
@@ -443,16 +404,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                     Column(
                       children: [
                         Icon(Icons.lock_outline, size: 20, color: primaryColor),
-
                         const SizedBox(height: 10),
-
                         Text(
                           "SECURE CONNECTION",
-
                           style: GoogleFonts.poppins(
                             fontSize: 10,
                             letterSpacing: 4,
-
                             color: isDark ? Colors.white54 : Colors.black38,
                           ),
                         ),

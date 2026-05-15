@@ -30,7 +30,8 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context);
     final isDark = provider.isDark;
-    final primaryColor = isDark ? SanctuaryTheme.darkPrimary : SanctuaryTheme.lightPrimary;
+    final primaryColor =
+        isDark ? SanctuaryTheme.darkPrimary : SanctuaryTheme.lightPrimary;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -44,10 +45,8 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                   horizontal: 22,
                   vertical: 18,
                 ),
-
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
                     // ==================================================
                     // STAGE BAR
@@ -60,28 +59,22 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                             Container(
                               width: 30,
                               height: 30,
-
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: primaryColor,
                               ),
-
                               child: const Icon(
                                 Icons.check,
                                 size: 16,
                                 color: Colors.black,
                               ),
                             ),
-
                             const SizedBox(height: 6),
-
                             Text(
                               "VERIFICATION",
-
                               style: GoogleFonts.poppins(
                                 fontSize: 8,
                                 letterSpacing: 1.2,
-
                                 color: isDark ? Colors.white70 : Colors.black54,
                               ),
                             ),
@@ -102,28 +95,22 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                             Container(
                               width: 30,
                               height: 30,
-
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: primaryColor,
                               ),
-
                               child: const Icon(
                                 Icons.person,
                                 size: 16,
                                 color: Colors.black,
                               ),
                             ),
-
                             const SizedBox(height: 6),
-
                             Text(
                               "PROFILE",
-
                               style: GoogleFonts.poppins(
                                 fontSize: 8,
                                 letterSpacing: 1.2,
-
                                 color: isDark ? Colors.white70 : Colors.black54,
                               ),
                             ),
@@ -142,61 +129,48 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-
                             children: [
                               Text(
                                 "Private Profile",
-
                                 style: GoogleFonts.playfairDisplay(
                                   fontSize: 38,
                                   fontWeight: FontWeight.w600,
-
                                   color: isDark
                                       ? Colors.white
                                       : const Color(0xFF2D2D2D),
                                 ),
                               ),
-
                               const SizedBox(height: 10),
-
                               Text(
                                 "Encrypted and only accessed during emergencies.",
-
                                 style: TextStyle(
                                   fontSize: 13,
                                   height: 1.7,
-
-                                  color: isDark
-                                      ? Colors.white60
-                                      : Colors.black54,
+                                  color:
+                                      isDark ? Colors.white60 : Colors.black54,
                                 ),
                               ),
                             ],
                           ),
                         ),
-
                         Stack(
                           alignment: Alignment.center,
                           children: [
                             Container(
                               height: 110,
                               width: 110,
-
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-
                                 border: Border.all(
-                                  color: primaryColor.withOpacity(0.25),
+                                  color: primaryColor.withValues(alpha: 0.25),
                                 ),
                               ),
                             ),
-
                             Icon(
                               Icons.shield_outlined,
                               size: 60,
                               color: primaryColor,
                             ),
-
                             Positioned(
                               right: 18,
                               bottom: 20,
@@ -245,7 +219,6 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                       isDark: isDark,
                     ),
 
-
                     const SizedBox(height: 16),
 
                     // ==================================================
@@ -258,43 +231,35 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                             isPhoneChecked = !isPhoneChecked;
                           });
                         },
-
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 14,
                             vertical: 14,
                           ),
-
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(18),
-
                             color: isDark
-                                ? Colors.white.withOpacity(0.03)
+                                ? Colors.white.withValues(alpha: 0.03)
                                 : Colors.white,
-
                             border: Border.all(
-                              color: isDark ? Colors.white10 : const Color(0xFFE7E2D8),
+                              color: isDark
+                                  ? Colors.white10
+                                  : const Color(0xFFE7E2D8),
                             ),
                           ),
-
                           child: Row(
                             children: [
                               AnimatedContainer(
                                 duration: const Duration(milliseconds: 200),
-
                                 width: 22,
                                 height: 22,
-
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-
                                   color: isPhoneChecked
                                       ? primaryColor
                                       : Colors.transparent,
-
                                   border: Border.all(color: primaryColor),
                                 ),
-
                                 child: isPhoneChecked
                                     ? const Icon(
                                         Icons.check,
@@ -303,16 +268,12 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                                       )
                                     : null,
                               ),
-
                               const SizedBox(width: 12),
-
                               Expanded(
                                 child: Text(
                                   "This is my own phone number",
-
                                   style: GoogleFonts.poppins(
                                     fontSize: 12,
-
                                     color: isDark
                                         ? Colors.white70
                                         : Colors.black54,
@@ -341,7 +302,7 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                     //   isDark: isDark,
                     // ),
 
-                   // const SizedBox(height: 18),
+                    // const SizedBox(height: 18),
 
                     // ==================================================
                     // NOT VERIFIED MESSAGE
@@ -349,24 +310,19 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                     if (apaarController.text.isNotEmpty)
                       Container(
                         padding: const EdgeInsets.all(16),
-
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-
                           color: isDark
                               ? const Color(0xFF1A1628)
                               : const Color(0xFFF3EEFA),
-
                           border: Border.all(
                             color: isDark
-                                ? Colors.purple.withOpacity(0.15)
-                                : Colors.purple.withOpacity(0.08),
+                                ? Colors.purple.withValues(alpha: 0.15)
+                                : Colors.purple.withValues(alpha: 0.08),
                           ),
                         ),
-
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-
                           children: [
                             Icon(
                               Icons.info_outline,
@@ -374,20 +330,15 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                                   ? const Color(0xFFD0BFFF)
                                   : Colors.deepPurple,
                             ),
-
                             const SizedBox(width: 12),
-
                             Expanded(
                               child: Text(
                                 "Institution has not uploaded verification records yet. You can proceed without verification.",
-
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   height: 1.7,
-
-                                  color: isDark
-                                      ? Colors.white70
-                                      : Colors.black54,
+                                  color:
+                                      isDark ? Colors.white70 : Colors.black54,
                                 ),
                               ),
                             ),
@@ -402,10 +353,8 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                     // ==================================================
                     Container(
                       padding: const EdgeInsets.all(20),
-
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(26),
-
                         gradient: LinearGradient(
                           colors: isDark
                               ? [
@@ -417,65 +366,48 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
                                   const Color(0xFFF8E8DB),
                                 ],
                         ),
-
                         border: Border.all(
                           color: isDark
-                              ? Colors.red.withOpacity(0.15)
-                              : Colors.orange.withOpacity(0.18),
+                              ? Colors.red.withValues(alpha: 0.15)
+                              : Colors.orange.withValues(alpha: 0.18),
                         ),
                       ),
-
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-
                         children: [
                           Container(
                             width: 42,
                             height: 42,
-
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-
-                              color: Colors.orange.withOpacity(0.15),
+                              color: Colors.orange.withValues(alpha: 0.15),
                             ),
-
                             child: const Icon(
                               Icons.warning_amber,
                               color: Colors.orange,
                             ),
                           ),
-
                           const SizedBox(width: 14),
-
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-
                               children: [
                                 Text(
                                   "EMERGENCY\nESCALATION CONSENT",
-
                                   style: GoogleFonts.playfairDisplay(
                                     fontSize: 17,
-
                                     fontWeight: FontWeight.w600,
-
                                     color: isDark
                                         ? Colors.white
                                         : const Color(0xFF5D4331),
                                   ),
                                 ),
-
                                 const SizedBox(height: 12),
-
                                 Text(
                                   "I consent to the platform sharing my username and emergency contact with my institution's SPOC if the system or a qualified professional detects a high-risk situation requiring immediate intervention.",
-
                                   style: TextStyle(
                                     fontSize: 12,
-
                                     height: 1.8,
-
                                     color: isDark
                                         ? Colors.white70
                                         : Colors.black54,
@@ -520,12 +452,10 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
   Widget buildLabel(String text, {required bool isDark}) {
     return Text(
       text,
-
       style: GoogleFonts.poppins(
         fontSize: 11,
         letterSpacing: 1,
         fontWeight: FontWeight.w500,
-
         color: isDark ? Colors.white70 : Colors.black54,
       ),
     );
@@ -540,31 +470,21 @@ class _PrivateProfileScreenState extends State<PrivateProfileScreen> {
   }) {
     return Container(
       height: 58,
-
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
-
-        color: isDark ? Colors.white.withOpacity(0.03) : Colors.white,
-
+        color: isDark ? Colors.white.withValues(alpha: 0.03) : Colors.white,
         border: Border.all(color: isDark ? Colors.white10 : Colors.black12),
       ),
-
       child: TextField(
         controller: controller,
-
         onChanged: (value) {
           setState(() {});
         },
-
         style: TextStyle(color: isDark ? Colors.white : Colors.black87),
-
         decoration: InputDecoration(
           border: InputBorder.none,
-
           hintText: hint,
-
           hintStyle: TextStyle(color: isDark ? Colors.white38 : Colors.black38),
-
           prefixIcon: Icon(icon, color: primaryColor),
         ),
       ),

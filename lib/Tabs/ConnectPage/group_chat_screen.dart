@@ -53,17 +53,14 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
     final provider = Provider.of<ThemeProvider>(context);
     final bool isDark = provider.isDark;
 
-    final Color primary = isDark
-        ? const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A);
+    final Color primary =
+        isDark ? const Color(0xFF67F5D4) : const Color(0xFF53B29A);
     final Color bg = isDark ? const Color(0xFF040B0D) : const Color(0xFFF6F3ED);
     final Color textPrimary = isDark ? Colors.white : const Color(0xFF1B2722);
-    final Color textSecondary = isDark
-        ? Colors.white38
-        : const Color(0xFF70737C);
-    final Color borderColor = isDark
-        ? Colors.white.withOpacity(0.07)
-        : const Color(0xFFE7E2D8);
+    final Color textSecondary =
+        isDark ? Colors.white38 : const Color(0xFF70737C);
+    final Color borderColor =
+        isDark ? Colors.white.withValues(alpha: 0.07) : const Color(0xFFE7E2D8);
 
     return Scaffold(
       backgroundColor: bg,
@@ -205,7 +202,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                       color: isDark
-                          ? Colors.white.withOpacity(0.05)
+                          ? Colors.white.withValues(alpha: 0.05)
                           : Colors.white,
                       borderRadius: BorderRadius.circular(30),
                       border: Border.all(color: borderColor),
@@ -257,9 +254,8 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Column(
-        crossAxisAlignment: isMe
-            ? CrossAxisAlignment.end
-            : CrossAxisAlignment.start,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           if (!isMe)
             Text(
@@ -277,8 +273,8 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
               color: isMe
                   ? primary
                   : (isDark
-                        ? Colors.white.withOpacity(0.08)
-                        : Colors.grey.withOpacity(0.1)),
+                      ? Colors.white.withValues(alpha: 0.08)
+                      : Colors.grey.withValues(alpha: 0.1)),
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(16),
                 topRight: const Radius.circular(16),
@@ -289,9 +285,8 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
             child: Text(
               msg['text'],
               style: GoogleFonts.poppins(
-                color: isMe
-                    ? (isDark ? Colors.black : Colors.white)
-                    : textPrimary,
+                color:
+                    isMe ? (isDark ? Colors.black : Colors.white) : textPrimary,
                 fontSize: 13,
               ),
             ),

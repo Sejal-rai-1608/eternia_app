@@ -36,19 +36,17 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
     final provider = Provider.of<ThemeProvider>(context);
     final bool isDark = provider.isDark;
 
-    final Color primary = isDark
-        ? const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A);
+    final Color primary =
+        isDark ? const Color(0xFF67F5D4) : const Color(0xFF53B29A);
     final Color bg = isDark ? const Color(0xFF040B0D) : const Color(0xFFF6F3ED);
     final Color textPrimary = isDark ? Colors.white : const Color(0xFF1B2722);
     final Color textSecondary = isDark ? Colors.white60 : Colors.black54;
     final Color textTertiary = isDark ? Colors.white38 : Colors.black38;
     final Color cardColor = isDark
-        ? Colors.white.withOpacity(0.04)
-        : Colors.white.withOpacity(0.8);
-    final Color borderColor = isDark
-        ? Colors.white.withOpacity(0.06)
-        : const Color(0xFFE7E2D8);
+        ? Colors.white.withValues(alpha: 0.04)
+        : Colors.white.withValues(alpha: 0.8);
+    final Color borderColor =
+        isDark ? Colors.white.withValues(alpha: 0.06) : const Color(0xFFE7E2D8);
 
     return Scaffold(
       backgroundColor: bg,
@@ -64,7 +62,7 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [primary.withOpacity(0.08), Colors.transparent],
+                  colors: [primary.withValues(alpha: 0.08), Colors.transparent],
                 ),
               ),
             ),
@@ -222,11 +220,11 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                                       style: GoogleFonts.poppins(
                                         color: isSelected
                                             ? (isDark
-                                                  ? Colors.black
-                                                  : Colors.white)
+                                                ? Colors.black
+                                                : Colors.white)
                                             : (isDark
-                                                  ? Colors.white70
-                                                  : Colors.black54),
+                                                ? Colors.white70
+                                                : Colors.black54),
                                         fontSize: 12,
                                         fontWeight: isSelected
                                             ? FontWeight.w600
@@ -274,7 +272,7 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                                 border: Border.all(color: borderColor),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: primary.withOpacity(0.03),
+                                    color: primary.withValues(alpha: 0.03),
                                     blurRadius: 20,
                                   ),
                                 ],
@@ -323,8 +321,8 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                                             borderRadius: BorderRadius.circular(
                                               12,
                                             ),
-                                            color: primary.withOpacity(
-                                              isDark ? 0.8 : 1.0,
+                                            color: primary.withValues(
+                                              alpha: isDark ? 0.8 : 1.0,
                                             ),
                                           ),
                                           child: Row(
@@ -454,8 +452,8 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
     final filtered = selectedFilterIndex == 0
         ? allExperts
         : allExperts
-              .where((e) => e['category'] == filters[selectedFilterIndex])
-              .toList();
+            .where((e) => e['category'] == filters[selectedFilterIndex])
+            .toList();
 
     return filtered.map((e) {
       return Padding(
@@ -607,7 +605,7 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                               Text(
                                 "Specialist: $specialty",
                                 style: GoogleFonts.poppins(
-                                  color: primary.withOpacity(0.8),
+                                  color: primary.withValues(alpha: 0.8),
                                   fontSize: 11,
                                 ),
                               ),
@@ -621,8 +619,8 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                           ),
                           decoration: BoxDecoration(
                             color: isDark
-                                ? Colors.black.withOpacity(0.4)
-                                : Colors.grey.withOpacity(0.1),
+                                ? Colors.black.withValues(alpha: 0.4)
+                                : Colors.grey.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
@@ -726,68 +724,52 @@ class _ExpertGuidanceScreenState extends State<ExpertGuidanceScreen> {
                               horizontal: 14,
                               vertical: 10,
                             ),
-
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-
                               gradient: isDark
                                   ? null
                                   : const LinearGradient(
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
-
                                       colors: [
                                         Color(0xFF1C4B43),
                                         Color(0xFF12312B),
                                       ],
                                     ),
-
                               color: isDark ? Colors.black : null,
-
                               border: Border.all(
                                 color: isDark
-                                    ? primary.withOpacity(0.6)
-                                    : Colors.white.withOpacity(0.12),
+                                    ? primary.withValues(alpha: 0.6)
+                                    : Colors.white.withValues(alpha: 0.12),
                               ),
-
                               boxShadow: isDark
                                   ? []
                                   : [
                                       BoxShadow(
                                         color: const Color(
                                           0xFF12312B,
-                                        ).withOpacity(0.22),
-
+                                        ).withValues(alpha: 0.22),
                                         blurRadius: 18,
-
                                         offset: const Offset(0, 8),
                                       ),
                                     ],
                             ),
-
                             child: Row(
                               children: [
                                 Text(
                                   buttonText,
-
                                   style: GoogleFonts.playfairDisplay(
                                     color: Colors.white,
-
                                     fontSize: 11,
-
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-
                                 if (buttonText == "Book Session" ||
                                     buttonText == "Join Waitlist") ...[
                                   const SizedBox(width: 6),
-
                                   Icon(
                                     buttonIcon,
-
                                     color: Colors.white70,
-
                                     size: 14,
                                   ),
                                 ],

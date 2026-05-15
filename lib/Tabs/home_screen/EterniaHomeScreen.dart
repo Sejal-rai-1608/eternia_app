@@ -22,13 +22,11 @@ class EterniaHomeScreen extends StatefulWidget {
   const EterniaHomeScreen({super.key});
 
   @override
-  State<EterniaHomeScreen> createState() =>
-      _EterniaHomeScreenState();
+  State<EterniaHomeScreen> createState() => _EterniaHomeScreenState();
 }
 
-class _EterniaHomeScreenState
-    extends State<EterniaHomeScreen> {
-      final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+class _EterniaHomeScreenState extends State<EterniaHomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _insightIndex = 0;
   Timer? _insightTimer;
   String? _selectedMood;
@@ -63,34 +61,25 @@ class _EterniaHomeScreenState
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider =
-        Provider.of<ThemeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     final isDark = themeProvider.isDark;
 
-    final primaryColor = isDark
-        ? const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A);
+    final primaryColor =
+        isDark ? const Color(0xFF67F5D4) : const Color(0xFF53B29A);
 
-    final backgroundColor = isDark
-        ? const Color(0xFF071011)
-        : const Color(0xFFF6F3ED);
+    final backgroundColor =
+        isDark ? const Color(0xFF071011) : const Color(0xFFF6F3ED);
 
-    final cardColor = isDark
-        ? const Color(0xFF0E1718)
-        : Colors.white.withOpacity(0.92);
+    final cardColor =
+        isDark ? const Color(0xFF0E1718) : Colors.white.withValues(alpha: 0.92);
 
-    final borderColor = isDark
-        ? const Color(0xFF1A2B2B)
-        : const Color(0xFFE7E2D8);
+    final borderColor =
+        isDark ? const Color(0xFF1A2B2B) : const Color(0xFFE7E2D8);
 
-    final textColor = isDark
-        ? Colors.white
-        : const Color(0xFF1B2722);
+    final textColor = isDark ? Colors.white : const Color(0xFF1B2722);
 
-    final subTextColor = isDark
-        ? Colors.white70
-        : const Color(0xFF70737C);
+    final subTextColor = isDark ? Colors.white70 : const Color(0xFF70737C);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -104,12 +93,10 @@ class _EterniaHomeScreenState
               decoration: BoxDecoration(
                 gradient: isDark
                     ? RadialGradient(
-                        center:
-                            const Alignment(-0.9, -1),
+                        center: const Alignment(-0.9, -1),
                         radius: 1.7,
                         colors: [
-                          const Color(0xFF153435)
-                              .withOpacity(0.35),
+                          const Color(0xFF153435).withValues(alpha: 0.35),
                           const Color(0xFF071011),
                         ],
                       )
@@ -124,42 +111,37 @@ class _EterniaHomeScreenState
               ),
             ),
           ),
-
           SafeArea(
             child: SingleChildScrollView(
-              physics:
-                  const BouncingScrollPhysics(),
-              padding:
-                  const EdgeInsets.symmetric(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 14,
               ),
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   // ===================================================
                   // APP BAR
                   // ===================================================
 
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment
-                            .spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        children: [ GestureDetector(
-                          onTap: () {
-                            _scaffoldKey.currentState?.openDrawer();
-                          },
-                          child: Icon(
-                            Icons.menu,
-                            size: 30,
-                            color: isDark ?  const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A),
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _scaffoldKey.currentState?.openDrawer();
+                            },
+                            child: Icon(
+                              Icons.menu,
+                              size: 30,
+                              color: isDark
+                                  ? const Color(0xFF67F5D4)
+                                  : const Color(0xFF53B29A),
+                            ),
                           ),
-                        ),
                           // Icon(
                           //   Icons.menu,
                           //   color: primaryColor,
@@ -170,22 +152,21 @@ class _EterniaHomeScreenState
 
                           Text(
                             "Eternia",
-                            style:
-                                GoogleFonts
-                                    .cormorantGaramond(
-                              color:
-                                  primaryColor,
+                            style: GoogleFonts.cormorantGaramond(
+                              color: primaryColor,
                               fontSize: 38,
-                              fontWeight:
-                                  FontWeight.bold,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
                       ),
-
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivateProfileScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      const PrivateProfileScreen()));
                         },
                         child: Container(
                           height: 62,
@@ -193,7 +174,7 @@ class _EterniaHomeScreenState
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: isDark
-                                ? Colors.white.withOpacity(0.04)
+                                ? Colors.white.withValues(alpha: 0.04)
                                 : Colors.white,
                             border: Border.all(
                               color: borderColor,
@@ -202,7 +183,8 @@ class _EterniaHomeScreenState
                                 ? []
                                 : [
                                     BoxShadow(
-                                      color: Colors.black.withOpacity(0.05),
+                                      color:
+                                          Colors.black.withValues(alpha: 0.05),
                                       blurRadius: 18,
                                       offset: const Offset(0, 8),
                                     ),
@@ -226,15 +208,11 @@ class _EterniaHomeScreenState
 
                   Text(
                     "GOOD MORNING",
-                    style:
-                        GoogleFonts.playfair(
-                      color:
-                          primaryColor.withOpacity(
-                              0.7),
+                    style: GoogleFonts.playfair(
+                      color: primaryColor.withValues(alpha: 0.7),
                       fontSize: 22,
                       letterSpacing: 4,
-                      fontWeight:
-                          FontWeight.bold,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
 
@@ -242,14 +220,11 @@ class _EterniaHomeScreenState
 
                   Text(
                     "Rise with purpose,\nLive with calm.",
-                    style:
-                        GoogleFonts
-                            .playfairDisplay(
+                    style: GoogleFonts.playfairDisplay(
                       color: textColor,
                       fontSize: 42,
                       height: 1.12,
-                      fontWeight:
-                          FontWeight.w700,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
 
@@ -268,7 +243,6 @@ class _EterniaHomeScreenState
                       height: 220,
                       child: Row(
                         children: [
-
                           // =========================================
                           // LEFT CONTENT
                           // =========================================
@@ -283,39 +257,32 @@ class _EterniaHomeScreenState
                                 right: 6,
                               ),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-
                                   // TAG
                                   Container(
-                                    padding:
-                                        const EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                       horizontal: 16,
                                       vertical: 9,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: primaryColor
-                                          .withOpacity(0.12),
-                                      borderRadius:
-                                          BorderRadius.circular(
-                                              22),
+                                      color:
+                                          primaryColor.withValues(alpha: 0.12),
+                                      borderRadius: BorderRadius.circular(22),
                                     ),
                                     child: Text(
                                       "DAILY INSIGHT",
-                                      style:
-                                          GoogleFonts.poppins(
+                                      style: GoogleFonts.poppins(
                                         color: primaryColor,
                                         fontSize: 10,
-                                        fontWeight:
-                                            FontWeight.bold,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),
 
-                                   // QUOTE
+                                  // QUOTE
                                   AnimatedSwitcher(
                                     duration: const Duration(milliseconds: 500),
                                     child: Text(
@@ -336,7 +303,10 @@ class _EterniaHomeScreenState
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) => DailyInsightDetailScreen(insight: _insights[_insightIndex]),
+                                          builder: (_) =>
+                                              DailyInsightDetailScreen(
+                                                  insight:
+                                                      _insights[_insightIndex]),
                                         ),
                                       );
                                     },
@@ -349,7 +319,8 @@ class _EterniaHomeScreenState
                                         gradient: LinearGradient(
                                           colors: [
                                             primaryColor,
-                                            primaryColor.withOpacity(0.85),
+                                            primaryColor.withValues(
+                                                alpha: 0.85),
                                           ],
                                         ),
                                         borderRadius: BorderRadius.circular(20),
@@ -357,7 +328,9 @@ class _EterniaHomeScreenState
                                       child: Text(
                                         "Get Insight ✨",
                                         style: GoogleFonts.poppins(
-                                          color: isDark ? Colors.black : Colors.white,
+                                          color: isDark
+                                              ? Colors.black
+                                              : Colors.white,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 12,
                                         ),
@@ -376,11 +349,9 @@ class _EterniaHomeScreenState
                           Expanded(
                             flex: 5,
                             child: Align(
-                              alignment:
-                                  Alignment.centerRight,
+                              alignment: Alignment.centerRight,
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                   right: 0,
                                   top: 10,
                                 ),
@@ -412,56 +383,49 @@ class _EterniaHomeScreenState
                     borderColor,
                     primaryColor,
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment
-                              .start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         _tag(
                           "MOOD CHECK",
                           primaryColor,
                         ),
-
                         const SizedBox(height: 22),
-
                         Text(
                           "How are you feeling today?",
-                          style:
-                              GoogleFonts
-                                  .poppins(
-                            color:
-                                subTextColor,
+                          style: GoogleFonts.poppins(
+                            color: subTextColor,
                             fontSize: 16,
-                            fontWeight:
-                                FontWeight
-                                    .w500,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-
                         const SizedBox(height: 28),
-
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
                           child: Row(
                             children: [
-                              _mood("😊", "Joyful", textColor, _selectedMood == "Joyful", () {
+                              _mood("😊", "Joyful", textColor,
+                                  _selectedMood == "Joyful", () {
                                 setState(() => _selectedMood = "Joyful");
                               }),
                               const SizedBox(width: 20),
-                              _mood("😟", "Worried", textColor, _selectedMood == "Worried", () {
+                              _mood("😟", "Worried", textColor,
+                                  _selectedMood == "Worried", () {
                                 setState(() => _selectedMood = "Worried");
                               }),
                               const SizedBox(width: 20),
-                              _mood("😞", "Drained", textColor, _selectedMood == "Drained", () {
+                              _mood("😞", "Drained", textColor,
+                                  _selectedMood == "Drained", () {
                                 setState(() => _selectedMood = "Drained");
                               }),
                               const SizedBox(width: 20),
-                              _mood("😠", "Frustrated", textColor, _selectedMood == "Frustrated", () {
+                              _mood("😠", "Frustrated", textColor,
+                                  _selectedMood == "Frustrated", () {
                                 setState(() => _selectedMood = "Frustrated");
                               }),
                               const SizedBox(width: 20),
-                              _mood("😌", "Peaceful", textColor, _selectedMood == "Peaceful", () {
+                              _mood("😌", "Peaceful", textColor,
+                                  _selectedMood == "Peaceful", () {
                                 setState(() => _selectedMood = "Peaceful");
                               }),
                             ],
@@ -482,8 +446,7 @@ class _EterniaHomeScreenState
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) =>
-                              const SoundTherapyScreen(),
+                          builder: (_) => const SoundTherapyScreen(),
                         ),
                       );
                     },
@@ -496,7 +459,6 @@ class _EterniaHomeScreenState
                         height: 170,
                         child: Stack(
                           children: [
-
                             // LEFT TEXT
 
                             Positioned(
@@ -505,95 +467,52 @@ class _EterniaHomeScreenState
                               child: SizedBox(
                                 width: 170,
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-
                                     Text(
                                       "Quick Calm",
-                                      style:
-                                          GoogleFonts
-                                              .playfairDisplay(
-                                        color:
-                                            textColor,
-                                        fontSize:
-                                            30,
-                                        fontWeight:
-                                            FontWeight
-                                                .bold,
+                                      style: GoogleFonts.playfairDisplay(
+                                        color: textColor,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
-
-                                    const SizedBox(
-                                        height:
-                                            16),
-
+                                    const SizedBox(height: 16),
                                     Text(
                                       "A short practice to reset your mind.",
-                                      style:
-                                          GoogleFonts
-                                              .poppins(
-                                        color:
-                                            subTextColor,
-                                        fontSize:
-                                            15,
-                                        height:
-                                            1.7,
-                                        fontWeight:
-                                            FontWeight
-                                                .w500,
+                                      style: GoogleFonts.poppins(
+                                        color: subTextColor,
+                                        fontSize: 15,
+                                        height: 1.7,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
-
-                                    const SizedBox(
-                                        height:
-                                            12),
-
+                                    const SizedBox(height: 12),
                                     Container(
-                                      padding:
-                                          const EdgeInsets
-                                              .symmetric(
-                                        horizontal:
-                                            10,
-                                        vertical:
-                                            8,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 8,
                                       ),
-                                      decoration:
-                                          BoxDecoration(
-                                        color:
-                                            primaryColor,
-                                        borderRadius:
-                                            BorderRadius.circular(
-                                                16),
+                                      decoration: BoxDecoration(
+                                        color: primaryColor,
+                                        borderRadius: BorderRadius.circular(16),
                                       ),
                                       child: Row(
-                                        mainAxisSize:
-                                            MainAxisSize
-                                                .min,
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
-
                                           Text(
                                             "Start Now",
-                                            style:
-                                                GoogleFonts.poppins(
+                                            style: GoogleFonts.poppins(
                                               color: isDark
                                                   ? Colors.black
                                                   : Colors.white,
-                                              fontWeight:
-                                                  FontWeight.w600,
-                                              fontSize:
-                                                  16,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
                                             ),
                                           ),
-
-                                          const SizedBox(
-                                              width:
-                                                  8),
-
+                                          const SizedBox(width: 8),
                                           Icon(
-                                            Icons
-                                                .play_arrow,
+                                            Icons.play_arrow,
                                             color: isDark
                                                 ? Colors.black
                                                 : Colors.white,
@@ -614,8 +533,7 @@ class _EterniaHomeScreenState
                               child: Image.asset(
                                 "assets/figma/breathing_woman.png",
                                 height: 250,
-                                fit:
-                                    BoxFit.contain,
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ],
@@ -646,8 +564,7 @@ class _EterniaHomeScreenState
     required Widget child,
   }) {
     return ClipRRect(
-      borderRadius:
-          BorderRadius.circular(34),
+      borderRadius: BorderRadius.circular(34),
       child: BackdropFilter(
         filter: ImageFilter.blur(
           sigmaX: 10,
@@ -655,30 +572,23 @@ class _EterniaHomeScreenState
         ),
         child: Container(
           width: double.infinity,
-          padding:
-              const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: cardColor,
-            borderRadius:
-                BorderRadius.circular(
-                    34),
-            border:
-                Border.all(color: borderColor),
+            borderRadius: BorderRadius.circular(34),
+            border: Border.all(color: borderColor),
             boxShadow: isDark
                 ? [
                     BoxShadow(
-                      color: primaryColor
-                          .withOpacity(0.06),
+                      color: primaryColor.withValues(alpha: 0.06),
                       blurRadius: 28,
                     ),
                   ]
                 : [
                     BoxShadow(
-                      color: Colors.black
-                          .withOpacity(0.04),
+                      color: Colors.black.withValues(alpha: 0.04),
                       blurRadius: 24,
-                      offset:
-                          const Offset(0, 10),
+                      offset: const Offset(0, 10),
                     ),
                   ],
           ),
@@ -697,16 +607,13 @@ class _EterniaHomeScreenState
     Color primaryColor,
   ) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 18,
         vertical: 10,
       ),
       decoration: BoxDecoration(
-        color:
-            primaryColor.withOpacity(0.12),
-        borderRadius:
-            BorderRadius.circular(30),
+        color: primaryColor.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(30),
       ),
       child: Text(
         title,
@@ -736,10 +643,14 @@ class _EterniaHomeScreenState
         duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isSelected ? textColor.withOpacity(0.1) : Colors.transparent,
+          color: isSelected
+              ? textColor.withValues(alpha: 0.1)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? textColor.withOpacity(0.2) : Colors.transparent,
+            color: isSelected
+                ? textColor.withValues(alpha: 0.2)
+                : Colors.transparent,
           ),
         ),
         child: Column(
@@ -754,7 +665,8 @@ class _EterniaHomeScreenState
             Text(
               title,
               style: GoogleFonts.poppins(
-                color: isSelected ? textColor : textColor.withOpacity(0.6),
+                color:
+                    isSelected ? textColor : textColor.withValues(alpha: 0.6),
                 fontSize: 12,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
               ),
@@ -764,9 +676,11 @@ class _EterniaHomeScreenState
       ),
     );
   }
-   Widget _buildDrawer(bool isDark, BuildContext context) {
+
+  Widget _buildDrawer(bool isDark, BuildContext context) {
     return Drawer(
-      backgroundColor: isDark ? const Color(0xFF040F0F) : const Color(0xFFF6FBF6),
+      backgroundColor:
+          isDark ? const Color(0xFF040F0F) : const Color(0xFFF6FBF6),
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -775,8 +689,10 @@ class _EterniaHomeScreenState
               gradient: LinearGradient(
                 colors: isDark
                     ? [const Color(0xFF014B50), const Color(0xFF0DA8A0)]
-                    : [ const Color.fromARGB(255, 89, 211, 183),
-        const Color(0xFF53B29A)],
+                    : [
+                        const Color.fromARGB(255, 89, 211, 183),
+                        const Color(0xFF53B29A)
+                      ],
               ),
             ),
             child: Column(
@@ -800,10 +716,20 @@ class _EterniaHomeScreenState
               ],
             ),
           ),
-          _drawerTile(Icons.home_outlined, "Home", isDark, () => Navigator.pop(context)),
-          _drawerTile(Icons.info_outline, "About Us", isDark, () {Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()));}),
-          _drawerTile(Icons.help_outline, "Notification", isDark, () {Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()));}),
-          _drawerTile(Icons.privacy_tip_outlined, "Privacy", isDark, () {Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacySafetyScreen()));}),
+          _drawerTile(Icons.home_outlined, "Home", isDark,
+              () => Navigator.pop(context)),
+          _drawerTile(Icons.info_outline, "About Us", isDark, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const AboutScreen()));
+          }),
+          _drawerTile(Icons.help_outline, "Notification", isDark, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const NotificationsScreen()));
+          }),
+          _drawerTile(Icons.privacy_tip_outlined, "Privacy", isDark, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const PrivacySafetyScreen()));
+          }),
           const Divider(),
           _drawerTile(Icons.logout, "Logout", isDark, () {
             Navigator.pushAndRemoveUntil(
@@ -820,10 +746,12 @@ class _EterniaHomeScreenState
       ),
     );
   }
-   Widget _drawerTile(IconData icon, String title, bool isDark, VoidCallback onTap) {
+
+  Widget _drawerTile(
+      IconData icon, String title, bool isDark, VoidCallback onTap) {
     return ListTile(
-      leading: Icon(icon, color: isDark ?  const Color(0xFF67F5D4)
-        : const Color(0xFF53B29A)),
+      leading: Icon(icon,
+          color: isDark ? const Color(0xFF67F5D4) : const Color(0xFF53B29A)),
       title: Text(
         title,
         style: GoogleFonts.poppins(
@@ -835,4 +763,3 @@ class _EterniaHomeScreenState
     );
   }
 }
-
